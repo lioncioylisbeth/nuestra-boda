@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Boda Civil y Religiosa - Lioncio & Lisbeth</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0b1b3d',
+                            900: '#07122a',
+                            950: '#030a19',
+                        },
+                        gold: {
+                            300: '#f3e5ab',
+                            400: '#e6c875',
+                            500: '#d4af37',
+                            600: '#aa8c2c',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                        script: ['"Great Vibes"', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .bg-gradient-navy {
+            background: linear-gradient(135deg, #07122a 0%, #0b1b3d 50%, #112656 100%);
+        }
+        
+        .bg-veil-overlay {
+            background-image: 
+                radial-gradient(ellipse at 70% 10%, rgba(255, 255, 255, 0.15) 0%, rgba(212, 175, 55, 0.05) 40%, transparent 75%),
+                linear-gradient(to bottom, rgba(7, 18, 42, 0.6) 0%, rgba(3, 10, 25, 0.95) 100%);
+        }
+
+        .gold-border {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF 0%, #E6C875 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #d4af37 0%, #e6c875 50%, #aa8c2c 100%);
+        }
+
+        @keyframes floatingVeil {
+            0% { transform: translateY(0px) scale(1) rotate(0deg); opacity: 0.35; }
+            50% { transform: translateY(-12px) scale(1.02) rotate(0.5deg); opacity: 0.55; }
+            100% { transform: translateY(0px) scale(1) rotate(0deg); opacity: 0.35; }
+        }
+
+        .veil-effect {
+            animation: floatingVeil 9s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4)); }
+            50% { filter: drop-shadow(0 0 20px rgba(230, 200, 117, 0.8)); }
+        }
+
+        .rings-glow {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar for Chat Box */
+        .chat-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: rgba(7, 18, 42, 0.5);
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.4);
+            border-radius: 4px;
+        }
+
+        /* */
+        /* SKIN 2: GRIS & SOMBRAS DEGRADADO */
+        .theme-gris {
+            background-color: #0b0c0e !important;
+            color: #f1f5f9 !important;
+        }
+
+        .theme-gris .bg-gradient-navy {
+            background: linear-gradient(135deg, #090a0d 0%, #161820 50%, #232733 100%) !important;
+        }
+
+        .theme-gris .bg-navy-950 {
+            background-color: #0a0b0d !important;
+        }
+
+        .theme-gris .bg-navy-900 {
+            background-color: #14161c !important;
+        }
+
+        .theme-gris .bg-navy-900\/90, 
+        .theme-gris .bg-navy-950\/90 {
+            background-color: rgba(12, 13, 16, 0.94) !important;
+        }
+
+        .theme-gris .bg-navy-900\/80,
+        .theme-gris .bg-navy-900\/60,
+        .theme-gris .bg-navy-900\/50,
+        .theme-gris .bg-navy-950\/80 {
+            background-color: rgba(20, 22, 28, 0.88) !important;
+        }
+
+        /* Sombras para elementos dorados y amarillos en el skin Gris */
+        .theme-gris .text-gold-300,
+        .theme-gris .text-gold-400,
+        .theme-gris .text-gold-500,
+        .theme-gris .gold-gradient-text {
+            filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.95)) !important;
+            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9) !important;
+        }
+
+        .theme-gris .gold-border,
+        .theme-gris [class*="border-gold"] {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.75), inset 0 0 8px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .theme-gris .gold-gradient-bg {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8) !important;
+        }
+
+        /* SKIN 3: BLANCO ELEGANTE & MARFIL */
+        .theme-blanco {
+            background-color: #faf8f5 !important;
+            color: #1e293b !important;
+        }
+
+        .theme-blanco .bg-gradient-navy {
+            background: linear-gradient(135deg, #fdfbf7 0%, #f5efe6 50%, #ebe2d3 100%) !important;
+        }
+
+        .theme-blanco .bg-navy-950 {
+            background-color: #f7f4ed !important;
+        }
+
+        .theme-blanco .bg-navy-900 {
+            background-color: #ffffff !important;
+        }
+
+        .theme-blanco .bg-navy-900\/90, 
+        .theme-blanco .bg-navy-950\/90,
+        .theme-blanco .bg-navy-900\/80,
+        .theme-blanco .bg-navy-900\/60,
+        .theme-blanco .bg-navy-900\/50,
+        .theme-blanco .bg-navy-950\/80 {
+            background-color: rgba(255, 255, 255, 0.92) !important;
+        }
+
+        .theme-blanco .text-white,
+        .theme-blanco .text-slate-100,
+        .theme-blanco .text-slate-200,
+        .theme-blanco .text-slate-300 {
+            color: #0f172a !important;
+        }
+
+        .theme-blanco .text-slate-400,
+        .theme-blanco .text-slate-500 {
+            color: #475569 !important;
+        }
+
+        .theme-blanco .text-gold-300 {
+            color: #8f6d10 !important;
+        }
+
+        .theme-blanco .text-gold-400,
+        .theme-blanco .text-gold-500 {
+            color: #a1780c !important;
+        }
+
+        .theme-blanco .gold-gradient-text {
+            background: linear-gradient(135deg, #0b1b3d 0%, #a1780c 50%, #8f6d10 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .theme-blanco .gold-border,
+        .theme-blanco [class*="border-gold"] {
+            border-color: rgba(184, 144, 32, 0.35) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06) !important;
+        }
+
+        .theme-blanco input,
+        .theme-blanco select,
+        .theme-blanco textarea {
+            background-color: #f4efdf !important;
+            color: #0f172a !important;
+            border-color: rgba(184, 144, 32, 0.4) !important;
+        }
+
+        .theme-blanco input::placeholder,
+        .theme-blanco textarea::placeholder {
+            color: #64748b !important;
+        }
+
+        .theme-blanco .bg-veil-overlay {
+            background-image: 
+                radial-gradient(ellipse at 70% 10%, rgba(212, 175, 55, 0.15) 0%, rgba(11, 27, 61, 0.05) 40%, transparent 75%),
+                linear-gradient(to bottom, rgba(253, 251, 247, 0.6) 0%, rgba(247, 244, 237, 0.95) 100%);
+        }
+    </style>
+</head>
+<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-gold-500 selection:text-navy-950 overflow-x-hidden transition-colors duration-500">
+
+    <!-- -->
+    <!-- Floating Top Skin Switcher Bar -->
+    <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50 flex items-center bg-navy-900/95 border border-gold-500/50 backdrop-blur-md rounded-full p-1 shadow-2xl transition-all duration-300 hover:border-gold-400">
+        <button id="skin-btn-azul" onclick="setSkin('azul')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 gold-gradient-bg text-navy-950 shadow-md">
+            <i class="fa-solid fa-moon text-xs"></i>
+            <span>Azul Noche</span>
+        </button>
+        <button id="skin-btn-gris" onclick="setSkin('gris')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 text-slate-300 hover:text-white">
+            <i class="fa-solid fa-circle-half-stroke text-xs"></i>
+            <span>Gris</span>
+        </button>
+        <button id="skin-btn-blanco" onclick="setSkin('blanco')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 text-slate-300 hover:text-white">
+            <i class="fa-solid fa-sun text-xs"></i>
+            <span>Blanco & Marfil</span>
+        </button>
+    </div>
+
+    <!-- Music Player Controls -->
+    <div id="music-player" class="fixed bottom-5 right-5 z-40 flex items-center gap-3 bg-navy-900/90 border border-gold-500/40 backdrop-blur-md px-4 py-2.5 rounded-full shadow-2xl transition-all duration-300 hover:border-gold-500">
+        <button id="play-btn" onclick="toggleAudio()" class="w-10 h-10 rounded-full gold-gradient-bg text-navy-950 flex items-center justify-center font-bold shadow-lg hover:scale-105 transition-transform" aria-label="Reproducir música">
+            <i id="play-icon" class="fa-solid fa-play text-sm ml-0.5"></i>
+        </button>
+        <div class="text-xs pr-2 hidden sm:block">
+            <p class="font-semibold text-gold-400">Nuestra Melodía</p>
+            <p class="text-slate-400 text-[10px]">Unchained Melody - Righteous Brothers</p>
+        </div>
+        <audio id="bg-audio" loop preload="auto">
+            <source src="musica.mp3" type="audio/mpeg">
+            <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Floating AI Concierge Toggle Button -->
+    <button onclick="toggleChat()" class="fixed bottom-5 left-5 z-40 flex items-center gap-2 bg-navy-900 border border-gold-500/60 backdrop-blur-md px-4 py-3 rounded-full shadow-2xl hover:bg-gold-500 hover:text-navy-950 text-gold-400 font-medium text-sm transition-all duration-300 hover:scale-105 group">
+        <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-gold-500"></span>
+        </span>
+        <i class="fa-solid fa-sparkles text-lg text-gold-400 group-hover:text-navy-950"></i>
+        <span class="hidden sm:inline">Concierge IA de Boda</span>
+        <span class="sm:hidden">Concierge IA</span>
+    </button>
+
+    <header class="relative min-h-screen flex flex-col justify-between items-center text-center px-4 py-12 bg-gradient-navy overflow-hidden">
+        
+        <!-- Elegant Background Veil Overlay Graphics -->
+        <div class="absolute inset-0 bg-veil-overlay pointer-events-none"></div>
+        
+        <!-- Curved Delicate Bridal Veil Backdrop Layer -->
+        <div class="absolute top-0 right-0 w-full md:w-3/4 h-full opacity-35 pointer-events-none veil-effect z-0">
+            <svg viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full object-cover">
+                <path d="M400 0C650 180 950 120 1200 300V0H400Z" fill="url(#veil-glow-1)" opacity="0.6"/>
+                <path d="M200 0C500 250 850 180 1200 480V0H200Z" fill="url(#veil-glow-2)" opacity="0.4"/>
+                <path d="M550 0C780 320 1000 380 1200 650V0H550Z" fill="url(#veil-glow-1)" opacity="0.25"/>
+                <defs>
+                    <linearGradient id="veil-glow-1" x1="1200" y1="0" x2="400" y2="600" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
+                        <stop offset="0.5" stop-color="#E6C875" stop-opacity="0.3"/>
+                        <stop offset="1" stop-color="#07122a" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="veil-glow-2" x1="1200" y1="0" x2="300" y2="500" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#FFFFFF" stop-opacity="0.9"/>
+                        <stop offset="0.6" stop-color="#D4AF37" stop-opacity="0.2"/>
+                        <stop offset="1" stop-color="#07122a" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- Top Frame Header -->
+        <div class="relative z-10 pt-6">
+            <p class="tracking-[0.3em] uppercase text-xs sm:text-sm text-gold-400 font-medium mb-2">Con la bendición de Dios y nuestras familias</p>
+            <div class="w-16 h-[1px] bg-gold-500/50 mx-auto mb-4"></div>
+            <p class="font-serif italic text-slate-300 text-lg">Nos casamos por el Civil y la Iglesia</p>
+        </div>
+
+        <!-- Central Names & Silhouette Graphic -->
+        <div class="relative z-10 my-8 max-w-3xl">
+            
+            <!-- Interlocking Gold Wedding Rings & Solitaire Diamond Emblem -->
+            <div class="w-36 h-36 sm:w-44 sm:h-44 mx-auto mb-6 relative rings-glow">
+                <svg viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-xl">
+                    <defs>
+                        <!-- Gold Metallic Gradient -->
+                        <linearGradient id="gold-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#FFF3B0"/>
+                            <stop offset="30%" stop-color="#E6C875"/>
+                            <stop offset="70%" stop-color="#D4AF37"/>
+                            <stop offset="100%" stop-color="#997A15"/>
+                        </linearGradient>
+
+                        <!-- Inner Highlight Gradient -->
+                        <linearGradient id="gold-inner-grad" x1="100%" y1="100%" x2="0%" y2="0%">
+                            <stop offset="0%" stop-color="#FFEAA5"/>
+                            <stop offset="50%" stop-color="#B89020"/>
+                            <stop offset="100%" stop-color="#5E4700"/>
+                        </linearGradient>
+
+                        <!-- Diamond Gradient -->
+                        <radialGradient id="diamond-sparkle" cx="40%" cy="40%" r="60%">
+                            <stop offset="0%" stop-color="#FFFFFF"/>
+                            <stop offset="40%" stop-color="#E0F7FA"/>
+                            <stop offset="80%" stop-color="#80DEEA"/>
+                            <stop offset="100%" stop-color="#4DD0E1"/>
+                        </radialGradient>
+                    </defs>
+
+                    <!-- LEFT RING: Engraved Textured Gold Band -->
+                    <g transform="translate(10, 10)">
+                        <ellipse cx="80" cy="110" rx="52" ry="60" stroke="url(#gold-ring-grad)" stroke-width="15" fill="none"/>
+                        <ellipse cx="80" cy="110" rx="44" ry="52" stroke="url(#gold-inner-grad)" stroke-width="3" fill="none"/>
+                        <ellipse cx="80" cy="110" rx="55" ry="63" stroke="#FFF" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.6" fill="none"/>
+                        <ellipse cx="80" cy="110" rx="48" ry="56" stroke="#AA8C2C" stroke-width="1" stroke-dasharray="2 3" opacity="0.8" fill="none"/>
+                    </g>
+
+                    <!-- RIGHT RING: Engagement Ring with Solitaire Diamond -->
+                    <g transform="translate(70, 0)">
+                        <ellipse cx="90" cy="120" rx="48" ry="56" stroke="url(#gold-ring-grad)" stroke-width="13" fill="none"/>
+                        <ellipse cx="90" cy="120" rx="41" ry="48" stroke="url(#gold-inner-grad)" stroke-width="2.5" fill="none"/>
+                        <ellipse cx="90" cy="120" rx="52" ry="60" stroke="#FFF" stroke-width="1" stroke-dasharray="2 4" opacity="0.5" fill="none"/>
+
+                        <path d="M 78 68 L 84 52 L 96 52 L 102 68 Z" fill="url(#gold-ring-grad)"/>
+                        <path d="M 82 55 L 75 42 M 98 55 L 105 42" stroke="url(#gold-ring-grad)" stroke-width="3.5" stroke-linecap="round"/>
+
+                        <polygon points="90,26 106,42 90,62 74,42" fill="url(#diamond-sparkle)" stroke="#FFFFFF" stroke-width="1.5"/>
+                        <polygon points="90,26 98,42 90,62 82,42" fill="#FFFFFF" opacity="0.4"/>
+                        <line x1="74" y1="42" x2="106" y2="42" stroke="#FFFFFF" stroke-width="1.5"/>
+
+                        <path d="M 90 12 L 92 24 L 104 26 L 92 28 L 90 40 L 88 28 L 76 26 L 88 24 Z" fill="#FFFFFF" opacity="0.9"/>
+                        <circle cx="90" cy="26" r="3" fill="#FFF"/>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Couple Names -->
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-light tracking-wide text-white mb-2">
+                Lioncio Moreno <span class="block sm:inline font-script text-gold-400 text-5xl sm:text-7xl my-1 sm:my-0">&</span> Figueroa
+            </h1>
+            <div class="text-gold-500 font-script text-4xl sm:text-5xl my-2">y</div>
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-light tracking-wide text-white mb-6">
+                Lisbeth Yasmin <span class="block sm:inline font-script text-gold-400 text-5xl sm:text-7xl my-1 sm:my-0">&</span> Hernández García
+            </h1>
+
+            <p class="font-serif italic text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed px-4">
+                "Tras 18 hermosos años recorriendo el camino en unión libre, entrelazando vidas, construyendo un hogar y fortaleciendo nuestro amor día con día, con inmensa alegría hemos decidido dar este gran paso y consagrar nuestra unión celebrando nuestro matrimonio civil y religioso."
+            </p>
+        </div>
+
+        <!-- Date Banner -->
+        <div class="relative z-10 w-full max-w-md mx-auto border-y border-gold-500/40 py-4 my-4">
+            <p class="font-serif text-2xl sm:text-3xl text-gold-300 tracking-widest uppercase">
+                Sábado · 28 de Noviembre · 2026
+            </p>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <a href="#countdown-section" class="relative z-10 text-gold-400 hover:text-white transition-colors animate-bounce mt-4" aria-label="Ir al contador">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </a>
+    </header>
+
+    <section id="countdown-section" class="py-16 px-4 bg-navy-900 border-b border-gold-500/20 text-center relative">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-serif text-2xl sm:text-3xl text-gold-400 uppercase tracking-widest mb-2">Faltan Exactamente</h2>
+            <p class="text-slate-400 text-sm mb-8">Para celebrar nuestra Boda Civil y Religiosa</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                <div class="bg-navy-950/80 border border-gold-500/30 p-4 rounded-xl shadow-lg">
+                    <span id="days" class="font-serif text-4xl sm:text-5xl font-bold text-white block">00</span>
+                    <span class="text-xs uppercase tracking-widest text-gold-400">Días</span>
+                </div>
+                <div class="bg-navy-950/80 border border-gold-500/30 p-4 rounded-xl shadow-lg">
+                    <span id="hours" class="font-serif text-4xl sm:text-5xl font-bold text-white block">00</span>
+                    <span class="text-xs uppercase tracking-widest text-gold-400">Horas</span>
+                </div>
+                <div class="bg-navy-950/80 border border-gold-500/30 p-4 rounded-xl shadow-lg">
+                    <span id="minutes" class="font-serif text-4xl sm:text-5xl font-bold text-white block">00</span>
+                    <span class="text-xs uppercase tracking-widest text-gold-400">Minutos</span>
+                </div>
+                <div class="bg-navy-950/80 border border-gold-500/30 p-4 rounded-xl shadow-lg">
+                    <span id="seconds" class="font-serif text-4xl sm:text-5xl font-bold text-white block">00</span>
+                    <span class="text-xs uppercase tracking-widest text-gold-400">Segundos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Padrinos Section -->
+    <section class="py-20 px-4 bg-navy-950 text-center relative">
+        <div class="max-w-3xl mx-auto">
+            <div class="inline-block p-3 rounded-full bg-navy-900 border border-gold-500/30 mb-4">
+                <i class="fa-solid fa-hands-holding-heart text-gold-400 text-2xl"></i>
+            </div>
+            <h2 class="font-serif text-3xl sm:text-4xl text-white mb-2">Nuestros Padrinos de Honor</h2>
+            <p class="text-gold-400 font-serif italic text-lg mb-8">Testigos de nuestra historia y pilares en nuestra bendición</p>
+
+            <div class="bg-navy-900/60 border border-gold-500/30 rounded-2xl p-8 max-w-lg mx-auto shadow-xl backdrop-blur-sm">
+                <p class="font-serif text-2xl text-slate-100 font-medium mb-1">Irma Figueroa Cuevas</p>
+                <p class="font-script text-3xl text-gold-400 my-1">&</p>
+                <p class="font-serif text-2xl text-slate-100 font-medium mt-1">Miguel Cuevas Sánchez</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Details Section -->
+    <section class="py-20 px-4 bg-gradient-navy relative border-t border-gold-500/20">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-3xl sm:text-5xl text-white mb-3">Dónde & Cuándo</h2>
+                <p class="text-gold-400 text-sm tracking-widest uppercase mb-3">Celebración Civil y Religiosa</p>
+                <div class="w-24 h-[1px] bg-gold-500 mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Ceremony Card -->
+                <div class="bg-navy-950/90 border border-gold-500/30 rounded-2xl p-8 flex flex-col justify-between text-center relative overflow-hidden group hover:border-gold-500 transition-colors shadow-2xl">
+                    <div class="absolute -top-12 -right-12 w-32 h-32 bg-gold-500/10 rounded-full blur-2xl"></div>
+                    <div>
+                        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-navy-900 border border-gold-500/40 flex items-center justify-center text-gold-400 text-2xl">
+                            <i class="fa-solid fa-church"></i>
+                        </div>
+                        <span class="inline-block px-3 py-1 bg-gold-500/10 border border-gold-500/40 rounded-full text-gold-300 text-xs font-semibold uppercase tracking-wider mb-3">
+                            <i class="fa-solid fa-cross mr-1"></i> Boda Religiosa
+                        </span>
+                        <h3 class="font-serif text-2xl text-gold-300 font-semibold mb-2">Ceremonia Religiosa</h3>
+                        <p class="font-serif text-xl text-white font-medium mb-1">Parroquia San Miguel</p>
+                        <p class="text-slate-300 text-sm mb-4">C. Cobarrubias 102, Centro, 62900 Jojutla, Mor.</p>
+                        
+                        <div class="inline-flex items-center gap-2 bg-navy-900 border border-gold-500/30 px-4 py-2 rounded-full text-gold-400 font-semibold mb-6">
+                            <i class="fa-regular fa-clock"></i> 4:30 PM
+                        </div>
+                    </div>
+
+                    <a href="https://maps.app.goo.gl/4BFoYmuypEhoGPe6A" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 bg-transparent hover:bg-gold-500 text-gold-400 hover:text-navy-950 border border-gold-500 font-medium py-3 rounded-xl transition-all duration-300">
+                        <i class="fa-solid fa-location-dot"></i> Ver Ubicación en Mapa
+                    </a>
+                </div>
+
+                <!-- Reception Card -->
+                <div class="bg-navy-950/90 border border-gold-500/30 rounded-2xl p-8 flex flex-col justify-between text-center relative overflow-hidden group hover:border-gold-500 transition-colors shadow-2xl">
+                    <div class="absolute -top-12 -right-12 w-32 h-32 bg-gold-500/10 rounded-full blur-2xl"></div>
+                    <div>
+                        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-navy-900 border border-gold-500/40 flex items-center justify-center text-gold-400 text-2xl">
+                            <i class="fa-solid fa-glass-cheers"></i>
+                        </div>
+                        <span class="inline-block px-3 py-1 bg-gold-500/10 border border-gold-500/40 rounded-full text-gold-300 text-xs font-semibold uppercase tracking-wider mb-3">
+                            <i class="fa-solid fa-pen-nib mr-1"></i> Boda Civil & Recepción
+                        </span>
+                        <h3 class="font-serif text-2xl text-gold-300 font-semibold mb-2">Boda Civil y Recepción</h3>
+                        <p class="font-serif text-xl text-white font-medium mb-1">Salón Camino Real</p>
+                        <p class="text-slate-300 text-sm mb-4">Francisco Villa, Emiliano Zapata, 62772 Santa Rosa Treinta, Mor.</p>
+                        
+                        <div class="inline-flex items-center gap-2 bg-navy-900 border border-gold-500/30 px-4 py-2 rounded-full text-gold-400 font-semibold mb-6">
+                            <i class="fa-regular fa-clock"></i> 6:00 PM
+                        </div>
+                    </div>
+
+                    <a href="https://maps.app.goo.gl/UZYhMsVtihD85hrW8" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 bg-transparent hover:bg-gold-500 text-gold-400 hover:text-navy-950 border border-gold-500 font-medium py-3 rounded-xl transition-all duration-300">
+                        <i class="fa-solid fa-location-dot"></i> Ver Ubicación en Mapa
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dress Code Section -->
+    <section class="py-16 px-4 bg-navy-900 relative text-center">
+        <div class="max-w-3xl mx-auto bg-navy-950 border-2 border-gold-500/50 rounded-2xl p-8 shadow-2xl relative">
+            <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-gold-500/10 border border-gold-500 flex items-center justify-center text-gold-400 text-2xl">
+                <i class="fa-solid fa-user-tie"></i>
+            </div>
+
+            <h2 class="font-serif text-3xl text-white font-semibold mb-2">Código de Vestimenta</h2>
+            <p class="text-gold-400 uppercase tracking-widest text-sm font-semibold mb-6">Formal / Rigurosa Etiqueta</p>
+
+            <div class="bg-red-950/40 border border-red-500/40 rounded-xl p-5 mb-6 text-slate-200 text-sm leading-relaxed max-w-xl mx-auto">
+                <div class="flex items-center justify-center gap-2 text-red-400 font-semibold uppercase text-xs tracking-wider mb-2">
+                    <i class="fa-solid fa-circle-exclamation text-base"></i> Aviso Muy Importante
+                </div>
+                <p class="font-medium text-base text-white">
+                    Los colores <span class="text-slate-100 font-bold underline decoration-gold-500">BLANCO</span> y <span class="text-blue-300 font-bold underline decoration-gold-500">AZUL MARINO</span> están estrictamente reservados para los novios.
+                </p>
+                <p class="text-xs text-slate-400 mt-2">Agradecemos de corazón a todos nuestros invitados abstenerse de vestir con estos dos tonos.</p>
+            </div>
+
+            <p class="text-slate-300 font-serif italic text-base">
+                Agradecemos vestir elegante para acompañarnos a celebrar esta noche tan esperada.
+            </p>
+        </div>
+    </section>
+
+    <!-- Gift Section -->
+    <section class="py-16 px-4 bg-navy-950 text-center relative border-t border-gold-500/20">
+        <div class="max-w-2xl mx-auto">
+            <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-navy-900 border border-gold-500/40 flex items-center justify-center text-gold-400 text-2xl">
+                <i class="fa-solid fa-gift"></i>
+            </div>
+            <h2 class="font-serif text-3xl text-white mb-4">Sugerencia de Regalos</h2>
+            <div class="bg-navy-900/50 border border-gold-500/30 p-8 rounded-2xl shadow-xl">
+                <p class="font-serif italic text-xl text-slate-200 leading-relaxed">
+                    “Tu presencia es nuestro mejor regalo. Si deseas obsequiarnos algo, lo dejamos a tu libre elección.”
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Toast & Poem Generator Section -->
+    <section class="py-20 px-4 bg-gradient-navy relative border-t border-gold-500/20 text-center">
+        <div class="max-w-3xl mx-auto">
+            <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-gold-500/10 border border-gold-500/50 flex items-center justify-center text-gold-400 text-2xl">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h2 class="font-serif text-3xl sm:text-4xl text-white mb-2">Generador de Brindis y Dedicatorias Especiales</h2>
+            <p class="text-gold-400 font-serif italic text-lg mb-8">Inspirado por la Inteligencia Artificial Gemini para honrar 18 años en unión libre y su boda civil y religiosa</p>
+
+            <div class="bg-navy-950/90 border border-gold-500/30 rounded-2xl p-6 sm:p-8 shadow-2xl text-left">
+                <label class="block text-xs uppercase tracking-wider text-gold-400 font-medium mb-2">
+                    ¿Qué tipo de palabras deseas dedicarles a Lioncio y Lisbeth?
+                </label>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                    <button type="button" onclick="generateToast('poema')" class="bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-xs sm:text-sm text-slate-200 py-2.5 px-3 rounded-lg text-center transition-colors font-medium flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-scroll text-gold-400"></i> Poema Emotivo
+                    </button>
+                    <button type="button" onclick="generateToast('brindis')" class="bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-xs sm:text-sm text-slate-200 py-2.5 px-3 rounded-lg text-center transition-colors font-medium flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-champagne-glasses text-gold-400"></i> Brindis Festivo
+                    </button>
+                    <button type="button" onclick="generateToast('bendicion')" class="bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-xs sm:text-sm text-slate-200 py-2.5 px-3 rounded-lg text-center transition-colors font-medium flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-heart text-gold-400"></i> Bendición Familiar
+                    </button>
+                    <button type="button" onclick="generateToast('alegre')" class="bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-xs sm:text-sm text-slate-200 py-2.5 px-3 rounded-lg text-center transition-colors font-medium flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-face-smile-beam text-gold-400"></i> Divertido & Caluroso
+                    </button>
+                </div>
+
+                <div class="relative mb-4">
+                    <input type="text" id="toast-custom-input" placeholder="Opcional: Añade tu parentesco o un detalle (ej: 'Soy su sobrino', 'Amigos de toda la vida')" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-500">
+                </div>
+
+                <!-- Generated Toast Output Box -->
+                <div id="toast-result-box" class="hidden bg-navy-900/80 border border-gold-500/40 rounded-xl p-5 mb-4 relative">
+                    <p id="toast-result-text" class="font-serif italic text-lg text-slate-100 leading-relaxed whitespace-pre-line"></p>
+                    <div class="mt-4 flex flex-wrap gap-2 justify-end">
+                        <button onclick="copyGeneratedToast()" class="bg-navy-950 hover:bg-gold-500 hover:text-navy-950 text-gold-400 border border-gold-500/40 text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1">
+                            <i class="fa-regular fa-copy"></i> Copiar Texto
+                        </button>
+                        <button onclick="useToastInRSVP()" class="gold-gradient-bg text-navy-950 text-xs font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-check"></i> Usar en mi Confirmación RSVP
+                        </button>
+                    </div>
+                </div>
+
+                <div id="toast-loading" class="hidden text-center py-6 text-gold-400">
+                    <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-2 block"></i>
+                    <p class="text-xs font-medium">Gemini está redactando unas hermosas palabras inspiradas en la pareja...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section with Gemini Integration -->
+    <section id="rsvp-section" class="py-20 px-4 bg-gradient-navy relative border-t border-gold-500/20">
+        <div class="max-w-xl mx-auto bg-navy-950 border border-gold-500/40 rounded-3xl p-8 sm:p-10 shadow-2xl">
+            <div class="text-center mb-8">
+                <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-navy-900 border border-gold-500/40 flex items-center justify-center text-gold-400 text-2xl">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-4xl text-white mb-2">Confirmación de Asistencia</h2>
+                <p class="text-slate-400 text-sm">Por favor confirma tu presencia para esperarte con gusto</p>
+            </div>
+
+            <form id="rsvp-form" onsubmit="sendRSVP(event)" class="space-y-5">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">Nombre Completo del Invitado</label>
+                    <input type="text" id="guest-name" required placeholder="Ej. Familia Morales Cuevas" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">¿Confirmas tu asistencia?</label>
+                    <select id="attendance" required class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
+                        <option value="Sí, asistiré con mucho gusto">¡Sí, ahí estaré con mucho gusto!</option>
+                        <option value="Lamentablemente no podré asistir">Lamentablemente no podré asistir</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">Número de Pases Confirmados</label>
+                    <input type="number" id="passes" min="1" max="10" value="2" required class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="block text-xs uppercase tracking-wider text-gold-400 font-medium">Mensaje para los Novios</label>
+                        <!-- AI Wish Generator Trigger Button -->
+                        <button type="button" onclick="openWishAiModal()" class="text-xs text-gold-300 hover:text-white flex items-center gap-1 bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/30 px-2.5 py-1 rounded-md transition-all">
+                            <i class="fa-solid fa-sparkles text-gold-400"></i> Generar mensaje con IA
+                        </button>
+                    </div>
+                    <textarea id="message" rows="3" placeholder="Escribe tus buenos deseos..." class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors"></textarea>
+                </div>
+
+                <button type="submit" class="w-full gold-gradient-bg text-navy-950 font-bold text-base uppercase tracking-wider py-4 rounded-xl shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Confirmar por WhatsApp
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- AI Virtual Concierge Modal Drawer -->
+    <div id="chat-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-navy-950 border border-gold-500/50 w-full max-w-lg rounded-2xl shadow-2xl flex flex-col h-[85vh] max-h-[650px] overflow-hidden transform scale-95 transition-transform duration-300" id="chat-card">
+            
+            <!-- Chat Header -->
+            <div class="bg-navy-900 border-b border-gold-500/30 p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full gold-gradient-bg text-navy-950 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-robot text-base"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-lg text-white font-semibold leading-tight">Concierge IA de Boda</h3>
+                        <p class="text-[11px] text-gold-400 flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span> En línea · Lioncio & Lisbeth
+                        </p>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-slate-400 hover:text-white text-xl p-2" aria-label="Cerrar chat">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Chat Messages Container -->
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 chat-scroll text-sm">
+                <!-- Welcome Message -->
+                <div class="flex items-start gap-2 max-w-[88%]">
+                    <div class="w-7 h-7 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/40 flex items-center justify-center text-xs flex-shrink-0">
+                        <i class="fa-solid fa-sparkles"></i>
+                    </div>
+                    <div class="bg-navy-900 border border-gold-500/30 rounded-2xl rounded-tl-none p-3 text-slate-200">
+                        ¡Hola! Soy el asistente virtual para la boda civil y religiosa de <strong>Lioncio Moreno Figueroa</strong> y <strong>Lisbeth Yasmin Hernández García</strong>. ✨<br><br>
+                        Tras 18 años compartiendo su vida en unión libre, ¡se van a casar por el civil y la iglesia! Puedes preguntarme sobre la vestimenta, horarios de las ceremonias, mapas de las sedes, hospedajes o sugerencias.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Suggestions Chips -->
+            <div class="px-4 py-2 bg-navy-900/50 border-t border-gold-500/20 overflow-x-auto flex gap-2 whitespace-nowrap text-xs text-gold-400 no-scrollbar">
+                <button onclick="quickAsk('¿Cuáles son las reglas de vestimenta?')" class="bg-navy-900 hover:border-gold-500 border border-gold-500/30 px-3 py-1.5 rounded-full transition-colors flex-shrink-0">
+                    👔 ¿Reglas de vestimenta?
+                </button>
+                <button onclick="quickAsk('¿Cuáles son los horarios de la boda civil y religiosa?')" class="bg-navy-900 hover:border-gold-500 border border-gold-500/30 px-3 py-1.5 rounded-full transition-colors flex-shrink-0">
+                    📍 Horarios y Direcciones
+                </button>
+                <button onclick="quickAsk('Recomiéndame hoteles cerca de Jojutla y Santa Rosa')" class="bg-navy-900 hover:border-gold-500 border border-gold-500/30 px-3 py-1.5 rounded-full transition-colors flex-shrink-0">
+                    🏨 Hoteles recomendados
+                </button>
+            </div>
+
+            <!-- Chat Input Bar -->
+            <form onsubmit="handleChatSubmit(event)" class="p-3 bg-navy-900 border-t border-gold-500/30 flex gap-2">
+                <input type="text" id="chat-input" placeholder="Escribe tu duda sobre la boda..." class="flex-1 bg-navy-950 border border-gold-500/30 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-500">
+                <button type="submit" id="chat-send-btn" class="gold-gradient-bg text-navy-950 w-10 h-10 rounded-xl flex items-center justify-center font-bold hover:scale-105 transition-transform flex-shrink-0">
+                    <i class="fa-solid fa-paper-plane text-sm"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- AI RSVP Quick Wishes Modal -->
+    <div id="wish-ai-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-navy-950 border border-gold-500/50 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
+            <button onclick="closeWishAiModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="text-center mb-5">
+                <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-gold-500/10 border border-gold-500 flex items-center justify-center text-gold-400 text-xl">
+                    <i class="fa-solid fa-sparkles"></i>
+                </div>
+                <h3 class="font-serif text-2xl text-white">Generar Felicitación Especial</h3>
+                <p class="text-xs text-slate-400">Elige el tono para tus palabras dirigidas a los novios</p>
+            </div>
+
+            <div class="space-y-2 mb-5">
+                <button onclick="generateRsvpWish('emotivo')" class="w-full bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-left p-3 rounded-xl text-slate-200 text-sm flex items-center justify-between group transition-all">
+                    <span>❤️ Emotivo y Profundo (18 años en unión libre)</span>
+                    <i class="fa-solid fa-chevron-right text-xs text-gold-400 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+                <button onclick="generateRsvpWish('alegre')" class="w-full bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-left p-3 rounded-xl text-slate-200 text-sm flex items-center justify-between group transition-all">
+                    <span>🥳 Alegre y Celebratorio</span>
+                    <i class="fa-solid fa-chevron-right text-xs text-gold-400 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+                <button onclick="generateRsvpWish('corto')" class="w-full bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-left p-3 rounded-xl text-slate-200 text-sm flex items-center justify-between group transition-all">
+                    <span>✨ Corto y Elegante</span>
+                    <i class="fa-solid fa-chevron-right text-xs text-gold-400 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+                <button onclick="generateRsvpWish('religioso')" class="w-full bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-left p-3 rounded-xl text-slate-200 text-sm flex items-center justify-between group transition-all">
+                    <span>🙏 Con Bendición y Fe</span>
+                    <i class="fa-solid fa-chevron-right text-xs text-gold-400 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+
+            <div id="wish-loading" class="hidden text-center py-4 text-gold-400">
+                <i class="fa-solid fa-circle-notch fa-spin text-xl mb-1 block"></i>
+                <span class="text-xs">Escribiendo hermosos deseos...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Element -->
+    <div id="notification-toast" class="fixed top-5 right-5 z-50 bg-navy-900 border border-gold-500/60 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-[-150%] transition-transform duration-300">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-gold-400 text-lg"></i>
+        <span id="toast-message" class="text-sm font-medium"></span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-navy-950 border-t border-gold-500/20 text-center text-slate-400 text-sm px-4">
+        <div class="max-w-md mx-auto space-y-3">
+            <h3 class="font-serif text-2xl text-white font-light">Lioncio & Lisbeth</h3>
+            <p class="font-script text-2xl text-gold-400">18 años juntos · Boda Civil y Religiosa</p>
+            <p class="text-xs text-slate-500 pt-4">© 2026 Noviembre 28 · Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        var WEDDING_CONTEXT = "Vas a actuar como el asistente o concierge virtual de bodas exclusivo para el matrimonio de: Lioncio Moreno Figueroa y Lisbeth Yasmin Hernández García. Historia: Llevan 18 años juntos en unión libre construyendo un hogar, y ahora celebran su matrimonio civil y religioso. Fecha: Sábado, 28 de Noviembre de 2026. Padrinos: Irma Figueroa Cuevas y Miguel Cuevas Sánchez. Ceremonia Religiosa: Parroquia San Miguel 4:30 PM (Jojutla, Mor). Boda Civil y Fiesta: Salón Camino Real 6:00 PM (Santa Rosa Treinta, Mor). Vestimenta: Formal / Etiqueta. PROHIBIDO vestirse de BLANCO o AZUL MARINO (exclusivo novios).";
+
+        var lastGeneratedToastText = "";
+
+        async function callGeminiAPI(promptText, systemInstruction) {
+            var apiKey = "";
+            var apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=" + apiKey;
+            
+            var payload = {
+                contents: [{ parts: [{ text: promptText }] }]
+            };
+
+            if (systemInstruction) {
+                payload.systemInstruction = {
+                    parts: [{ text: systemInstruction }]
+                };
+            }
+
+            var delay = 1000;
+            for (var i = 0; i < 3; i++) {
+                try {
+                    var response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error("HTTP Error " + response.status);
+                    var result = await response.json();
+                    if (result && result.candidates && result.candidates[0] && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts[0]) {
+                        return result.candidates[0].content.parts[0].text;
+                    }
+                } catch (err) {
+                    if (i === 2) throw err;
+                    await new Promise(function(resolve) { setTimeout(resolve, delay); });
+                    delay *= 2;
+                }
+            }
+            throw new Error("No response from Gemini API.");
+        }
+
+        window.showNotification = function(msg, isError) {
+            var toast = document.getElementById('notification-toast');
+            var icon = document.getElementById('toast-icon');
+            var text = document.getElementById('toast-message');
+
+            if (!toast || !icon || !text) return;
+
+            text.innerText = msg;
+            icon.className = isError ? "fa-solid fa-circle-exclamation text-red-400 text-lg" : "fa-solid fa-circle-check text-gold-400 text-lg";
+            
+            toast.style.transform = "translateY(0%)";
+            setTimeout(function() {
+                toast.style.transform = "translateY(-150%)";
+            }, 3500);
+        };
+
+        var weddingDate = new Date("November 28, 2026 16:30:00").getTime();
+
+        function updateCountdown() {
+            var now = new Date().getTime();
+            var distance = weddingDate - now;
+
+            var dEl = document.getElementById("days");
+            var hEl = document.getElementById("hours");
+            var mEl = document.getElementById("minutes");
+            var sEl = document.getElementById("seconds");
+
+            if (!dEl || !hEl || !mEl || !sEl) return;
+
+            if (distance < 0) {
+                dEl.innerText = "00";
+                hEl.innerText = "00";
+                mEl.innerText = "00";
+                sEl.innerText = "00";
+                return;
+            }
+
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            dEl.innerText = days < 10 ? "0" + days : days;
+            hEl.innerText = hours < 10 ? "0" + hours : hours;
+            mEl.innerText = minutes < 10 ? "0" + minutes : minutes;
+            sEl.innerText = seconds < 10 ? "0" + seconds : seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        var isPlaying = false;
+        window.toggleAudio = function() {
+            var audio = document.getElementById('bg-audio');
+            var playIcon = document.getElementById('play-icon');
+            if (!audio || !playIcon) return;
+
+            if (isPlaying) {
+                audio.pause();
+                playIcon.className = "fa-solid fa-play text-sm ml-0.5";
+                isPlaying = false;
+            } else {
+                audio.play().then(function() {
+                    playIcon.className = "fa-solid fa-pause text-sm";
+                    isPlaying = true;
+                }).catch(function(e) {
+                    window.showNotification("Haz clic nuevamente para activar la música", false);
+                });
+            }
+        };
+
+        window.generateToast = async function(style) {
+            var customInput = document.getElementById('toast-custom-input');
+            var customDetail = customInput ? customInput.value.trim() : "";
+            var loading = document.getElementById('toast-loading');
+            var resultBox = document.getElementById('toast-result-box');
+            var resultText = document.getElementById('toast-result-text');
+
+            if (loading) loading.classList.remove('hidden');
+            if (resultBox) resultBox.classList.add('hidden');
+
+            var promptStyle = "";
+            switch (style) {
+                case 'poema': promptStyle = "un poema conmovedor y emotivo de 2-3 estrofas"; break;
+                case 'brindis': promptStyle = "un brindis memorable y elegante para decir en voz alta durante la recepción"; break;
+                case 'bendicion': promptStyle = "unas palabras de bendición profunda, paz y fe para su hogar"; break;
+                case 'alegre': promptStyle = "un mensaje divertido, cálido y lleno de buena vibra"; break;
+                default: promptStyle = "unas palabras emotivas";
+            }
+
+            var prompt = "Escribe " + promptStyle + " para celebrar la boda civil y religiosa de Lioncio Moreno Figueroa y Lisbeth Yasmin Hernández García, quienes llevan 18 años de feliz unión libre y ahora consolidan su amor ante la ley y ante Dios." + (customDetail ? " Detalle especial del invitado: " + customDetail : "") + ". Mantén un tono elegante, afectuoso y celebratorio.";
+
+            try {
+                var responseText = await callGeminiAPI(prompt, "Eres un poeta y orador experto en bodas elegantes. Responde únicamente con el texto de la dedicatoria o poema en español, sin preámbulos ni comillas.");
+                lastGeneratedToastText = responseText;
+                if (resultText) resultText.innerText = responseText;
+                if (resultBox) resultBox.classList.remove('hidden');
+            } catch (err) {
+                window.showNotification("No se pudo generar la dedicatoria. Inténtalo de nuevo.", true);
+            } finally {
+                if (loading) loading.classList.add('hidden');
+            }
+        };
+
+        window.copyGeneratedToast = function() {
+            if (!lastGeneratedToastText) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(lastGeneratedToastText).then(function() {
+                    window.showNotification("¡Dedicatoria copiada al portapapeles!");
+                }).catch(function() {
+                    fallbackCopy(lastGeneratedToastText);
+                });
+            } else {
+                fallbackCopy(lastGeneratedToastText);
+            }
+        };
+
+        function fallbackCopy(text) {
+            var el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            window.showNotification("¡Texto copiado!");
+        }
+
+        window.useToastInRSVP = function() {
+            if (!lastGeneratedToastText) return;
+            var msgEl = document.getElementById('message');
+            if (msgEl) msgEl.value = lastGeneratedToastText;
+            var rsvpSec = document.getElementById('rsvp-section');
+            if (rsvpSec) rsvpSec.scrollIntoView({ behavior: 'smooth' });
+            window.showNotification("¡Mensaje transferido al formulario RSVP!");
+        };
+
+        window.openWishAiModal = function() {
+            var modal = document.getElementById('wish-ai-modal');
+            if (modal) {
+                modal.classList.remove('pointer-events-none', 'opacity-0');
+                modal.classList.add('opacity-100');
+            }
+        };
+
+        window.closeWishAiModal = function() {
+            var modal = document.getElementById('wish-ai-modal');
+            if (modal) {
+                modal.classList.add('pointer-events-none', 'opacity-0');
+                modal.classList.remove('opacity-100');
+            }
+        };
+
+        window.generateRsvpWish = async function(tone) {
+            var nameEl = document.getElementById('guest-name');
+            var name = (nameEl && nameEl.value) ? nameEl.value : "un invitado querido";
+            var loading = document.getElementById('wish-loading');
+            if (loading) loading.classList.remove('hidden');
+
+            var prompt = "Escribe un mensaje de felicitación para la boda civil y religiosa de Lioncio Moreno Figueroa y Lisbeth Yasmin Hernández García de parte de " + name + ". Tono deseado: " + tone + ". La pareja lleva 18 años en unión libre y ahora se casan por la iglesia y el civil. Hazlo de 2 a 3 oraciones conmovedoras para su boda el 28 de noviembre de 2026.";
+
+            try {
+                var responseText = await callGeminiAPI(prompt, "Eres un redactor experto en notas de agradecimiento y buenos deseos de boda. Devuelve solo el texto del mensaje corto.");
+                var msgEl = document.getElementById('message');
+                if (msgEl) msgEl.value = responseText;
+                window.closeWishAiModal();
+                window.showNotification("¡Mensaje generado exitosamente!");
+            } catch (e) {
+                window.showNotification("Error al generar mensaje. Inténtalo de nuevo.", true);
+            } finally {
+                if (loading) loading.classList.add('hidden');
+            }
+        };
+
+        window.toggleChat = function() {
+            var modal = document.getElementById('chat-modal');
+            var card = document.getElementById('chat-card');
+            if (!modal || !card) return;
+            
+            if (modal.classList.contains('opacity-0')) {
+                modal.classList.remove('pointer-events-none', 'opacity-0');
+                modal.classList.add('opacity-100');
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modal.classList.remove('opacity-100');
+                card.classList.add('scale-95');
+                card.classList.remove('scale-100');
+            }
+        };
+
+        window.quickAsk = function(questionText) {
+            var input = document.getElementById('chat-input');
+            if (input) {
+                input.value = questionText;
+                window.handleChatSubmit(new Event('submit'));
+            }
+        };
+
+        window.handleChatSubmit = async function(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            var input = document.getElementById('chat-input');
+            if (!input) return;
+            var query = input.value.trim();
+            if (!query) return;
+
+            var chatMessages = document.getElementById('chat-messages');
+            if (!chatMessages) return;
+
+            // Render User Message
+            var userDiv = document.createElement('div');
+            userDiv.className = "flex items-start gap-2 max-w-[88%] ml-auto justify-end";
+            userDiv.innerHTML = '<div class="bg-gold-500 text-navy-950 font-medium rounded-2xl rounded-tr-none p-3 shadow">' + escapeHtml(query) + '</div>';
+            chatMessages.appendChild(userDiv);
+            input.value = "";
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Render AI Loading Placeholder
+            var aiLoadingDiv = document.createElement('div');
+            aiLoadingDiv.className = "flex items-start gap-2 max-w-[88%]";
+            aiLoadingDiv.innerHTML = '<div class="w-7 h-7 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/40 flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-sparkles"></i></div><div class="bg-navy-900 border border-gold-500/30 rounded-2xl rounded-tl-none p-3 text-slate-400 flex items-center gap-2"><i class="fa-solid fa-circle-notch fa-spin text-gold-400"></i> Pensando...</div>';
+            chatMessages.appendChild(aiLoadingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                var answer = await callGeminiAPI(query, WEDDING_CONTEXT);
+                aiLoadingDiv.innerHTML = '<div class="w-7 h-7 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/40 flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-sparkles"></i></div><div class="bg-navy-900 border border-gold-500/30 rounded-2xl rounded-tl-none p-3 text-slate-200 leading-relaxed">' + answer.replace(/\n/g, '<br>') + '</div>';
+            } catch (err) {
+                aiLoadingDiv.innerHTML = '<div class="w-7 h-7 rounded-full bg-red-500/20 text-red-400 border border-red-500/40 flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-exclamation"></i></div><div class="bg-navy-900 border border-red-500/30 rounded-2xl rounded-tl-none p-3 text-red-300">Lo siento, tuve un inconveniente al conectar. Por favor intenta preguntarme nuevamente.</div>';
+            }
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        /* */
+        window.setSkin = function(skinName) {
+            var body = document.body;
+            var btnAzul = document.getElementById('skin-btn-azul');
+            var btnGris = document.getElementById('skin-btn-gris');
+            var btnBlanco = document.getElementById('skin-btn-blanco');
+
+            var inactiveClass = "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 text-slate-300 hover:text-white";
+            var activeClass = "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 gold-gradient-bg text-navy-950 shadow-md";
+
+            body.classList.remove('theme-gris', 'theme-blanco');
+
+            if (btnAzul) btnAzul.className = inactiveClass;
+            if (btnGris) btnGris.className = inactiveClass;
+            if (btnBlanco) btnBlanco.className = inactiveClass;
+
+            if (skinName === 'gris') {
+                body.classList.add('theme-gris');
+                if (btnGris) btnGris.className = activeClass;
+                window.showNotification("Skin 'Gris Platino' activado", false);
+            } else if (skinName === 'blanco') {
+                body.classList.add('theme-blanco');
+                if (btnBlanco) btnBlanco.className = activeClass;
+                window.showNotification("Skin 'Blanco & Marfil' activado", false);
+            } else {
+                if (btnAzul) btnAzul.className = activeClass;
+                window.showNotification("Skin 'Azul Noche' activado", false);
+            }
+        };
+
+        window.sendRSVP = function(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            var nameEl = document.getElementById('guest-name');
+            var attEl = document.getElementById('attendance');
+            var passEl = document.getElementById('passes');
+            var msgEl = document.getElementById('message');
+
+            var name = nameEl ? nameEl.value : "";
+            var attendance = attEl ? attEl.value : "";
+            var passes = passEl ? passEl.value : "";
+            var message = msgEl ? msgEl.value : "";
+
+            var text = "*Confirmación de Asistencia - Boda Civil y Religiosa Lioncio & Lisbeth*\n\n";
+            text += "👤 *Invitado/Familia:* " + name + "\n";
+            text += "📌 *Estado:* " + attendance + "\n";
+            text += "🎟️ *Pases a usar:* " + passes + "\n";
+            if (message) {
+                text += "💬 *Mensaje:* " + message + "\n";
+            }
+
+            var encodedText = encodeURIComponent(text);
+            window.open("https://api.whatsapp.com/send?text=" + encodedText, '_blank');
+        };
+    </script>
+</body>
+</html>
