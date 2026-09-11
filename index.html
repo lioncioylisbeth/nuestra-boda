@@ -1508,8 +1508,12 @@
 
             var encodedText = encodeURIComponent(text);
             var whatsappUrl = "https://wa.me/527341128601?text=" + encodedText;
-            var whatsappWindow = window.open(whatsappUrl, '_blank', 'noopener');
-            if (!whatsappWindow) window.location.href = whatsappUrl;
+            var whatsappWindow = window.open(whatsappUrl, '_blank');
+            if (whatsappWindow) {
+                whatsappWindow.opener = null;
+            } else {
+                window.location.href = whatsappUrl;
+            }
 
             saveRsvpRecord(payload).then(function(saved) {
                 window.showNotification(saved ? "Confirmación registrada y lista en WhatsApp" : "Confirmación lista en WhatsApp");
