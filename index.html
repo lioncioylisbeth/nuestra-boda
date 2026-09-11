@@ -3,9 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestra Boda Civil y Religiosa - Lioncio & Lisbeth</title>
-    <meta name="description" content="Invitación a la boda civil y religiosa de Lioncio y Lisbeth, el 28 de noviembre de 2026.">
+    <title>Nuestra Boda - Lioncio & Lisbeth</title>
+    <meta name="description" content="Acompáñanos a celebrar la boda de Lioncio y Lisbeth el 28 de noviembre de 2026.">
     <meta name="theme-color" content="#06132d">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_MX">
+    <meta property="og:title" content="Nuestra Boda - Lioncio & Lisbeth">
+    <meta property="og:description" content="Acompáñanos a celebrar nuestra boda el 28 de noviembre de 2026.">
+    <meta property="og:url" content="https://lioncioylisbeth.github.io/nuestra-boda/">
+    <meta property="og:image" content="https://lioncioylisbeth.github.io/nuestra-boda/og-wedding.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Lioncio y Lisbeth vestidos de novios en una elegante iglesia azul noche y dorada">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nuestra Boda - Lioncio & Lisbeth">
+    <meta name="twitter:description" content="Acompáñanos a celebrar nuestra boda el 28 de noviembre de 2026.">
+    <meta name="twitter:image" content="https://lioncioylisbeth.github.io/nuestra-boda/og-wedding.jpg">
+    <link rel="icon" href="anilloscom.webp" type="image/webp">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome icons -->
@@ -327,6 +342,35 @@
             transform: translateY(-3px);
         }
 
+        .padrinos-emblem {
+            position: relative;
+            width: clamp(9rem, 25vw, 13rem);
+            aspect-ratio: 4 / 5;
+            margin: 0 auto 1.25rem;
+            display: grid;
+            place-items: center;
+            isolation: isolate;
+            animation: sacredFloat 5.5s ease-in-out infinite;
+        }
+
+        .padrinos-emblem::before {
+            content: "";
+            position: absolute;
+            inset: 15%;
+            z-index: -1;
+            border-radius: 50%;
+            background: rgba(230, 200, 117, 0.26);
+            filter: blur(24px);
+            animation: sacredGlow 3.6s ease-in-out infinite;
+        }
+
+        .padrinos-emblem img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.34)) drop-shadow(0 0 16px rgba(255, 220, 116, 0.48));
+        }
+
         .theme-blanco .couple-name {
             color: #102044;
             text-shadow: 0 4px 24px rgba(77, 53, 11, 0.13);
@@ -365,6 +409,16 @@
             0%, 100% { opacity: 0.25; transform: scale(0.68) rotate(0deg); }
             45% { opacity: 1; transform: scale(1.2) rotate(18deg); }
             62% { opacity: 0.55; transform: scale(0.9) rotate(28deg); }
+        }
+
+        @keyframes sacredFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-8px) scale(1.015); }
+        }
+
+        @keyframes sacredGlow {
+            0%, 100% { opacity: 0.52; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.12); }
         }
 
         @media (max-width: 639px) {
@@ -578,7 +632,7 @@
             <p class="font-semibold text-gold-400">Nuestra Melodía</p>
             <p class="text-slate-400 text-xs">Unchained Melody - Righteous Brothers</p>
         </div>
-        <audio id="bg-audio" loop preload="auto">
+        <audio id="bg-audio" loop preload="auto" autoplay playsinline>
             <source src="musica.mp3" type="audio/mpeg">
             <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
         </audio>
@@ -591,8 +645,8 @@
             <span class="relative inline-flex rounded-full h-3 w-3 bg-gold-500"></span>
         </span>
         <i class="fa-solid fa-sparkles text-lg text-gold-400 group-hover:text-navy-950"></i>
-        <span class="hidden sm:inline">Concierge IA de Boda</span>
-        <span class="sm:hidden">Concierge IA</span>
+        <span class="hidden sm:inline">Asistente de la Boda</span>
+        <span class="sm:hidden">Asistente</span>
     </button>
 
     <header class="wedding-hero relative min-h-screen flex flex-col justify-between items-center text-center px-4 py-12 bg-gradient-navy overflow-hidden">
@@ -625,7 +679,7 @@
         <div class="hero-intro relative z-10 pt-6">
             <p class="tracking-[0.3em] uppercase text-xs sm:text-sm text-gold-400 font-medium mb-2">Con la bendición de Dios y nuestras familias</p>
             <div class="w-16 h-[1px] bg-gold-500/50 mx-auto mb-4"></div>
-            <p class="font-serif italic text-slate-300 text-lg">Nos casamos por el Civil y la Iglesia</p>
+            <p class="font-serif italic text-slate-300 text-lg">Nos casamos por la Iglesia</p>
         </div>
 
         <!-- Central Names & Silhouette Graphic -->
@@ -689,8 +743,8 @@
     <!-- Padrinos Section -->
     <section class="py-20 px-4 bg-navy-950 text-center relative">
         <div class="max-w-3xl mx-auto">
-            <div class="inline-block p-3 rounded-full bg-navy-900 border border-gold-500/30 mb-4">
-                <i class="fa-solid fa-hands-holding-heart text-gold-400 text-2xl"></i>
+            <div class="padrinos-emblem" aria-hidden="true">
+                <img src="cruz-paloma.webp" alt="" width="416" height="520" loading="lazy" decoding="async">
             </div>
             <h2 class="font-serif text-3xl sm:text-4xl text-white mb-2">Nuestros Padrinos de Honor</h2>
             <p class="text-gold-400 font-serif italic text-lg mb-8">Testigos de nuestra historia y pilares en nuestra bendición</p>
@@ -805,14 +859,14 @@
         </div>
     </section>
 
-    <!-- AI Toast & Poem Generator Section -->
+    <!-- Toast & Poem Generator Section -->
     <section class="py-20 px-4 bg-gradient-navy relative border-t border-gold-500/20 text-center">
         <div class="max-w-3xl mx-auto">
             <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-gold-500/10 border border-gold-500/50 flex items-center justify-center text-gold-400 text-2xl">
                 <i class="fa-solid fa-wand-magic-sparkles"></i>
             </div>
             <h2 class="font-serif text-3xl sm:text-4xl text-white mb-2">Generador de Brindis y Dedicatorias Especiales</h2>
-            <p class="text-gold-400 font-serif italic text-lg mb-8">Inspirado por la Inteligencia Artificial Gemini para honrar 18 años en unión libre y su boda civil y religiosa</p>
+            <p class="text-gold-400 font-serif italic text-lg mb-8">Palabras inspiradas en sus 18 años de amor y en la bendición de esta nueva etapa</p>
 
             <div class="luxe-card bg-navy-950/90 border border-gold-500/30 rounded-2xl p-6 sm:p-8 shadow-2xl text-left transition-all duration-500">
                 <label class="block text-xs uppercase tracking-wider text-gold-400 font-medium mb-2">
@@ -853,13 +907,13 @@
 
                 <div id="toast-loading" class="hidden text-center py-6 text-gold-400">
                     <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-2 block"></i>
-                    <p class="text-xs font-medium">Gemini está redactando unas hermosas palabras inspiradas en la pareja...</p>
+                    <p class="text-xs font-medium">Preparando unas hermosas palabras para Lioncio y Lisbeth...</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- RSVP Section with Gemini Integration -->
+    <!-- RSVP Section -->
     <section id="rsvp-section" class="py-20 px-4 bg-gradient-navy relative border-t border-gold-500/20">
         <div class="luxe-card max-w-xl mx-auto bg-navy-950 border border-gold-500/40 rounded-3xl p-8 sm:p-10 shadow-2xl transition-all duration-500">
             <div class="text-center mb-8">
@@ -892,17 +946,18 @@
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <label class="block text-xs uppercase tracking-wider text-gold-400 font-medium">Mensaje para los Novios</label>
-                        <!-- AI Wish Generator Trigger Button -->
+                        <!-- Wish Generator Trigger Button -->
                         <button type="button" onclick="openWishAiModal()" class="text-xs text-gold-300 hover:text-white flex items-center gap-1 bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/30 px-2.5 py-1 rounded-md transition-all">
-                            <i class="fa-solid fa-sparkles text-gold-400"></i> Generar mensaje con IA
+                            <i class="fa-solid fa-sparkles text-gold-400"></i> Inspirar mi mensaje
                         </button>
                     </div>
                     <textarea id="message" rows="3" placeholder="Escribe tus buenos deseos..." class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors"></textarea>
                 </div>
 
                 <button type="submit" class="w-full gold-gradient-bg text-navy-950 font-bold text-base uppercase tracking-wider py-4 rounded-xl shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> Confirmar por WhatsApp
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Registrar y confirmar por WhatsApp
                 </button>
+                <p class="text-center text-[11px] text-slate-500">Se abrirá una conversación directa con Lioncio y Lisbeth y tu confirmación quedará preparada para el registro.</p>
             </form>
         </div>
     </section>
@@ -918,7 +973,7 @@
                         <i class="fa-solid fa-robot text-base"></i>
                     </div>
                     <div>
-                        <h3 class="font-serif text-lg text-white font-semibold leading-tight">Concierge IA de Boda</h3>
+                        <h3 class="font-serif text-lg text-white font-semibold leading-tight">Asistente de la Boda</h3>
                         <p class="text-[11px] text-gold-400 flex items-center gap-1">
                             <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span> En línea · Lioncio & Lisbeth
                         </p>
@@ -937,8 +992,8 @@
                         <i class="fa-solid fa-sparkles"></i>
                     </div>
                     <div class="bg-navy-900 border border-gold-500/30 rounded-2xl rounded-tl-none p-3 text-slate-200">
-                        ¡Hola! Soy el asistente virtual para la boda civil y religiosa de <strong>Lioncio Moreno Figueroa</strong> y <strong>Lisbeth Yasmin Hernández García</strong>. ✨<br><br>
-                        Tras 18 años compartiendo su vida en unión libre, ¡se van a casar por el civil y la iglesia! Puedes preguntarme sobre la vestimenta, horarios de las ceremonias, mapas de las sedes, hospedajes o sugerencias.
+                        ¡Hola! Soy el asistente virtual para la boda de <strong>Lioncio Moreno Figueroa</strong> y <strong>Lisbeth Yasmin Hernández García</strong>. ✨<br><br>
+                        Tras 18 años compartiendo su vida, celebrarán su unión por la Iglesia. Puedes preguntarme sobre vestimenta, horarios, direcciones, regalos o confirmación de asistencia.
                     </div>
                 </div>
             </div>
@@ -966,7 +1021,7 @@
         </div>
     </div>
 
-    <!-- AI RSVP Quick Wishes Modal -->
+    <!-- RSVP Quick Wishes Modal -->
     <div id="wish-ai-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="bg-navy-950 border border-gold-500/50 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
             <button onclick="closeWishAiModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
@@ -1023,44 +1078,107 @@
     </footer>
 
     <script>
-        var WEDDING_CONTEXT = "Vas a actuar como el asistente o concierge virtual de bodas exclusivo para el matrimonio de: Lioncio Moreno Figueroa y Lisbeth Yasmin Hernández García. Historia: Llevan 18 años juntos en unión libre construyendo un hogar, y ahora celebran su matrimonio civil y religioso. Fecha: Sábado, 28 de Noviembre de 2026. Padrinos: Irma Figueroa Cuevas y Miguel Cuevas Sánchez. Ceremonia Religiosa: Parroquia San Miguel 4:30 PM (Jojutla, Mor). Boda Civil y Fiesta: Salón Camino Real 6:00 PM (Santa Rosa Treinta, Mor). Vestimenta: Formal / Etiqueta. PROHIBIDO vestirse de BLANCO o AZUL MARINO (exclusivo novios).";
-
         var lastGeneratedToastText = "";
+        var lastTemplateIndex = {};
+        var RSVP_ENDPOINT = "__RSVP_ENDPOINT__";
 
-        async function callGeminiAPI(promptText, systemInstruction) {
-            var apiKey = "";
-            var apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=" + apiKey;
-            
-            var payload = {
-                contents: [{ parts: [{ text: promptText }] }]
-            };
+        var toastLibrary = {
+            poema: [
+                "Dieciocho años han tejido su historia,\ncon paciencia, ternura y verdad;\nhoy el cielo bendice su camino\ny la promesa se vuelve eternidad.\n\nQue cada amanecer los encuentre unidos,\nque nunca les falte un motivo para sonreír,\ny que Lioncio y Lisbeth sigan eligiéndose\nen cada nuevo capítulo por vivir.",
+                "Lioncio y Lisbeth, dos vidas y un destino,\ndieciocho años andando el mismo camino.\nHoy ante Dios renuevan su ilusión,\ncon fe en el alma y amor en el corazón.\n\nQue su hogar sea refugio, risa y abrigo,\ny que cada día encuentren en el otro a su mejor amigo.",
+                "No fue un instante: fue una vida compartida,\nun hogar construido, una esperanza florecida.\nHoy la Iglesia recibe su promesa de amor;\nque Dios guíe sus pasos y los colme de bendición."
+            ],
+            brindis: [
+                "Levantemos nuestras copas por Lioncio y Lisbeth: por los 18 años que los trajeron hasta este día y por todos los años felices que aún les esperan. Que nunca les falten amor, complicidad y motivos para celebrar. ¡Salud por los novios!",
+                "Brindo por un amor que ha sabido crecer, sostenerse y renovarse durante 18 años. Que esta bendición ante Dios inaugure una etapa llena de paz, salud y alegrías compartidas. ¡Por Lioncio y Lisbeth!",
+                "Hoy brindamos por dos personas que demostraron que el amor verdadero se construye todos los días. Que su hogar siga lleno de respeto, ternura y muchas risas. ¡Salud por esta hermosa unión!"
+            ],
+            bendicion: [
+                "Que Dios bendiga la unión de Lioncio y Lisbeth, proteja su hogar y fortalezca cada día el amor que los ha acompañado durante 18 años. Que la fe, la paciencia y la alegría sean siempre la luz de su camino.",
+                "Señor, acompaña a Lioncio y Lisbeth en esta nueva etapa. Concédeles sabiduría para caminar juntos, serenidad en los días difíciles y gratitud para disfrutar cada bendición de su hogar.",
+                "Que la bendición recibida en la Iglesia permanezca siempre en su familia. Que Lioncio y Lisbeth encuentren el uno en el otro consuelo, fuerza y una razón diaria para dar gracias a Dios."
+            ],
+            alegre: [
+                "¡Después de 18 años, ya eran expertos en compartir la vida y ahora también tendrán certificado de maestría! Que nunca falten las risas, los abrazos y las aventuras. ¡Muchas felicidades, Lioncio y Lisbeth!",
+                "Que esta nueva etapa venga con amor infinito, viajes memorables, sobremesas larguísimas y muchísimas razones para bailar. ¡Felicidades a Lioncio y Lisbeth!",
+                "Hoy celebramos un sí que lleva 18 años escribiéndose. Que sigan siendo un gran equipo, cómplices de aventuras y campeones de la alegría. ¡Un abrazo enorme para los novios!"
+            ]
+        };
 
-            if (systemInstruction) {
-                payload.systemInstruction = {
-                    parts: [{ text: systemInstruction }]
-                };
+        var wishLibrary = {
+            emotivo: [
+                "Lioncio y Lisbeth, su historia demuestra que el amor verdadero se construye con paciencia, entrega y compañía. Que esta bendición fortalezca aún más el hermoso hogar que han formado durante 18 años.",
+                "Que cada recuerdo de estos 18 años sea la base de una vida todavía más plena. Les deseo un matrimonio colmado de ternura, respeto y sueños compartidos."
+            ],
+            alegre: [
+                "¡Muchas felicidades, Lioncio y Lisbeth! Que esta nueva etapa esté llena de risas, viajes, música y muchísimos momentos para celebrar juntos.",
+                "¡Por fin llegó el gran día! Les deseo una vida con amor de sobra, abrazos sin medida y fiestas tan felices como ésta."
+            ],
+            corto: [
+                "Lioncio y Lisbeth: que el amor y la alegría de este día los acompañen siempre. ¡Felicidades!",
+                "Que esta nueva etapa multiplique su amor y sus alegrías. Con cariño, ¡muchas felicidades!"
+            ],
+            religioso: [
+                "Que Dios bendiga su unión, proteja su hogar y guíe cada paso de esta nueva etapa. Con mucho cariño para Lioncio y Lisbeth.",
+                "Que la fe sea siempre luz en su camino y que Dios colme su matrimonio de amor, paz y abundantes bendiciones."
+            ]
+        };
+
+        function selectFreshTemplate(group, list) {
+            var next = Math.floor(Math.random() * list.length);
+            if (list.length > 1 && lastTemplateIndex[group] === next) next = (next + 1) % list.length;
+            lastTemplateIndex[group] = next;
+            return list[next];
+        }
+
+        function personalizeToast(text, detail) {
+            if (!detail) return text;
+            return text + "\n\nCon especial cariño de " + detail.replace(/[.!]+$/, "") + ".";
+        }
+
+        function normalizeQuestion(text) {
+            return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        }
+
+        function getWeddingAssistantReply(question) {
+            var q = normalizeQuestion(question);
+            if (/fecha|cuando|dia/.test(q)) {
+                return "La boda será el sábado 28 de noviembre de 2026. La ceremonia religiosa comienza a las 4:30 PM y la celebración inicia a las 6:00 PM.";
             }
-
-            var delay = 1000;
-            for (var i = 0; i < 3; i++) {
-                try {
-                    var response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (!response.ok) throw new Error("HTTP Error " + response.status);
-                    var result = await response.json();
-                    if (result && result.candidates && result.candidates[0] && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts[0]) {
-                        return result.candidates[0].content.parts[0].text;
-                    }
-                } catch (err) {
-                    if (i === 2) throw err;
-                    await new Promise(function(resolve) { setTimeout(resolve, delay); });
-                    delay *= 2;
-                }
+            if (/hora|horario/.test(q)) {
+                return "⛪ Ceremonia religiosa: 4:30 PM.\n🥂 Celebración en Salón Camino Real: 6:00 PM. Te recomendamos llegar 20 a 30 minutos antes a la iglesia.";
             }
-            throw new Error("No response from Gemini API.");
+            if (/iglesia|parroquia|ceremonia|misa/.test(q)) {
+                return "La ceremonia religiosa será a las 4:30 PM en la Parroquia San Miguel, C. Cobarrubias 102, Centro, 62900 Jojutla, Morelos. En la sección “Dónde & Cuándo” encontrarás el botón directo a Google Maps.";
+            }
+            if (/salon|fiesta|recepcion|camino real|santa rosa/.test(q)) {
+                return "La celebración será a las 6:00 PM en Salón Camino Real, Francisco Villa, Emiliano Zapata, 62772 Santa Rosa Treinta, Morelos. Puedes abrir la ubicación desde el botón de Google Maps de la invitación.";
+            }
+            if (/direccion|ubicacion|mapa|llegar|donde/.test(q)) {
+                return "Las dos ubicaciones tienen un botón “Ver ubicación en Google Maps” en la sección “Dónde & Cuándo”: Parroquia San Miguel en Jojutla y Salón Camino Real en Santa Rosa Treinta.";
+            }
+            if (/vestimenta|ropa|vestir|codigo|color|blanco|azul/.test(q)) {
+                return "El código de vestimenta es formal / etiqueta. Por favor evita vestir de blanco o azul marino, porque esos colores están reservados para los novios.";
+            }
+            if (/confirm|asist|rsvp|pase|invitad/.test(q)) {
+                return "Completa el formulario “Confirmación de Asistencia” al final de la invitación. Al enviarlo se registrarán tu nombre, asistencia, pases y dedicatoria, y se abrirá WhatsApp directo al +52 734 112 8601.";
+            }
+            if (/regalo|mesa|obsequio/.test(q)) {
+                return "Su presencia es el mejor regalo. Si desean obsequiar algo a Lioncio y Lisbeth, la pareja lo deja a su libre elección.";
+            }
+            if (/padrino|madrina/.test(q)) {
+                return "Los padrinos de honor son Irma Figueroa Cuevas y Miguel Cuevas Sánchez, testigos de esta historia y pilares de su bendición.";
+            }
+            if (/hotel|hosped|alojamiento/.test(q)) {
+                return "No hay un hotel oficial indicado en la invitación. Te sugerimos buscar hospedaje en Jojutla o cerca de Santa Rosa Treinta y verificar el tiempo de traslado a ambas sedes antes de reservar.";
+            }
+            if (/musica|cancion|melodia|audio/.test(q)) {
+                return "La melodía de la invitación es “Unchained Melody”. Si tu navegador bloquea el inicio automático, toca el botón dorado de reproducción en la esquina inferior derecha.";
+            }
+            if (/hola|buenas|ayuda|preguntar/.test(q)) {
+                return "¡Hola! Puedo ayudarte con la fecha, horarios, direcciones, vestimenta, regalos, hospedaje y confirmación de asistencia. ¿Qué deseas saber?";
+            }
+            return "Puedo ayudarte con la fecha y horarios, las direcciones de la iglesia y el salón, el código de vestimenta, regalos, hospedaje o la confirmación por WhatsApp. Prueba preguntarme por alguno de esos temas.";
         }
 
         window.showNotification = function(msg, isError) {
@@ -1115,19 +1233,44 @@
         updateCountdown();
 
         var isPlaying = false;
+
+        function updateAudioButton(playing) {
+            var playIcon = document.getElementById('play-icon');
+            var playButton = document.getElementById('play-btn');
+            if (playIcon) playIcon.className = playing ? "fa-solid fa-pause text-sm" : "fa-solid fa-play text-sm ml-0.5";
+            if (playButton) playButton.setAttribute('aria-label', playing ? 'Pausar música' : 'Reproducir música');
+            isPlaying = playing;
+        }
+
+        function tryAutoplayMusic() {
+            var audio = document.getElementById('bg-audio');
+            if (!audio || !audio.paused) return;
+            audio.volume = 0.72;
+            var promise = audio.play();
+            if (promise && promise.then) {
+                promise.then(function() { updateAudioButton(true); }).catch(function() {
+                    // Algunos navegadores requieren el primer toque del invitado.
+                });
+            }
+        }
+
+        window.addEventListener('load', tryAutoplayMusic);
+        ['pointerdown', 'touchstart', 'keydown'].forEach(function(eventName) {
+            document.addEventListener(eventName, tryAutoplayMusic, { once: true, passive: true });
+        });
+
+        document.getElementById('bg-audio').addEventListener('play', function() { updateAudioButton(true); });
+        document.getElementById('bg-audio').addEventListener('pause', function() { updateAudioButton(false); });
+
         window.toggleAudio = function() {
             var audio = document.getElementById('bg-audio');
-            var playIcon = document.getElementById('play-icon');
-            if (!audio || !playIcon) return;
+            if (!audio) return;
 
             if (isPlaying) {
                 audio.pause();
-                playIcon.className = "fa-solid fa-play text-sm ml-0.5";
-                isPlaying = false;
             } else {
                 audio.play().then(function() {
-                    playIcon.className = "fa-solid fa-pause text-sm";
-                    isPlaying = true;
+                    updateAudioButton(true);
                 }).catch(function(e) {
                     window.showNotification("Haz clic nuevamente para activar la música", false);
                 });
@@ -1144,27 +1287,13 @@
             if (loading) loading.classList.remove('hidden');
             if (resultBox) resultBox.classList.add('hidden');
 
-            var promptStyle = "";
-            switch (style) {
-                case 'poema': promptStyle = "un poema conmovedor y emotivo de 2-3 estrofas"; break;
-                case 'brindis': promptStyle = "un brindis memorable y elegante para decir en voz alta durante la recepción"; break;
-                case 'bendicion': promptStyle = "unas palabras de bendición profunda, paz y fe para su hogar"; break;
-                case 'alegre': promptStyle = "un mensaje divertido, cálido y lleno de buena vibra"; break;
-                default: promptStyle = "unas palabras emotivas";
-            }
-
-            var prompt = "Escribe " + promptStyle + " para celebrar la boda civil y religiosa de Lioncio Moreno Figueroa y Lisbeth Yasmin Hernández García, quienes llevan 18 años de feliz unión libre y ahora consolidan su amor ante la ley y ante Dios." + (customDetail ? " Detalle especial del invitado: " + customDetail : "") + ". Mantén un tono elegante, afectuoso y celebratorio.";
-
-            try {
-                var responseText = await callGeminiAPI(prompt, "Eres un poeta y orador experto en bodas elegantes. Responde únicamente con el texto de la dedicatoria o poema en español, sin preámbulos ni comillas.");
-                lastGeneratedToastText = responseText;
-                if (resultText) resultText.innerText = responseText;
-                if (resultBox) resultBox.classList.remove('hidden');
-            } catch (err) {
-                window.showNotification("No se pudo generar la dedicatoria. Inténtalo de nuevo.", true);
-            } finally {
-                if (loading) loading.classList.add('hidden');
-            }
+            var library = toastLibrary[style] || toastLibrary.brindis;
+            await new Promise(function(resolve) { setTimeout(resolve, 420); });
+            var responseText = personalizeToast(selectFreshTemplate('toast-' + style, library), customDetail);
+            lastGeneratedToastText = responseText;
+            if (resultText) resultText.innerText = responseText;
+            if (resultBox) resultBox.classList.remove('hidden');
+            if (loading) loading.classList.add('hidden');
         };
 
         window.copyGeneratedToast = function() {
@@ -1221,19 +1350,15 @@
             var loading = document.getElementById('wish-loading');
             if (loading) loading.classList.remove('hidden');
 
-            var prompt = "Escribe un mensaje de felicitación para la boda civil y religiosa de Lioncio Moreno Figueroa y Lisbeth Yasmin Hernández García de parte de " + name + ". Tono deseado: " + tone + ". La pareja lleva 18 años en unión libre y ahora se casan por la iglesia y el civil. Hazlo de 2 a 3 oraciones conmovedoras para su boda el 28 de noviembre de 2026.";
-
-            try {
-                var responseText = await callGeminiAPI(prompt, "Eres un redactor experto en notas de agradecimiento y buenos deseos de boda. Devuelve solo el texto del mensaje corto.");
-                var msgEl = document.getElementById('message');
-                if (msgEl) msgEl.value = responseText;
-                window.closeWishAiModal();
-                window.showNotification("¡Mensaje generado exitosamente!");
-            } catch (e) {
-                window.showNotification("Error al generar mensaje. Inténtalo de nuevo.", true);
-            } finally {
-                if (loading) loading.classList.add('hidden');
-            }
+            await new Promise(function(resolve) { setTimeout(resolve, 380); });
+            var library = wishLibrary[tone] || wishLibrary.corto;
+            var responseText = selectFreshTemplate('wish-' + tone, library);
+            if (name && name !== "un invitado querido") responseText += " Con cariño, " + name.replace(/[.!]+$/, "") + ".";
+            var msgEl = document.getElementById('message');
+            if (msgEl) msgEl.value = responseText;
+            window.closeWishAiModal();
+            window.showNotification("¡Mensaje preparado exitosamente!");
+            if (loading) loading.classList.add('hidden');
         };
 
         window.toggleChat = function() {
@@ -1280,19 +1405,16 @@
             input.value = "";
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // Render AI Loading Placeholder
+            // Render assistant loading placeholder
             var aiLoadingDiv = document.createElement('div');
             aiLoadingDiv.className = "flex items-start gap-2 max-w-[88%]";
             aiLoadingDiv.innerHTML = '<div class="w-7 h-7 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/40 flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-sparkles"></i></div><div class="bg-navy-900 border border-gold-500/30 rounded-2xl rounded-tl-none p-3 text-slate-400 flex items-center gap-2"><i class="fa-solid fa-circle-notch fa-spin text-gold-400"></i> Pensando...</div>';
             chatMessages.appendChild(aiLoadingDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            try {
-                var answer = await callGeminiAPI(query, WEDDING_CONTEXT);
-                aiLoadingDiv.innerHTML = '<div class="w-7 h-7 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/40 flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-sparkles"></i></div><div class="bg-navy-900 border border-gold-500/30 rounded-2xl rounded-tl-none p-3 text-slate-200 leading-relaxed">' + answer.replace(/\n/g, '<br>') + '</div>';
-            } catch (err) {
-                aiLoadingDiv.innerHTML = '<div class="w-7 h-7 rounded-full bg-red-500/20 text-red-400 border border-red-500/40 flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-exclamation"></i></div><div class="bg-navy-900 border border-red-500/30 rounded-2xl rounded-tl-none p-3 text-red-300">Lo siento, tuve un inconveniente al conectar. Por favor intenta preguntarme nuevamente.</div>';
-            }
+            await new Promise(function(resolve) { setTimeout(resolve, 360); });
+            var answer = getWeddingAssistantReply(query);
+            aiLoadingDiv.innerHTML = '<div class="w-7 h-7 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/40 flex items-center justify-center text-xs flex-shrink-0"><i class="fa-solid fa-sparkles"></i></div><div class="bg-navy-900 border border-gold-500/30 rounded-2xl rounded-tl-none p-3 text-slate-200 leading-relaxed">' + escapeHtml(answer).replace(/\n/g, '<br>') + '</div>';
             chatMessages.scrollTop = chatMessages.scrollHeight;
         };
 
@@ -1330,8 +1452,33 @@
             }
         };
 
+        function saveRsvpRecord(payload) {
+            try {
+                var localRecords = JSON.parse(localStorage.getItem('lioncio-lisbeth-rsvps') || '[]');
+                localRecords.push(payload);
+                localStorage.setItem('lioncio-lisbeth-rsvps', JSON.stringify(localRecords.slice(-20)));
+            } catch (storageError) {
+                // La confirmación por WhatsApp continúa aunque el navegador bloquee el almacenamiento local.
+            }
+
+            if (!RSVP_ENDPOINT || RSVP_ENDPOINT === '__RSVP_ENDPOINT__') return Promise.resolve(false);
+
+            return fetch(RSVP_ENDPOINT, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload),
+                keepalive: true
+            }).then(function() { return true; }).catch(function() { return false; });
+        }
+
         window.sendRSVP = function(e) {
             if (e && e.preventDefault) e.preventDefault();
+            var form = document.getElementById('rsvp-form');
+            if (form && !form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
             var nameEl = document.getElementById('guest-name');
             var attEl = document.getElementById('attendance');
             var passEl = document.getElementById('passes');
@@ -1342,7 +1489,16 @@
             var passes = passEl ? passEl.value : "";
             var message = msgEl ? msgEl.value : "";
 
-            var text = "*Confirmación de Asistencia - Boda Civil y Religiosa Lioncio & Lisbeth*\n\n";
+            var payload = {
+                submittedAt: new Date().toISOString(),
+                name: name,
+                attendance: attendance,
+                passes: Number(passes),
+                message: message,
+                source: 'Invitación web'
+            };
+
+            var text = "*Confirmación de Asistencia - Nuestra Boda · Lioncio & Lisbeth*\n\n";
             text += "👤 *Invitado/Familia:* " + name + "\n";
             text += "📌 *Estado:* " + attendance + "\n";
             text += "🎟️ *Pases a usar:* " + passes + "\n";
@@ -1351,7 +1507,13 @@
             }
 
             var encodedText = encodeURIComponent(text);
-            window.open("https://api.whatsapp.com/send?text=" + encodedText, '_blank');
+            var whatsappUrl = "https://wa.me/527341128601?text=" + encodedText;
+            var whatsappWindow = window.open(whatsappUrl, '_blank', 'noopener');
+            if (!whatsappWindow) window.location.href = whatsappUrl;
+
+            saveRsvpRecord(payload).then(function(saved) {
+                window.showNotification(saved ? "Confirmación registrada y lista en WhatsApp" : "Confirmación lista en WhatsApp");
+            });
         };
     </script>
 </body>
