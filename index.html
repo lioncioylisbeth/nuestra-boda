@@ -106,11 +106,6 @@
             72% { transform: translate3d(0, 2%, 0) rotate(-0.35deg); }
         }
 
-        @keyframes weddingRosaryGleam {
-            0%, 100% { opacity: 0.45; filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.28)); }
-            50% { opacity: 0.9; filter: drop-shadow(0 0 7px rgba(255, 240, 186, 0.72)); }
-        }
-
         .bridal-veil {
             position: absolute;
             z-index: 1;
@@ -179,59 +174,25 @@
         .wedding-rosary {
             position: absolute;
             z-index: 1;
-            top: clamp(4.75rem, 9vh, 7rem);
-            left: clamp(-5.25rem, -5vw, -2rem);
-            width: clamp(16rem, 28vw, 25rem);
-            height: min(67vh, 38rem);
+            top: clamp(3rem, 5.8vh, 4.25rem);
+            left: clamp(0.25rem, 1.2vw, 1.25rem);
+            width: clamp(6.75rem, 10vw, 8.75rem);
+            height: auto;
             pointer-events: none;
-            opacity: 0.68;
+            opacity: 0.88;
             transform-origin: 8% 3%;
-            filter: drop-shadow(5px 12px 18px rgba(0, 0, 0, 0.3));
+            filter:
+                drop-shadow(5px 12px 16px rgba(0, 0, 0, 0.38))
+                drop-shadow(0 0 10px rgba(230, 200, 117, 0.15));
             animation: weddingRosarySway 10.5s ease-in-out infinite;
             will-change: transform;
         }
 
-        .wedding-rosary svg {
+        .wedding-rosary img {
+            display: block;
             width: 100%;
-            height: 100%;
-            overflow: visible;
-        }
-
-        .wedding-rosary__thread {
-            fill: none;
-            stroke: rgba(202, 161, 55, 0.8);
-            stroke-width: 1.6;
-        }
-
-        .wedding-rosary__pearls {
-            fill: none;
-            stroke: url(#rosary-pearl-gradient);
-            stroke-width: 9;
-            stroke-linecap: round;
-            stroke-dasharray: 0.7 14.3;
-        }
-
-        .wedding-rosary__highlights {
-            fill: none;
-            stroke: rgba(255, 255, 255, 0.94);
-            stroke-width: 2.2;
-            stroke-linecap: round;
-            stroke-dasharray: 0.3 14.7;
-            transform: translate(-1.4px, -1.4px);
-            animation: weddingRosaryGleam 4.4s ease-in-out infinite;
-        }
-
-        .wedding-rosary__medallion,
-        .wedding-rosary__cross {
-            filter: drop-shadow(0 0 8px rgba(230, 200, 117, 0.36));
-        }
-
-        .wedding-rosary__corpus {
-            fill: none;
-            stroke: #fff8dc;
-            stroke-width: 2.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+            height: auto;
+            object-fit: contain;
         }
 
         .theme-claro .bridal-veil,
@@ -243,7 +204,7 @@
 
         .theme-claro .wedding-rosary,
         .theme-blanco .wedding-rosary {
-            opacity: 0.52;
+            opacity: 0.78;
             filter: drop-shadow(5px 12px 16px rgba(103, 75, 19, 0.16));
         }
 
@@ -266,11 +227,11 @@
             }
 
             .wedding-rosary {
-                top: 6.75rem;
-                left: -4.25rem;
-                width: 23rem;
-                height: 29rem;
-                opacity: 0.58;
+                top: 5.35rem;
+                left: 0.25rem;
+                width: 7.1rem;
+                height: auto;
+                opacity: 0.86;
             }
 
             .theme-claro .bridal-veil,
@@ -280,7 +241,7 @@
 
             .theme-claro .wedding-rosary,
             .theme-blanco .wedding-rosary {
-                opacity: 0.44;
+                opacity: 0.72;
             }
         }
 
@@ -288,8 +249,7 @@
             .bridal-veil,
             .bridal-veil__fabric,
             .bridal-veil__sparkles,
-            .wedding-rosary,
-            .wedding-rosary__highlights {
+            .wedding-rosary {
                 animation: none !important;
             }
         }
@@ -1018,39 +978,7 @@
 
         <!-- Rosario de perlas nupcial con crucifijo completo -->
         <div class="wedding-rosary" aria-hidden="true">
-            <svg viewBox="0 0 360 620" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet">
-                <defs>
-                    <linearGradient id="rosary-pearl-gradient" x1="40" y1="20" x2="285" y2="435" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#FFFFFF"/>
-                        <stop offset="0.43" stop-color="#FFF9E7"/>
-                        <stop offset="0.76" stop-color="#E8D5A2"/>
-                        <stop offset="1" stop-color="#FFFFFF"/>
-                    </linearGradient>
-                    <linearGradient id="rosary-gold-gradient" x1="128" y1="408" x2="190" y2="590" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#FFF0AD"/>
-                        <stop offset="0.45" stop-color="#D4AF37"/>
-                        <stop offset="1" stop-color="#8D6917"/>
-                    </linearGradient>
-                </defs>
-
-                <path class="wedding-rosary__thread" d="M-24 24C68 22 153 47 210 111C270 179 262 269 206 301C148 334 79 302 74 243C69 183 118 145 171 158C229 172 251 242 220 310C200 355 165 384 154 431"/>
-                <path class="wedding-rosary__pearls" d="M-24 24C68 22 153 47 210 111C270 179 262 269 206 301C148 334 79 302 74 243C69 183 118 145 171 158C229 172 251 242 220 310C200 355 165 384 154 431"/>
-                <path class="wedding-rosary__highlights" d="M-24 24C68 22 153 47 210 111C270 179 262 269 206 301C148 334 79 302 74 243C69 183 118 145 171 158C229 172 251 242 220 310C200 355 165 384 154 431"/>
-
-                <g class="wedding-rosary__medallion" transform="translate(154 435)">
-                    <circle cx="0" cy="0" r="13" fill="url(#rosary-gold-gradient)" stroke="#FFF2BD" stroke-width="1.5"/>
-                    <path d="M0 -7L2.2 -2.3L7 0L2.2 2.3L0 7L-2.2 2.3L-7 0L-2.2 -2.3Z" fill="#FFF8DD" opacity="0.9"/>
-                </g>
-                <path class="wedding-rosary__thread" d="M154 448C154 465 154 478 154 493"/>
-                <path class="wedding-rosary__pearls" d="M154 448C154 465 154 478 154 493"/>
-                <path class="wedding-rosary__highlights" d="M154 448C154 465 154 478 154 493"/>
-
-                <g class="wedding-rosary__cross" transform="translate(154 500)">
-                    <path d="M-8 0H8V20H24V36H8V88H-8V36H-24V20H-8V0Z" fill="url(#rosary-gold-gradient)" stroke="#FFF0AD" stroke-width="2" stroke-linejoin="round"/>
-                    <circle cx="0" cy="20" r="4.1" fill="#FFF8DC"/>
-                    <path class="wedding-rosary__corpus" d="M0 25V51M-13 32L0 37L13 32M0 51L-7 67M0 51L7 67"/>
-                </g>
-            </svg>
+            <img src="rosario-perlas-realista.webp" alt="" width="500" height="1496" decoding="async" fetchpriority="high">
         </div>
         
         <!-- Velo nupcial de tul, recogido arriba a la derecha y movido por una brisa suave -->
