@@ -4,7 +4,8 @@
 
 - Portada compacta con Lioncio & Lisbeth como protagonistas, nombres completos debajo, fecha y acceso a confirmar.
 - Cuatro apariencias en un menú compacto; música en la barra superior y asistente en preguntas frecuentes.
-- Se conservan el velo, los anillos, la miniatura vigente y los datos de la boda. El rosario no se restaura.
+- Se conservan el velo, los anillos y los datos de la boda. El rosario no se restaura.
+- Por solicitud posterior del cliente, la miniatura usa los anillos dorados, fondo azul noche y los nombres Lioncio & Lisbeth, en lugar del retrato de los novios. Archivo cuadrado `og-wedding-rings-v1.jpg`, 1254 × 1254 px, con márgenes y frase inferior en dos líneas. Metadatos de imagen y enlace actualizados para compartir la versión `?v=11`.
 - Ceremonia y recepción con mapas y descarga de calendario en la hora de Morelos.
 - Dedicatorias desplegables dentro del formulario, con textos locales sin dependencia de una clave de IA.
 - Celular, adultos, niños y total; resumen de respuesta y mensaje de WhatsApp ordenado.

@@ -47,7 +47,7 @@ test('HTML preserves wedding details, thumbnail and veil without the rosary', ()
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(x => x[1]);
   assert.equal(new Set(ids).size, ids.length, 'duplicate IDs');
   for (const id of ['rsvp-form','rsvp-summary','adults','children','guest-phone','dedication-tools','questions','appearance-menu','bg-audio']) assert.ok(ids.includes(id), id);
-  assert.match(html, /og-wedding-square-v3\.jpg\?v=4/);
+  assert.match(html, /og-wedding-rings-v1\.jpg/);
   assert.match(html, /class="bridal-veil"/);
   assert.doesNotMatch(html, /rosario/i);
   assert.doesNotMatch(html, /Boda Civil|por el Civil/i);
