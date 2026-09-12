@@ -1,5 +1,17 @@
 # Mejoras de la invitación · 12 de septiembre de 2026
 
+## Panel de invitados (continuación posterior)
+
+Se añade `invitados.html` en la misma publicación de GitHub Pages. Apariencia azul noche, marfil y dorado con los anillos; tabla adaptable, búsqueda, filtros de asistencia/seguimiento, orden, totales de adultos/niños/pases, edición con lápiz, retirada con × y confirmación, y vista de impresión horizontal con dedicatorias opcionales.
+
+Usa como única fuente la pestaña `Confirmaciones` de la hoja existente. Sus metadatos y encabezados A6:K6 se volvieron a comprobar. No se copiaron datos de invitados al repositorio ni se hicieron cambios en las filas reales. La función de configuración vincula el archivo desde Google y guarda su identificador en las propiedades privadas; su enlace se entrega solo tras autenticarse.
+
+El receptor pasa a **v3** y contiene el flujo público de RSVP anterior más consulta/edición/archivo autenticados. La clave aleatoria se genera manualmente en el editor y su hash queda en Script Properties; nunca se incluye en el código público. El panel mantiene la sesión solo en memoria. La API vuelve a leer los cambios antes de confirmar y detecta versiones de filas distintas; los identificadores se guardan como notas de A. Las eliminaciones archivan antes de vaciar A:K, sin borrar filas completas ni mover el resumen de la derecha. No se permiten escrituras sobre filas con fórmulas.
+
+**Pendiente en Google:** el propietario debe ejecutar `configurarAccesoInvitados` y publicar v3 en el despliegue existente, siguiendo `CONFIGURAR-GOOGLE-SHEETS.md`. La conexión permite leer Sheets pero no administrar Apps Script. La página publicada queda protegida hasta activar ese acceso. No se ha verificado consulta ni edición del panel contra el receptor real.
+
+Pruebas locales: **31 aprobadas**, incluyendo cinco pruebas del controlador real del panel con DOM/transporte simulados. Se cubren autorización antes de leer Sheets, datos literales, cambios persistidos, conflictos, archivo recuperable, interrupciones, doble clic, cierre de sesión, filtros y recibos legibles. No se enviaron mensajes ni registros reales. Este bloque sustituye la mención de v2 como versión más reciente en el registro histórico siguiente.
+
 ## Implementado
 
 - Portada compacta con Lioncio & Lisbeth como protagonistas, nombres completos debajo, fecha y acceso a confirmar.

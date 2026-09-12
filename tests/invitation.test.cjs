@@ -84,6 +84,7 @@ function backend() {
   };
   const context=vm.createContext({
     LockService:{getScriptLock:()=>({tryLock:()=>{if(locked)return false;locked=true;return true;},releaseLock:()=>{locked=false;}})},
+    PropertiesService:{getScriptProperties:()=>({getProperty:()=>null})},
     SpreadsheetApp:{getActiveSpreadsheet:()=>({getSheetByName:()=>sheet}),flush:()=>{}},
     ContentService:{MimeType:{JSON:'json'},createTextOutput:content=>({setMimeType:()=>JSON.parse(content)})},
     Utilities:{DigestAlgorithm:{SHA_256:'sha256'},Charset:{UTF_8:'utf8'},computeDigest:(_,text)=>[...crypto.createHash('sha256').update(text).digest()]}
@@ -94,7 +95,7 @@ function backend() {
 }
 test('receiver saves all 11 fields, normalizes counts and preserves existing data and summaries', () => {
   const b=backend();
-  assert.equal(b.health().version,2);
+  assert.equal(b.health().version,3);
   assert.equal(b.post().ok,true);
   assert.equal(b.get(8,4),3); assert.equal(b.get(8,10),2); assert.equal(b.get(8,11),1);
   assert.equal(b.get(8,9), "'+521234567890");

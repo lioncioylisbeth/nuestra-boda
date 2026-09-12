@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#061126">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Invitados | Lioncio &amp; Lisbeth</title>
+  <link rel="icon" href="anilloscom.webp" type="image/webp">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="invitados.css?v=1">
+  <script src="invitation-core.js?v=9" defer></script>
+  <script src="invitados-core.js?v=1" defer></script>
+  <script src="invitados.js?v=1" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Ir al contenido</a>
+  <header class="masthead">
+    <nav class="topbar shell" aria-label="Principal">
+      <a class="brand" href="./"><span class="monogram" aria-hidden="true">L<span>&amp;</span>L</span><span>NUESTRA BODA<small>28 · NOVIEMBRE · 2026</small></span></a>
+      <div class="nav-actions"><a href="./">Ver invitación <span aria-hidden="true">↗</span></a><button id="logout" class="text-button" hidden>Cerrar sesión</button></div>
+    </nav>
+    <div class="hero shell">
+      <div><p class="eyebrow">CADA PERSONA, PARTE DE NUESTRA HISTORIA</p><h1>Nuestros invitados</h1><p class="hero-subtitle">Lioncio <span>&amp;</span> Lisbeth</p><p class="hero-caption">Un lugar para organizar a quienes nos acompañarán en este día.</p></div>
+      <img class="hero-rings" src="anilloscom.webp" width="190" height="164" alt="Anillos de boda dorados">
+    </div>
+  </header>
+  <main id="main" class="shell">
+    <section id="access" class="access-card" aria-labelledby="access-title">
+      <div class="access-story"><span class="mini-rule"></span><p class="eyebrow">CON CARIÑO, CADA DETALLE</p><h2 id="access-title">Todo listo para<br>recibirlos.</h2><p>Consulta las confirmaciones, organiza los pases y prepara una lista para el gran día.</p><ul><li>La misma lista de Google Sheets</li><li>Edición y archivo de registros</li><li>Una presentación cuidada para imprimir</li></ul></div>
+      <form id="access-form" class="access-form">
+        <span class="lock-icon" aria-hidden="true">◇</span><h3>Acceso de los organizadores</h3><p>Ingresa tu clave privada para consultar y administrar los invitados.</p>
+        <label for="access-key">Clave de acceso</label><input id="access-key" type="password" required minlength="64" maxlength="64" autocomplete="current-password" spellcheck="false" aria-describedby="access-help access-status">
+        <button id="access-submit" class="button primary" type="submit">Abrir lista de invitados <span aria-hidden="true">→</span></button>
+        <p id="access-status" class="status" role="status" aria-live="polite"></p><p id="access-help" class="small">Los datos solo se muestran después de validar la clave. La sesión se cierra al salir de esta página.</p>
+        <details class="setup-help"><summary>Primera vez: activar el acceso</summary><p>El administrador de la hoja debe activar el receptor y generar la clave privada.</p><a href="https://github.com/lioncioylisbeth/nuestra-boda/blob/main/CONFIGURAR-GOOGLE-SHEETS.md" target="_blank" rel="noopener noreferrer">Ver instrucciones de activación ↗</a></details>
+      </form>
+    </section>
+
+    <section id="dashboard" hidden aria-label="Administración de invitados">
+      <div class="dashboard-heading"><div><p class="eyebrow">CONFIRMACIONES</p><h2>La lista del gran día</h2></div><div class="toolbar-actions"><a class="button secondary" id="open-sheets" href="https://docs.google.com/spreadsheets/" target="_blank" rel="noopener noreferrer">Abrir Sheets ↗</a><button id="print" class="button primary" disabled>Imprimir lista</button></div></div>
+      <div class="stats" aria-label="Totales de todos los registros">
+        <article><span>FAMILIAS / REGISTROS</span><strong id="total-records">—</strong><small>Respuestas recibidas</small></article>
+        <article><span>PERSONAS QUE ASISTEN</span><strong id="total-passes">—</strong><small id="attendance-summary">—</small></article>
+        <article><span>ADULTOS</span><strong id="total-adults">—</strong><small>Con asistencia confirmada</small></article>
+        <article><span>NIÑOS</span><strong id="total-children">—</strong><small>Con asistencia confirmada</small></article>
+      </div>
+      <p id="incomplete-counts" class="notice" hidden></p>
+      <div class="list-card">
+        <div class="filters"><div class="search-field"><label for="search">Buscar invitado</label><input id="search" type="search" placeholder="Nombre, familia o celular" autocomplete="off"></div><div><label for="filter-attendance">Asistencia</label><select id="filter-attendance"><option value="all">Todas las respuestas</option><option value="yes">Sí asistirán</option><option value="no">No asistirán</option></select></div><div><label for="filter-status">Seguimiento</label><select id="filter-status"><option value="all">Todos los estados</option><option>Pendiente</option><option>Confirmado</option><option>Contactado</option></select></div><div><label for="sort">Orden</label><select id="sort"><option value="newest">Más recientes</option><option value="name">Nombre A–Z</option></select></div></div>
+        <div class="list-toolbar"><p id="visible-count">Cargando registros…</p><div><label class="checkbox"><input id="print-messages" type="checkbox"> Incluir dedicatorias al imprimir</label><button id="refresh" class="text-button">↻ Actualizar</button></div></div>
+        <div class="print-heading"><p>NUESTRA BODA · 28 DE NOVIEMBRE DE 2026</p><h2>Lioncio &amp; Lisbeth</h2><h3>Lista de invitados</h3><p id="print-context"></p></div>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Lista de invitados; desplaza horizontalmente para ver todas las columnas">
+          <table><caption class="sr-only">Invitados registrados en Confirmaciones · Boda Lioncio &amp; Lisbeth</caption><thead><tr><th scope="col">Invitado / Familia</th><th scope="col">Celular</th><th scope="col">Asistencia</th><th scope="col" class="number">Adultos</th><th scope="col" class="number">Niños</th><th scope="col" class="number">Total</th><th scope="col">Seguimiento</th><th scope="col" class="actions-column">Acciones</th></tr></thead><tbody id="guest-rows"></tbody></table>
+        </div>
+        <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">◇</span><h3 id="empty-title">Aún no hay confirmaciones</h3><p id="empty-description">Los registros aparecerán aquí cuando los invitados confirmen.</p></div>
+        <div class="list-footer"><p id="sync-status" class="status" role="status" aria-live="polite"></p><p>Actualización automática cada minuto</p></div>
+      </div>
+      <p class="list-note">El lápiz permite editar. La × retira el registro de la lista y guarda una copia en «Archivo de invitados» dentro del mismo Google Sheets.</p>
+    </section>
+    <noscript><p class="notice">Activa JavaScript para consultar y administrar los invitados.</p></noscript>
+  </main>
+  <footer class="page-footer shell"><span>Lioncio &amp; Lisbeth</span><p>28 de noviembre de 2026 · Hecho para compartir un día inolvidable</p></footer>
+
+  <dialog id="edit-dialog" aria-labelledby="edit-title">
+    <form id="edit-form"><div class="dialog-heading"><div><p class="eyebrow">CUIDANDO CADA DETALLE</p><h2 id="edit-title">Editar invitado</h2></div><button class="icon-button" id="close-edit" type="button" aria-label="Cerrar edición">×</button></div>
+      <div class="edit-grid"><div class="full"><label for="edit-name">Invitado / Familia</label><input id="edit-name" required minlength="2" maxlength="150" autocomplete="off"></div><div><label for="edit-phone">Celular</label><input id="edit-phone" type="tel" maxlength="22" autocomplete="off" placeholder="+52 734 000 0000"></div><div><label for="edit-attendance">¿Asistirá?</label><select id="edit-attendance"><option value="Sí, asistiré con mucho gusto">Sí, asistirá</option><option value="Lamentablemente no podré asistir">No podrá asistir</option></select></div><div><label for="edit-adults">Adultos</label><input id="edit-adults" type="number" min="0" max="10" step="1" required></div><div><label for="edit-children">Niños</label><input id="edit-children" type="number" min="0" max="10" step="1" required></div><div class="edit-total full">Pases confirmados <strong id="edit-total">0</strong><small>Hasta 10 personas por registro</small></div><div class="full"><label for="edit-status">Seguimiento de los organizadores</label><select id="edit-status"><option>Pendiente</option><option>Confirmado</option><option>Contactado</option></select></div><div class="full"><label for="edit-message">Dedicatoria para los novios</label><textarea id="edit-message" rows="3" maxlength="2000"></textarea></div><div class="full"><label for="edit-notes">Observaciones</label><textarea id="edit-notes" rows="2" maxlength="1000" placeholder="Notas para la organización"></textarea></div></div>
+      <p id="edit-status-message" class="status" role="status" aria-live="polite"></p><div class="dialog-actions"><button id="cancel-edit" class="button secondary" type="button">Cancelar</button><button id="save-edit" class="button primary" type="submit">Guardar en Sheets</button></div>
+    </form>
+  </dialog>
+  <dialog id="delete-dialog" aria-labelledby="delete-title"><div class="dialog-heading"><div><p class="eyebrow">ORGANIZAR LA LISTA</p><h2 id="delete-title">¿Retirar este registro?</h2></div></div><p id="delete-name" class="delete-name"></p><p>Se quitará de la lista y de la tabla de confirmaciones. Guardaremos una copia en «Archivo de invitados» del mismo Google Sheets.</p><p id="delete-status" class="status" role="status" aria-live="polite"></p><div class="dialog-actions"><button id="cancel-delete" class="button secondary">Conservar</button><button id="confirm-delete" class="button danger">Retirar y archivar</button></div></dialog>
+</body>
+</html>
