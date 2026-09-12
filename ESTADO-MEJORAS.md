@@ -13,13 +13,19 @@
 
 ## Verificación
 
-`node --test tests/invitation.test.cjs`: 12 pruebas aprobadas, sin red ni datos reales.
+`node --test tests/*.test.cjs`: 17 pruebas aprobadas, sin red ni datos reales. Incluyen el controlador real del formulario con DOM y transporte simulados: resumen, errores de red, respuestas opacas, doble clic, repetición tras recarga y cambio de asistencia.
+
+Revisión en navegador el 12 de septiembre: las cuatro apariencias, reproducción al pulsar Abrir invitación, cálculo de adultos/niños, restauración del total después de cambiar asistencia, dedicatorias y regreso del foco al cerrar el asistente funcionan. Las imágenes de ubicaciones cargan correctamente.
+
+Se corrigió un conflicto de prioridad con las utilidades de estilo heredadas: ya no deben imponer altura de pantalla completa, espaciado excesivo ni una cuenta regresiva de dos columnas. Se separaron visualmente los nombres del ampersand y se alinearon las acciones de las tarjetas de eventos.
+
+La revisión interactiva se realizó en escritorio; no equivale a una prueba en dispositivos físicos. La música automática sigue dependiendo de los permisos del navegador: la entrada permite activarla con un toque o entrar sin sonido.
 
 Se verificaron los encabezados de la hoja existente: A6:K6. No se cambiaron las respuestas ni el resumen de la derecha.
 
 ## Pendiente de la cuenta autorizada
 
-Publicar la nueva versión de `rsvp-apps-script.gs` en el despliegue de Apps Script existente. La conexión de trabajo no ofrece administración de ese despliegue. Véase `CONFIGURAR-GOOGLE-SHEETS.md`.
+Publicar la nueva versión de `rsvp-apps-script.gs` en el despliegue de Apps Script existente. La conexión de trabajo no ofrece administración de ese despliegue. Tampoco se pudo verificar su versión mediante la consulta de salud disponible. Véase `CONFIGURAR-GOOGLE-SHEETS.md`.
 
 No confundir el código subido a GitHub con la versión que ejecuta Google. La protección de duplicados del servidor requiere desplegar v2. La aplicación web reconoce respuestas válidas del receptor anterior, pero no toma una respuesta de red opaca como evidencia de guardado.
 

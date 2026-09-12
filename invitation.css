@@ -40,20 +40,20 @@ button:disabled { cursor:wait; opacity:.65; }
 .skin-options button[aria-pressed="true"] { background:var(--accent); color:var(--page) !important; }
 .invitation-tools .music-player { position:static; box-shadow:none !important; background:none !important; }
 #play-btn { width:42px; height:42px; box-shadow:none !important; }
-.wedding-hero { min-height:auto; padding:2.5rem 1.5rem 3rem; justify-content:flex-start; }
-.hero-intro { padding-top:0; text-shadow:none; }
+body .wedding-hero { min-height:auto; padding:2.5rem 1.5rem 3rem; justify-content:flex-start; }
+body .hero-intro { padding-top:0; text-shadow:none; }
 .hero-intro > p:first-child { max-width:32rem; margin:0 auto .75rem; font-size:.68rem; line-height:1.8; letter-spacing:.25em; }
 .hero-intro > p:last-child { font-size:1.2rem; }
-.hero-content { margin:1.2rem auto .7rem; }
+body .hero-content { margin:1.2rem auto .7rem; }
 .hero-content .rings-stage { width:clamp(7.5rem,13vw,10.5rem); height:auto; aspect-ratio:720/626; margin-bottom:.8rem; }
 .hero-kicker, .section-eyebrow { color:var(--accent); text-transform:uppercase; letter-spacing:.22em; font-size:.67rem; line-height:1.8; font-weight:600; }
 .hero-kicker { margin:.6rem 0; }
-.couple-names { display:flex; justify-content:center; align-items:baseline; gap:.28em; margin:0 auto .9rem; }
+body .couple-names { display:flex; justify-content:center; align-items:baseline; gap:clamp(.6rem,1.6vw,1.4rem); margin:0 auto .9rem; }
 .couple-name { font-size:clamp(3rem,8.6vw,6.6rem); line-height:1.1; letter-spacing:-.03em; font-weight:400; }
 .couple-ampersand { margin:0; padding:0; font-size:clamp(2.7rem,7.2vw,5.4rem); text-shadow:none; }
 .couple-ampersand::before,.couple-ampersand::after { display:none; }
 .couple-full-names { display:flex; flex-wrap:wrap; justify-content:center; gap:.2rem .55rem; color:var(--muted); font-size:.75rem; line-height:1.7; }
-.date-banner { max-width:30rem; margin:.55rem auto 1.15rem; padding:.6rem .2rem .75rem; }
+body .date-banner { max-width:30rem; margin:.55rem auto 1.15rem; padding:.6rem .2rem .75rem; }
 .date-kicker { letter-spacing:.23em; font-size:.6rem; color:var(--muted) !important; text-shadow:none !important; }
 .date-main { letter-spacing:0; color:var(--accent) !important; font-size:clamp(1.2rem,3.6vw,1.6rem); text-shadow:none !important; }
 .hero-actions { display:flex; flex-direction:column; align-items:center; gap:.4rem; }
@@ -63,13 +63,14 @@ button:disabled { cursor:wait; opacity:.65; }
 .button-secondary { color:var(--accent); border:1px solid var(--line); background:var(--soft); }
 .text-link,.calendar-link { display:inline-flex; justify-content:center; align-items:center; gap:.5rem; min-height:44px; color:var(--accent); font-size:.78rem; text-decoration:underline; text-underline-offset:5px; }
 .calendar-link { margin-top:.6rem; }
+#event-details .luxe-card > a { margin-top:auto; }
 .story-section,.questions-section { max-width:760px; margin:0 auto; padding:4.5rem 1.5rem; text-align:center; }
 .story-section h2,.questions-section h2 { font-family:"Cormorant Garamond",serif; font-size:clamp(2rem,4.8vw,3rem); font-weight:400; line-height:1.2; margin:.6rem 0 1rem; color:var(--ink); }
 .love-story { font-family:"Cormorant Garamond",serif; font-size:1.3rem; line-height:1.75; max-width:620px; color:var(--muted); text-shadow:none; margin-top:1rem; padding:0; }
 body > section { scroll-margin-top:1.25rem; }
 body > section:not(.story-section):not(.questions-section) { padding-block:4rem; }
 .section-caption { color:var(--muted); font-size:.8rem; line-height:1.8; margin:.65rem auto 1.3rem; }
-.countdown-grid { grid-template-columns:repeat(4,minmax(0,1fr)); max-width:580px; gap:.65rem; }
+body .countdown-grid { grid-template-columns:repeat(4,minmax(0,1fr)); max-width:580px; gap:.65rem; }
 body .countdown-grid > div { background:var(--panel) !important; box-shadow:none !important; padding:1rem .3rem; border:1px solid var(--line); }
 .countdown-grid > div span:first-child { font-weight:400; font-size:2.6rem; }
 .countdown-grid > div span:last-child { font-size:.62rem; letter-spacing:.12em; }
@@ -135,18 +136,18 @@ footer .text-xs { font-size:.75rem; }
 @media (max-width:639px) {
   .invitation-tools { height:4rem; padding:.4rem 1.2rem; }
   .utility-actions { gap:.35rem; }
-  .wedding-hero { padding:1.8rem 1.2rem 2.4rem; }
+  body .wedding-hero { padding:1.8rem 1.2rem 2.4rem; }
   .hero-intro > p:first-child { max-width:290px; font-size:.6rem; letter-spacing:.2em; }
   .hero-intro > p:last-child { font-size:1.1rem; }
-  .hero-content { margin:.7rem auto .4rem; }
+  body .hero-content { margin:.7rem auto .4rem; }
   .hero-content .rings-stage { width:6.6rem; margin-bottom:.3rem; }
   .hero-kicker { font-size:.6rem; margin:.5rem 0 .35rem; }
-  .couple-names { gap:.18em; margin-bottom:.65rem; }
+  body .couple-names { gap:.5rem; margin-bottom:.65rem; }
   .couple-name { font-size:clamp(2.65rem,11.8vw,4.65rem); }
   .couple-ampersand { font-size:clamp(2.2rem,9vw,3.8rem); }
   .couple-full-names { flex-direction:column; gap:0; font-size:.67rem; line-height:1.55; }
   .couple-full-names > span[aria-hidden] { display:none; }
-  .date-banner { margin:.65rem auto .9rem; }
+  body .date-banner { margin:.65rem auto .9rem; }
   .date-main { font-size:1.28rem; }
   .hero-actions .button-primary { font-size:.8rem; padding:.7rem 1.4rem; }
   .hero-actions .text-link { font-size:.71rem; }
