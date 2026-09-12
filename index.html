@@ -858,6 +858,7 @@
                 linear-gradient(to bottom, rgba(253, 251, 247, 0.6) 0%, rgba(247, 244, 237, 0.95) 100%);
         }
     </style>
+    <link rel="stylesheet" href="invitation.css?v=9">
 </head>
 <body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-gold-500 selection:text-navy-950 overflow-x-hidden transition-colors duration-500">
 
@@ -871,13 +872,17 @@
             <button type="button" onclick="enterInvitation()" class="w-full gold-gradient-bg text-navy-950 font-bold uppercase tracking-wider py-4 px-6 rounded-xl shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-transform">
                 <i class="fa-solid fa-envelope-open mr-2"></i> Abrir invitación
             </button>
-            <p class="text-[11px] text-slate-500 mt-4">La música comenzará al abrir</p>
+            <p class="text-sm text-slate-400 mt-4">Toca para entrar y activar la música.</p><button type="button" class="welcome-silent" onclick="enterWithoutMusic()">Entrar sin música</button>
         </div>
     </div>
 
-    <!-- -->
-    <!-- Floating Top Skin Switcher Bar -->
-    <div class="skin-switcher fixed top-3 left-1/2 -translate-x-1/2 z-50 flex items-center bg-navy-900/95 border border-gold-500/50 backdrop-blur-md rounded-full p-1 shadow-2xl transition-all duration-300 hover:border-gold-400">
+    <a class="skip-link" href="#rsvp-section">Ir a confirmar asistencia</a>
+    <nav class="invitation-tools" aria-label="Opciones de la invitación">
+      <a class="wedding-monogram" href="#inicio" aria-label="Lioncio y Lisbeth, inicio">L<span>&</span>L</a>
+      <div class="utility-actions">
+      <details class="appearance-menu" id="appearance-menu">
+        <summary><i class="fa-solid fa-palette" aria-hidden="true"></i> Apariencia <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary>
+        <div class="skin-options" role="group" aria-label="Colores de la invitación">
         <button id="skin-btn-azul" onclick="setSkin('azul')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 gold-gradient-bg text-navy-950 shadow-md">
             <i class="fa-solid fa-moon text-xs"></i>
             <span>Azul Noche</span>
@@ -894,35 +899,23 @@
             <i class="fa-solid fa-sun text-xs"></i>
             <span>Blanco & Marfil</span>
         </button>
-    </div>
+        </div>
+      </details>
 
-    <!-- Music Player Controls -->
-    <div id="music-player" class="music-player fixed bottom-5 right-5 z-40 flex items-center gap-3 bg-navy-900/90 border border-gold-500/40 backdrop-blur-md px-4 py-2.5 rounded-full shadow-2xl transition-all duration-300 hover:border-gold-500">
+    <!-- Música compacta, sin cubrir el contenido -->
+    <div id="music-player" class="music-player">
         <button id="play-btn" onclick="toggleAudio()" class="w-10 h-10 rounded-full gold-gradient-bg text-navy-950 flex items-center justify-center font-bold shadow-lg hover:scale-105 transition-transform" aria-label="Reproducir música">
             <i id="play-icon" class="fa-solid fa-play text-sm ml-0.5"></i>
         </button>
-        <div class="text-xs pr-2 hidden sm:block">
-            <p class="font-semibold text-gold-400">Nuestra Melodía</p>
-            <p class="text-slate-400 text-xs">Unchained Melody - Righteous Brothers</p>
-        </div>
         <audio id="bg-audio" loop preload="auto" autoplay playsinline>
             <source src="musica.mp3" type="audio/mpeg">
             <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
         </audio>
     </div>
+      </div>
+    </nav>
 
-    <!-- Floating AI Concierge Toggle Button -->
-    <button onclick="toggleChat()" class="concierge-trigger fixed bottom-5 left-5 z-40 flex items-center gap-2 bg-navy-900 border border-gold-500/60 backdrop-blur-md px-4 py-3 rounded-full shadow-2xl hover:bg-gold-500 hover:text-navy-950 text-gold-400 font-medium text-sm transition-all duration-300 hover:scale-105 group">
-        <span class="relative flex h-3 w-3">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-gold-500"></span>
-        </span>
-        <i class="fa-solid fa-sparkles text-lg text-gold-400 group-hover:text-navy-950"></i>
-        <span class="hidden sm:inline">Asistente de la Boda</span>
-        <span class="sm:hidden">Asistente</span>
-    </button>
-
-    <header class="wedding-hero relative min-h-screen flex flex-col justify-between items-center text-center px-4 py-12 bg-gradient-navy overflow-hidden">
+    <header id="inicio" class="wedding-hero relative min-h-screen flex flex-col justify-between items-center text-center px-4 py-12 bg-gradient-navy overflow-hidden">
         
         <!-- Elegant Background Veil Overlay Graphics -->
         <div class="absolute inset-0 bg-veil-overlay pointer-events-none"></div>
@@ -986,14 +979,16 @@
             </div>
 
             <!-- Couple Names -->
+            <p class="hero-kicker">Nuestra boda</p>
             <h1 class="couple-names mb-6">
-                <span class="couple-name">Lioncio Moreno Figueroa</span>
+                <span class="couple-name">Lioncio</span>
                 <span class="couple-ampersand">&</span>
-                <span class="couple-name">Lisbeth Yasmin Hernández García</span>
+                <span class="couple-name">Lisbeth</span>
             </h1>
-
-            <p class="love-story font-serif italic text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed px-4">
-                “Tras 18 hermosos años recorriendo el camino juntos, entrelazando vidas, construyendo un hogar y fortaleciendo nuestro amor día con día, con inmensa alegría hemos decidido consagrar nuestra unión ante Dios y celebrar este momento rodeados de quienes amamos.”
+            <p class="couple-full-names">
+                <span>Lioncio Moreno Figueroa</span>
+                <span aria-hidden="true">&</span>
+                <span>Lisbeth Yasmin Hernández García</span>
             </p>
         </div>
 
@@ -1004,10 +999,17 @@
         </div>
 
         <!-- Scroll Indicator -->
-        <a href="#countdown-section" class="relative z-10 text-gold-400 hover:text-white transition-colors animate-bounce mt-4" aria-label="Ir al contador">
-            <i class="fa-solid fa-chevron-down text-2xl"></i>
-        </a>
+        <div class="hero-actions relative z-10">
+            <a class="button-primary" href="#rsvp-section">Confirmar asistencia <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="text-link" href="#event-details">Ver horarios y ubicaciones</a>
+        </div>
     </header>
+
+    <section class="story-section" aria-labelledby="story-heading">
+        <p class="section-eyebrow">Una historia compartida</p>
+        <h2 id="story-heading">18 años juntos. Un nuevo sí.</h2>
+        <p class="love-story">Tras 18 hermosos años recorriendo el camino juntos, entrelazando vidas, construyendo un hogar y fortaleciendo nuestro amor día con día, con inmensa alegría hemos decidido consagrar nuestra unión ante Dios y celebrar este momento rodeados de quienes amamos.</p>
+    </section>
 
     <section id="countdown-section" class="py-16 px-4 bg-navy-900 border-b border-gold-500/20 text-center relative">
         <div class="max-w-4xl mx-auto">
@@ -1053,7 +1055,7 @@
     </section>
 
     <!-- Event Details Section -->
-    <section class="py-20 px-4 bg-gradient-navy relative border-t border-gold-500/20">
+    <section id="event-details" class="py-20 px-4 bg-gradient-navy relative border-t border-gold-500/20">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16">
                 <div class="rings-stage location-stage mx-auto relative rings-glow" aria-hidden="true">
@@ -1061,6 +1063,7 @@
                 </div>
                 <h2 class="font-serif text-3xl sm:text-5xl text-white mb-3">Dónde & Cuándo</h2>
                 <p class="text-gold-400 text-sm tracking-widest uppercase mb-3">Ceremonia & Celebración</p>
+                <p class="section-caption">Sábado 28 de noviembre de 2026 · Hora local de Morelos</p>
                 <div class="w-24 h-[1px] bg-gold-500 mx-auto"></div>
             </div>
 
@@ -1073,7 +1076,7 @@
                             <i class="fa-solid fa-church"></i>
                         </div>
                         <span class="inline-block px-3 py-1 bg-gold-500/10 border border-gold-500/40 rounded-full text-gold-300 text-xs font-semibold uppercase tracking-wider mb-3">
-                            <i class="fa-solid fa-cross mr-1"></i> Boda Religiosa
+                            <i class="fa-solid fa-cross mr-1"></i> 01 · El sí ante Dios
                         </span>
                         <h3 class="font-serif text-2xl text-gold-300 font-semibold mb-2">Ceremonia Religiosa</h3>
                         <p class="font-serif text-xl text-white font-medium mb-1">Parroquia San Miguel</p>
@@ -1087,6 +1090,7 @@
                     <a href="https://maps.app.goo.gl/4BFoYmuypEhoGPe6A" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 bg-transparent hover:bg-gold-500 text-gold-400 hover:text-navy-950 border border-gold-500 font-medium py-3 rounded-xl transition-all duration-300">
                         <i class="fa-solid fa-location-dot"></i> Ver Ubicación en Mapa
                     </a>
+                    <button type="button" class="calendar-link" data-calendar="ceremony"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Agregar al calendario</button>
                 </div>
 
                 <!-- Reception Card -->
@@ -1097,7 +1101,7 @@
                             <i class="fa-solid fa-glass-cheers"></i>
                         </div>
                         <span class="inline-block px-3 py-1 bg-gold-500/10 border border-gold-500/40 rounded-full text-gold-300 text-xs font-semibold uppercase tracking-wider mb-3">
-                            <i class="fa-solid fa-champagne-glasses mr-1"></i> Cena & Recepción
+                            <i class="fa-solid fa-champagne-glasses mr-1"></i> 02 · A celebrar juntos
                         </span>
                         <h3 class="font-serif text-2xl text-gold-300 font-semibold mb-2">Recepción y Celebración</h3>
                         <p class="font-serif text-xl text-white font-medium mb-1">Salón Camino Real</p>
@@ -1111,6 +1115,7 @@
                     <a href="https://maps.app.goo.gl/UZYhMsVtihD85hrW8" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 bg-transparent hover:bg-gold-500 text-gold-400 hover:text-navy-950 border border-gold-500 font-medium py-3 rounded-xl transition-all duration-300">
                         <i class="fa-solid fa-location-dot"></i> Ver Ubicación en Mapa
                     </a>
+                    <button type="button" class="calendar-link" data-calendar="reception"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Agregar al calendario</button>
                 </div>
             </div>
         </div>
@@ -1126,14 +1131,12 @@
             <h2 class="font-serif text-3xl text-white font-semibold mb-2">Código de Vestimenta</h2>
             <p class="text-gold-400 uppercase tracking-widest text-sm font-semibold mb-6">Formal / Rigurosa Etiqueta</p>
 
-            <div class="bg-red-950/40 border border-red-500/40 rounded-xl p-5 mb-6 text-slate-200 text-sm leading-relaxed max-w-xl mx-auto">
-                <div class="flex items-center justify-center gap-2 text-red-400 font-semibold uppercase text-xs tracking-wider mb-2">
-                    <i class="fa-solid fa-circle-exclamation text-base"></i> Aviso Muy Importante
-                </div>
+            <div class="dress-note rounded-xl p-5 mb-6 text-slate-200 text-sm leading-relaxed max-w-xl mx-auto">
+                <p class="section-eyebrow">Un detalle especial</p>
                 <p class="font-medium text-base text-white">
-                    Los colores <span class="text-slate-100 font-bold underline decoration-gold-500">BLANCO</span> y <span class="text-blue-300 font-bold underline decoration-gold-500">AZUL MARINO</span> están estrictamente reservados para los novios.
+                    Reservamos el <strong>blanco</strong> y el <strong>azul marino</strong> para los novios.
                 </p>
-                <p class="text-xs text-slate-400 mt-2">Agradecemos de corazón a todos nuestros invitados abstenerse de vestir con estos dos tonos.</p>
+                <p class="text-sm text-slate-400 mt-2">Gracias por elegir otros tonos y ayudarnos a hacer este día aún más especial.</p>
             </div>
 
             <p class="text-slate-300 font-serif italic text-base">
@@ -1157,19 +1160,65 @@
         </div>
     </section>
 
-    <!-- Toast & Poem Generator Section -->
-    <section class="py-20 px-4 bg-gradient-navy relative border-t border-gold-500/20 text-center">
-        <div class="max-w-3xl mx-auto">
-            <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-gold-500/10 border border-gold-500/50 flex items-center justify-center text-gold-400 text-2xl">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
+    <!-- RSVP Section -->
+    <section id="rsvp-section" class="py-20 px-4 bg-gradient-navy relative border-t border-gold-500/20">
+        <div class="luxe-card max-w-xl mx-auto bg-navy-950 border border-gold-500/40 rounded-3xl p-8 sm:p-10 shadow-2xl transition-all duration-500">
+            <div class="text-center mb-8">
+                <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-navy-900 border border-gold-500/40 flex items-center justify-center text-gold-400 text-2xl">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-4xl text-white mb-2">Confirmación de Asistencia</h2>
+                <p class="text-slate-400 text-sm">Por favor confirma tu presencia para esperarte con gusto</p>
             </div>
-            <h2 class="font-serif text-3xl sm:text-4xl text-white mb-2">Generador de Brindis y Dedicatorias Especiales</h2>
-            <p class="text-gold-400 font-serif italic text-lg mb-8">Palabras inspiradas en sus 18 años de amor y en la bendición de esta nueva etapa</p>
 
-            <div class="luxe-card bg-navy-950/90 border border-gold-500/30 rounded-2xl p-6 sm:p-8 shadow-2xl text-left transition-all duration-500">
-                <label class="block text-xs uppercase tracking-wider text-gold-400 font-medium mb-2">
+            <form id="rsvp-form" onsubmit="sendRSVP(event)" class="space-y-5">
+                <div>
+                    <label for="guest-name" class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">Nombre del invitado o familia</label>
+                    <input type="text" id="guest-name" name="name" autocomplete="name" minlength="2" maxlength="150" required placeholder="Ej. Familia Morales Cuevas" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors">
+                </div>
+
+                <div>
+                    <label for="guest-phone" class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">Número de Celular</label>
+                    <input type="tel" id="guest-phone" name="phone" required inputmode="tel" autocomplete="tel" minlength="10" maxlength="20" pattern="[0-9+() -]{10,20}" title="Escribe un número de celular válido, con al menos 10 dígitos" placeholder="Ej. 734 123 4567" oninput="this.setCustomValidity('')" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors">
+                    <p class="mt-1.5 text-[11px] text-slate-500">Se guardará únicamente para identificar y dar seguimiento a tu confirmación.</p>
+                </div>
+
+                <div>
+                    <label for="attendance" class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">¿Confirmas tu asistencia?</label>
+                    <select id="attendance" name="attendance" required onchange="syncAttendanceCounts()" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
+                        <option value="Sí, asistiré con mucho gusto">¡Sí, ahí estaré con mucho gusto!</option>
+                        <option value="Lamentablemente no podré asistir">Lamentablemente no podré asistir</option>
+                    </select>
+                </div>
+
+                <div>
+                    <p id="guest-count-label" class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">Personas que asistirán</p><p class="field-hint">Inclúyete en el total y respeta los pases de tu invitación.</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label for="adults" class="block text-[11px] text-slate-400 mb-1.5">Adultos</label>
+                            <input type="number" id="adults" name="adults" inputmode="numeric" step="1" min="0" max="10" value="1" required oninput="this.setCustomValidity(''); updateGuestTotal()" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
+                        </div>
+                        <div>
+                            <label for="children" class="block text-[11px] text-slate-400 mb-1.5">Niños</label>
+                            <input type="number" id="children" name="children" inputmode="numeric" step="1" min="0" max="10" value="0" required oninput="this.setCustomValidity(''); updateGuestTotal()" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
+                        </div>
+                    </div>
+                    <input type="hidden" id="passes" value="1">
+                    <div class="mt-3 flex items-center justify-between rounded-xl border border-gold-500/20 bg-gold-500/10 px-4 py-2.5">
+                        <span class="text-xs uppercase tracking-wider text-slate-400">Total confirmado</span>
+                        <output id="passes-total" class="font-semibold text-gold-300" aria-live="polite">1 persona</output>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="message" class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">Dedicatoria para los novios <span class="optional-label">(opcional)</span></label>
+                    <textarea id="message" name="message" rows="4" maxlength="2000" placeholder="Escribe tus buenos deseos..." class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors"></textarea>
+                    <details id="dedication-tools" class="dedication-tools">
+                        <summary><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Ayuda para escribir mi dedicatoria</summary>
+            <div class="dedication-content">
+                <p class="text-sm text-gold-400 mb-3">
                     ¿Qué tipo de palabras deseas dedicarles a Lioncio y Lisbeth?
-                </label>
+                </p>
                 
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
                     <button type="button" onclick="generateToast('poema')" class="bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-xs sm:text-sm text-slate-200 py-2.5 px-3 rounded-lg text-center transition-colors font-medium flex items-center justify-center gap-1.5">
@@ -1187,18 +1236,18 @@
                 </div>
 
                 <div class="relative mb-4">
-                    <input type="text" id="toast-custom-input" placeholder="Opcional: Añade tu parentesco o un detalle (ej: 'Soy su sobrino', 'Amigos de toda la vida')" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-500">
+                    <input type="text" id="toast-custom-input" aria-label="Parentesco o detalle para la dedicatoria" maxlength="200" placeholder="Opcional: parentesco o un recuerdo especial" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-500">
                 </div>
 
                 <!-- Generated Toast Output Box -->
                 <div id="toast-result-box" class="hidden bg-navy-900/80 border border-gold-500/40 rounded-xl p-5 mb-4 relative">
                     <p id="toast-result-text" class="font-serif italic text-lg text-slate-100 leading-relaxed whitespace-pre-line"></p>
                     <div class="mt-4 flex flex-wrap gap-2 justify-end">
-                        <button onclick="copyGeneratedToast()" class="bg-navy-950 hover:bg-gold-500 hover:text-navy-950 text-gold-400 border border-gold-500/40 text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1">
+                        <button type="button" onclick="copyGeneratedToast()" class="bg-navy-950 hover:bg-gold-500 hover:text-navy-950 text-gold-400 border border-gold-500/40 text-xs px-3 py-1.5 rounded-lg transition-all flex items-center gap-1">
                             <i class="fa-regular fa-copy"></i> Copiar Texto
                         </button>
-                        <button onclick="useToastInRSVP()" class="gold-gradient-bg text-navy-950 text-xs font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1">
-                            <i class="fa-solid fa-check"></i> Usar en mi Confirmación RSVP
+                        <button type="button" onclick="useToastInRSVP()" class="gold-gradient-bg text-navy-950 text-xs font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-check"></i> Usar esta dedicatoria
                         </button>
                     </div>
                 </div>
@@ -1208,80 +1257,50 @@
                     <p class="text-xs font-medium">Preparando unas hermosas palabras para Lioncio y Lisbeth...</p>
                 </div>
             </div>
+                    </details>
+                </div>
+                <p id="rsvp-error" class="form-error" role="alert" hidden></p>
+                <button id="rsvp-submit" type="submit" class="button-primary form-submit">
+                    Registrar y preparar WhatsApp <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+                <p class="form-footnote">Primero verás el estado del registro y un resumen. Después podrás enviar tu respuesta por WhatsApp.</p>
+                <div class="form-trap" aria-hidden="true"><label for="guest-website">Deja este campo vacío</label><input id="guest-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+            </form>
+            <section id="rsvp-summary" class="rsvp-summary" aria-labelledby="summary-title" tabindex="-1" hidden>
+                <p class="section-eyebrow">Lioncio & Lisbeth · 28.11.2026</p>
+                <h3 id="summary-title">Tu respuesta está lista</h3>
+                <p id="rsvp-save-state" class="save-state" role="status" aria-live="polite"></p>
+                <dl class="response-details">
+                    <div><dt>Invitado / familia</dt><dd id="summary-name"></dd></div>
+                    <div><dt>Celular</dt><dd id="summary-phone"></dd></div>
+                    <div><dt>Asistencia</dt><dd id="summary-attendance"></dd></div>
+                    <div><dt>Adultos</dt><dd id="summary-adults"></dd></div>
+                    <div><dt>Niños</dt><dd id="summary-children"></dd></div>
+                    <div><dt>Total</dt><dd id="summary-total"></dd></div>
+                </dl>
+                <p id="summary-message" class="summary-message"></p>
+                <a id="rsvp-whatsapp" class="button-primary" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Enviar por WhatsApp</a>
+                <p class="form-footnote">WhatsApp abrirá el mensaje preparado. Revisa los datos y pulsa Enviar para hacérnoslo llegar.</p>
+                <button type="button" id="rsvp-edit" class="text-link">Volver a mis datos</button>
+            </section>
         </div>
     </section>
 
-    <!-- RSVP Section -->
-    <section id="rsvp-section" class="py-20 px-4 bg-gradient-navy relative border-t border-gold-500/20">
-        <div class="luxe-card max-w-xl mx-auto bg-navy-950 border border-gold-500/40 rounded-3xl p-8 sm:p-10 shadow-2xl transition-all duration-500">
-            <div class="text-center mb-8">
-                <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-navy-900 border border-gold-500/40 flex items-center justify-center text-gold-400 text-2xl">
-                    <i class="fa-solid fa-envelope-open-text"></i>
-                </div>
-                <h2 class="font-serif text-3xl sm:text-4xl text-white mb-2">Confirmación de Asistencia</h2>
-                <p class="text-slate-400 text-sm">Por favor confirma tu presencia para esperarte con gusto</p>
-            </div>
-
-            <form id="rsvp-form" onsubmit="sendRSVP(event)" class="space-y-5">
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">Nombre Completo del Invitado</label>
-                    <input type="text" id="guest-name" required placeholder="Ej. Familia Morales Cuevas" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors">
-                </div>
-
-                <div>
-                    <label for="guest-phone" class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">Número de Celular</label>
-                    <input type="tel" id="guest-phone" required inputmode="tel" autocomplete="tel" minlength="10" maxlength="20" pattern="[0-9+() -]{10,20}" title="Escribe un número de celular válido, con al menos 10 dígitos" placeholder="Ej. 734 123 4567" oninput="this.setCustomValidity('')" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors">
-                    <p class="mt-1.5 text-[11px] text-slate-500">Se guardará únicamente para identificar y dar seguimiento a tu confirmación.</p>
-                </div>
-
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">¿Confirmas tu asistencia?</label>
-                    <select id="attendance" required onchange="syncAttendanceCounts()" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
-                        <option value="Sí, asistiré con mucho gusto">¡Sí, ahí estaré con mucho gusto!</option>
-                        <option value="Lamentablemente no podré asistir">Lamentablemente no podré asistir</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-gold-400 mb-2 font-medium">Personas que asistirán</label>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label for="adults" class="block text-[11px] text-slate-400 mb-1.5">Adultos</label>
-                            <input type="number" id="adults" min="0" max="10" value="2" required oninput="this.setCustomValidity(''); updateGuestTotal()" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
-                        </div>
-                        <div>
-                            <label for="children" class="block text-[11px] text-slate-400 mb-1.5">Niños</label>
-                            <input type="number" id="children" min="0" max="10" value="0" required oninput="this.setCustomValidity(''); updateGuestTotal()" class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
-                        </div>
-                    </div>
-                    <input type="hidden" id="passes" value="2">
-                    <div class="mt-3 flex items-center justify-between rounded-xl border border-gold-500/20 bg-gold-500/10 px-4 py-2.5">
-                        <span class="text-xs uppercase tracking-wider text-slate-400">Total confirmado</span>
-                        <output id="passes-total" class="font-semibold text-gold-300">2 personas</output>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-xs uppercase tracking-wider text-gold-400 font-medium">Mensaje para los Novios</label>
-                        <!-- Wish Generator Trigger Button -->
-                        <button type="button" onclick="openWishAiModal()" class="text-xs text-gold-300 hover:text-white flex items-center gap-1 bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/30 px-2.5 py-1 rounded-md transition-all">
-                            <i class="fa-solid fa-sparkles text-gold-400"></i> Inspirar mi mensaje
-                        </button>
-                    </div>
-                    <textarea id="message" rows="3" placeholder="Escribe tus buenos deseos..." class="w-full bg-navy-900 border border-gold-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors"></textarea>
-                </div>
-
-                <button type="submit" class="w-full gold-gradient-bg text-navy-950 font-bold text-base uppercase tracking-wider py-4 rounded-xl shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> Registrar y confirmar por WhatsApp
-                </button>
-                <p class="text-center text-[11px] text-slate-500">La confirmación se guardará en Google Sheets y se abrirá una conversación directa con Lioncio y Lisbeth.</p>
-            </form>
+    <section id="questions" class="questions-section" aria-labelledby="questions-title">
+        <p class="section-eyebrow">Estamos para ayudarte</p>
+        <h2 id="questions-title">¿Tienes alguna duda?</h2>
+        <div class="faq-list">
+            <details><summary>¿A qué hora comienza la celebración?</summary><p>La ceremonia religiosa comienza a las 4:30 PM en la Parroquia San Miguel. La recepción será a las 6:00 PM en el Salón Camino Real. Los horarios corresponden a Morelos.</p><a class="text-link" href="#event-details">Ver las ubicaciones</a></details>
+            <details><summary>¿Cómo debemos vestir?</summary><p>Formal / rigurosa etiqueta. El blanco y el azul marino están reservados para los novios; agradecemos elegir otros tonos.</p></details>
+            <details><summary>¿Cómo confirmo a mi familia?</summary><p>Escribe un nombre de contacto, su celular y cuántos adultos y niños asistirán. Inclúyete en el total y respeta los pases asignados. Puedes añadir una dedicatoria antes de preparar tu mensaje.</p><a class="text-link" href="#rsvp-section">Confirmar mi asistencia</a></details>
+            <details><summary>¿Hay alguna sugerencia de regalo?</summary><p>Tu presencia es nuestro mejor regalo. Si deseas obsequiarnos algo, lo dejamos a tu libre elección.</p></details>
         </div>
+        <button type="button" class="button-secondary" onclick="toggleChat()" aria-haspopup="dialog"><i class="fa-regular fa-comments" aria-hidden="true"></i> Consultar al asistente</button>
+        <p class="section-caption">Respuestas rápidas sobre los detalles de nuestra boda.</p>
     </section>
 
     <!-- AI Virtual Concierge Modal Drawer -->
-    <div id="chat-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div id="chat-modal" role="dialog" aria-modal="true" aria-labelledby="chat-title" hidden class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="bg-navy-950 border border-gold-500/50 w-full max-w-lg rounded-2xl shadow-2xl flex flex-col h-[85vh] max-h-[650px] overflow-hidden transform scale-95 transition-transform duration-300" id="chat-card">
             
             <!-- Chat Header -->
@@ -1291,9 +1310,9 @@
                         <i class="fa-solid fa-robot text-base"></i>
                     </div>
                     <div>
-                        <h3 class="font-serif text-lg text-white font-semibold leading-tight">Asistente de la Boda</h3>
+                        <h3 id="chat-title" class="font-serif text-lg text-white font-semibold leading-tight">Asistente de la Boda</h3>
                         <p class="text-[11px] text-gold-400 flex items-center gap-1">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span> En línea · Lioncio & Lisbeth
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span> Respuestas sobre la celebración
                         </p>
                     </div>
                 </div>
@@ -1331,57 +1350,16 @@
 
             <!-- Chat Input Bar -->
             <form onsubmit="handleChatSubmit(event)" class="p-3 bg-navy-900 border-t border-gold-500/30 flex gap-2">
-                <input type="text" id="chat-input" placeholder="Escribe tu duda sobre la boda..." class="flex-1 bg-navy-950 border border-gold-500/30 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-500">
-                <button type="submit" id="chat-send-btn" class="gold-gradient-bg text-navy-950 w-10 h-10 rounded-xl flex items-center justify-center font-bold hover:scale-105 transition-transform flex-shrink-0">
+                <input type="text" id="chat-input" aria-label="Tu pregunta sobre la boda" maxlength="500" placeholder="Escribe tu duda sobre la boda..." class="flex-1 bg-navy-950 border border-gold-500/30 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-500">
+                <button type="submit" id="chat-send-btn" aria-label="Enviar pregunta" class="gold-gradient-bg text-navy-950 w-10 h-10 rounded-xl flex items-center justify-center font-bold hover:scale-105 transition-transform flex-shrink-0">
                     <i class="fa-solid fa-paper-plane text-sm"></i>
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- RSVP Quick Wishes Modal -->
-    <div id="wish-ai-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="bg-navy-950 border border-gold-500/50 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
-            <button onclick="closeWishAiModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            
-            <div class="text-center mb-5">
-                <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-gold-500/10 border border-gold-500 flex items-center justify-center text-gold-400 text-xl">
-                    <i class="fa-solid fa-sparkles"></i>
-                </div>
-                <h3 class="font-serif text-2xl text-white">Generar Felicitación Especial</h3>
-                <p class="text-xs text-slate-400">Elige el tono para tus palabras dirigidas a los novios</p>
-            </div>
-
-            <div class="space-y-2 mb-5">
-                <button onclick="generateRsvpWish('emotivo')" class="w-full bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-left p-3 rounded-xl text-slate-200 text-sm flex items-center justify-between group transition-all">
-                    <span>❤️ Emotivo y Profundo (18 años en unión libre)</span>
-                    <i class="fa-solid fa-chevron-right text-xs text-gold-400 group-hover:translate-x-1 transition-transform"></i>
-                </button>
-                <button onclick="generateRsvpWish('alegre')" class="w-full bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-left p-3 rounded-xl text-slate-200 text-sm flex items-center justify-between group transition-all">
-                    <span>🥳 Alegre y Celebratorio</span>
-                    <i class="fa-solid fa-chevron-right text-xs text-gold-400 group-hover:translate-x-1 transition-transform"></i>
-                </button>
-                <button onclick="generateRsvpWish('corto')" class="w-full bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-left p-3 rounded-xl text-slate-200 text-sm flex items-center justify-between group transition-all">
-                    <span>✨ Corto y Elegante</span>
-                    <i class="fa-solid fa-chevron-right text-xs text-gold-400 group-hover:translate-x-1 transition-transform"></i>
-                </button>
-                <button onclick="generateRsvpWish('religioso')" class="w-full bg-navy-900 hover:border-gold-500 border border-gold-500/30 text-left p-3 rounded-xl text-slate-200 text-sm flex items-center justify-between group transition-all">
-                    <span>🙏 Con Bendición y Fe</span>
-                    <i class="fa-solid fa-chevron-right text-xs text-gold-400 group-hover:translate-x-1 transition-transform"></i>
-                </button>
-            </div>
-
-            <div id="wish-loading" class="hidden text-center py-4 text-gold-400">
-                <i class="fa-solid fa-circle-notch fa-spin text-xl mb-1 block"></i>
-                <span class="text-xs">Escribiendo hermosos deseos...</span>
-            </div>
-        </div>
-    </div>
-
     <!-- Notification Toast Element -->
-    <div id="notification-toast" class="fixed top-5 right-5 z-50 bg-navy-900 border border-gold-500/60 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-[-150%] transition-transform duration-300">
+    <div id="notification-toast" role="status" aria-live="polite" class="fixed top-5 right-5 z-50 bg-navy-900 border border-gold-500/60 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-[-150%] transition-transform duration-300">
         <i id="toast-icon" class="fa-solid fa-circle-check text-gold-400 text-lg"></i>
         <span id="toast-message" class="text-sm font-medium"></span>
     </div>
@@ -1391,7 +1369,7 @@
         <div class="max-w-md mx-auto space-y-3">
             <h3 class="font-serif text-2xl text-white font-light">Lioncio & Lisbeth</h3>
             <p class="font-script text-2xl text-gold-400">18 años juntos · Nuestra Boda</p>
-            <p class="text-xs text-slate-500 pt-4">© 2026 Noviembre 28 · Todos los derechos reservados</p>
+            <p class="text-xs text-slate-500 pt-4">28 de noviembre de 2026 · Con todo nuestro cariño</p>
         </div>
     </footer>
 
@@ -1479,7 +1457,7 @@
                 return "El código de vestimenta es formal / etiqueta. Por favor evita vestir de blanco o azul marino, porque esos colores están reservados para los novios.";
             }
             if (/confirm|asist|rsvp|pase|invitad/.test(q)) {
-                return "Completa el formulario “Confirmación de Asistencia” al final de la invitación. Al enviarlo se registrarán tu nombre, celular, adultos, niños y dedicatoria, y se abrirá WhatsApp directo al +52 734 112 8601.";
+                return "Completa el formulario “Confirmación de Asistencia” con tu nombre, celular, adultos, niños y dedicatoria opcional. Verás el estado del registro y un resumen. Después pulsa “Enviar por WhatsApp” para abrir el mensaje al +52 734 112 8601 y enviarlo.";
             }
             if (/regalo|mesa|obsequio/.test(q)) {
                 return "Su presencia es el mejor regalo. Si desean obsequiar algo a Lioncio y Lisbeth, la pareja lo deja a su libre elección.";
@@ -1491,7 +1469,7 @@
                 return "No hay un hotel oficial indicado en la invitación. Te sugerimos buscar hospedaje en Jojutla o cerca de Santa Rosa Treinta y verificar el tiempo de traslado a ambas sedes antes de reservar.";
             }
             if (/musica|cancion|melodia|audio/.test(q)) {
-                return "La melodía de la invitación es “Unchained Melody”. Si tu navegador bloquea el inicio automático, toca el botón dorado de reproducción en la esquina inferior derecha.";
+                return "Puedes controlar la música con el botón dorado junto al menú Apariencia, en la parte superior. Si tu navegador bloquea el inicio automático, toca ese botón para reproducirla.";
             }
             if (/hola|buenas|ayuda|preguntar/.test(q)) {
                 return "¡Hola! Puedo ayudarte con la fecha, horarios, direcciones, vestimenta, regalos, hospedaje y confirmación de asistencia. ¿Qué deseas saber?";
@@ -1515,7 +1493,7 @@
             }, 3500);
         };
 
-        var weddingDate = new Date("November 28, 2026 16:30:00").getTime();
+        var weddingDate = new Date("2026-11-28T16:30:00-06:00").getTime();
 
         function updateCountdown() {
             var now = new Date().getTime();
@@ -1549,90 +1527,6 @@
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
-
-        var isPlaying = false;
-
-        function updateAudioButton(playing) {
-            var playIcon = document.getElementById('play-icon');
-            var playButton = document.getElementById('play-btn');
-            if (playIcon) playIcon.className = playing ? "fa-solid fa-pause text-sm" : "fa-solid fa-play text-sm ml-0.5";
-            if (playButton) playButton.setAttribute('aria-label', playing ? 'Pausar música' : 'Reproducir música');
-            isPlaying = playing;
-        }
-
-        function hideWelcomeGate() {
-            var gate = document.getElementById('welcome-gate');
-            if (!gate) return;
-            gate.classList.add('hidden');
-            gate.classList.remove('flex');
-            document.body.style.overflow = '';
-        }
-
-        function showWelcomeGate() {
-            var gate = document.getElementById('welcome-gate');
-            var audio = document.getElementById('bg-audio');
-            if (!gate || (audio && !audio.paused)) return;
-            gate.classList.remove('hidden');
-            gate.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function tryAutoplayMusic() {
-            var audio = document.getElementById('bg-audio');
-            if (!audio || !audio.paused) return Promise.resolve(true);
-            audio.muted = false;
-            audio.volume = 0.72;
-            var promise = audio.play();
-            if (promise && promise.then) {
-                return promise.then(function() {
-                    updateAudioButton(true);
-                    hideWelcomeGate();
-                    return true;
-                }).catch(function() {
-                    return false;
-                });
-            }
-            return Promise.resolve(!audio.paused);
-        }
-
-        window.enterInvitation = function() {
-            tryAutoplayMusic().then(function(started) {
-                if (!started) {
-                    window.showNotification("Toca el botón de música para comenzar", false);
-                    return;
-                }
-                hideWelcomeGate();
-            });
-        };
-
-        window.addEventListener('load', function() {
-            tryAutoplayMusic().then(function(started) {
-                if (!started) setTimeout(showWelcomeGate, 350);
-            });
-        });
-        ['pointerdown', 'touchstart', 'keydown'].forEach(function(eventName) {
-            document.addEventListener(eventName, function() {
-                tryAutoplayMusic();
-            }, { once: true, passive: true });
-        });
-
-        document.getElementById('bg-audio').addEventListener('play', function() { updateAudioButton(true); });
-        document.getElementById('bg-audio').addEventListener('pause', function() { updateAudioButton(false); });
-
-        window.toggleAudio = function() {
-            var audio = document.getElementById('bg-audio');
-            if (!audio) return;
-
-            if (isPlaying) {
-                audio.pause();
-            } else {
-                audio.play().then(function() {
-                    updateAudioButton(true);
-                }).catch(function(e) {
-                    window.showNotification("Haz clic nuevamente para activar la música", false);
-                });
-            }
-        };
 
         window.generateToast = async function(style) {
             var customInput = document.getElementById('toast-custom-input');
@@ -1685,57 +1579,6 @@
             window.showNotification("¡Mensaje transferido al formulario RSVP!");
         };
 
-        window.openWishAiModal = function() {
-            var modal = document.getElementById('wish-ai-modal');
-            if (modal) {
-                modal.classList.remove('pointer-events-none', 'opacity-0');
-                modal.classList.add('opacity-100');
-            }
-        };
-
-        window.closeWishAiModal = function() {
-            var modal = document.getElementById('wish-ai-modal');
-            if (modal) {
-                modal.classList.add('pointer-events-none', 'opacity-0');
-                modal.classList.remove('opacity-100');
-            }
-        };
-
-        window.generateRsvpWish = async function(tone) {
-            var nameEl = document.getElementById('guest-name');
-            var name = (nameEl && nameEl.value) ? nameEl.value : "un invitado querido";
-            var loading = document.getElementById('wish-loading');
-            if (loading) loading.classList.remove('hidden');
-
-            await new Promise(function(resolve) { setTimeout(resolve, 380); });
-            var library = wishLibrary[tone] || wishLibrary.corto;
-            var responseText = selectFreshTemplate('wish-' + tone, library);
-            if (name && name !== "un invitado querido") responseText += " Con cariño, " + name.replace(/[.!]+$/, "") + ".";
-            var msgEl = document.getElementById('message');
-            if (msgEl) msgEl.value = responseText;
-            window.closeWishAiModal();
-            window.showNotification("¡Mensaje preparado exitosamente!");
-            if (loading) loading.classList.add('hidden');
-        };
-
-        window.toggleChat = function() {
-            var modal = document.getElementById('chat-modal');
-            var card = document.getElementById('chat-card');
-            if (!modal || !card) return;
-            
-            if (modal.classList.contains('opacity-0')) {
-                modal.classList.remove('pointer-events-none', 'opacity-0');
-                modal.classList.add('opacity-100');
-                card.classList.remove('scale-95');
-                card.classList.add('scale-100');
-            } else {
-                modal.classList.add('opacity-0', 'pointer-events-none');
-                modal.classList.remove('opacity-100');
-                card.classList.add('scale-95');
-                card.classList.remove('scale-100');
-            }
-        };
-
         window.quickAsk = function(questionText) {
             var input = document.getElementById('chat-input');
             if (input) {
@@ -1779,175 +1622,8 @@
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
 
-        /* */
-        window.setSkin = function(skinName) {
-            var body = document.body;
-            var btnAzul = document.getElementById('skin-btn-azul');
-            var btnClaro = document.getElementById('skin-btn-claro');
-            var btnGris = document.getElementById('skin-btn-gris');
-            var btnBlanco = document.getElementById('skin-btn-blanco');
-
-            var inactiveClass = "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 text-slate-300 hover:text-white";
-            var activeClass = "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 gold-gradient-bg text-navy-950 shadow-md";
-
-            body.classList.remove('theme-claro', 'theme-gris', 'theme-blanco');
-
-            if (btnAzul) btnAzul.className = inactiveClass;
-            if (btnClaro) btnClaro.className = inactiveClass;
-            if (btnGris) btnGris.className = inactiveClass;
-            if (btnBlanco) btnBlanco.className = inactiveClass;
-
-            if (skinName === 'claro') {
-                body.classList.add('theme-claro');
-                if (btnClaro) btnClaro.className = activeClass;
-                window.showNotification("Skin 'Blanco Real' activado", false);
-            } else if (skinName === 'gris') {
-                body.classList.add('theme-gris');
-                if (btnGris) btnGris.className = activeClass;
-                window.showNotification("Skin 'Gris Platino' activado", false);
-            } else if (skinName === 'blanco') {
-                body.classList.add('theme-blanco');
-                if (btnBlanco) btnBlanco.className = activeClass;
-                window.showNotification("Skin 'Blanco & Marfil' activado", false);
-            } else {
-                if (btnAzul) btnAzul.className = activeClass;
-                window.showNotification("Skin 'Azul Noche' activado", false);
-            }
-        };
-
-        window.updateGuestTotal = function() {
-            var adultsEl = document.getElementById('adults');
-            var childrenEl = document.getElementById('children');
-            var passesEl = document.getElementById('passes');
-            var totalEl = document.getElementById('passes-total');
-            var adults = Math.max(0, Number(adultsEl && adultsEl.value) || 0);
-            var children = Math.max(0, Number(childrenEl && childrenEl.value) || 0);
-            var total = Math.round(adults + children);
-            if (passesEl) passesEl.value = String(total);
-            if (totalEl) totalEl.textContent = total + (total === 1 ? ' persona' : ' personas');
-        };
-
-        window.syncAttendanceCounts = function() {
-            var attendanceEl = document.getElementById('attendance');
-            var adultsEl = document.getElementById('adults');
-            var childrenEl = document.getElementById('children');
-            if (!attendanceEl || !adultsEl || !childrenEl) return;
-            if (attendanceEl.value.indexOf('Lamentablemente') === 0) {
-                adultsEl.value = '0';
-                childrenEl.value = '0';
-            } else if ((Number(adultsEl.value) || 0) + (Number(childrenEl.value) || 0) === 0) {
-                adultsEl.value = '1';
-            }
-            window.updateGuestTotal();
-        };
-
-        function saveRsvpRecord(payload) {
-            try {
-                var localRecords = JSON.parse(localStorage.getItem('lioncio-lisbeth-rsvps') || '[]');
-                localRecords.push(payload);
-                localStorage.setItem('lioncio-lisbeth-rsvps', JSON.stringify(localRecords.slice(-20)));
-            } catch (storageError) {
-                // La confirmación por WhatsApp continúa aunque el navegador bloquee el almacenamiento local.
-            }
-
-            if (!RSVP_ENDPOINT || RSVP_ENDPOINT === '__RSVP_ENDPOINT__') return Promise.resolve(false);
-
-            return fetch(RSVP_ENDPOINT, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(payload),
-                keepalive: true
-            }).then(function() { return true; }).catch(function() { return false; });
-        }
-
-        window.sendRSVP = function(e) {
-            if (e && e.preventDefault) e.preventDefault();
-            var form = document.getElementById('rsvp-form');
-            if (form && !form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-            var nameEl = document.getElementById('guest-name');
-            var phoneEl = document.getElementById('guest-phone');
-            var attEl = document.getElementById('attendance');
-            var adultsEl = document.getElementById('adults');
-            var childrenEl = document.getElementById('children');
-            var msgEl = document.getElementById('message');
-
-            var name = nameEl ? nameEl.value : "";
-            var phone = phoneEl ? phoneEl.value.trim() : "";
-            var attendance = attEl ? attEl.value : "";
-            var adults = Math.max(0, Math.round(Number(adultsEl && adultsEl.value) || 0));
-            var children = Math.max(0, Math.round(Number(childrenEl && childrenEl.value) || 0));
-            var passes = adults + children;
-            var message = msgEl ? msgEl.value : "";
-
-            var phoneDigits = phone.replace(/\D/g, '');
-            if (phoneEl && phoneDigits.length < 10) {
-                phoneEl.setCustomValidity('Escribe un número de celular válido, con al menos 10 dígitos.');
-                phoneEl.reportValidity();
-                return;
-            }
-            if (phoneEl) phoneEl.setCustomValidity('');
-
-            if (attendance.indexOf('Sí') === 0 && passes < 1) {
-                if (adultsEl) {
-                    adultsEl.setCustomValidity('Indica al menos una persona que asistirá.');
-                    adultsEl.reportValidity();
-                }
-                return;
-            }
-            if (passes > 10) {
-                if (childrenEl) {
-                    childrenEl.setCustomValidity('El total de adultos y niños no puede superar 10 pases.');
-                    childrenEl.reportValidity();
-                }
-                return;
-            }
-
-            var payload = {
-                submittedAt: new Date().toISOString(),
-                name: name,
-                phone: phone,
-                attendance: attendance,
-                passes: passes,
-                adults: adults,
-                children: children,
-                message: message,
-                source: 'Invitación web'
-            };
-
-            var text = "*CONFIRMACIÓN DE ASISTENCIA*\n";
-            text += "_Nuestra Boda - Lioncio & Lisbeth_\n";
-            text += "28 de noviembre de 2026\n";
-            text += "--------------------------------\n\n";
-            text += "*Invitado / Familia*\n" + name + "\n\n";
-            text += "*Teléfono de contacto*\n" + phone + "\n\n";
-            text += "*Asistencia*\n" + attendance + "\n\n";
-            text += "*Asistentes confirmados*\n";
-            text += "Adultos: " + adults + "\n";
-            text += "Niños: " + children + "\n";
-            text += "Total: " + passes + "\n";
-            if (message) {
-                text += "\n*Dedicatoria para los novios*\n" + message + "\n";
-            }
-            text += "\n--------------------------------\n";
-            text += "_Gracias por acompañarnos en este día tan especial._";
-
-            var encodedText = encodeURIComponent(text);
-            var whatsappUrl = "https://wa.me/527341128601?text=" + encodedText;
-            var whatsappWindow = window.open(whatsappUrl, '_blank');
-            if (whatsappWindow) {
-                whatsappWindow.opener = null;
-            } else {
-                window.location.href = whatsappUrl;
-            }
-
-            saveRsvpRecord(payload).then(function(saved) {
-                window.showNotification(saved ? "Confirmación registrada y lista en WhatsApp" : "Confirmación lista en WhatsApp");
-            });
-        };
     </script>
+    <script src="invitation-core.js?v=9"></script>
+    <script src="invitation.js?v=9"></script>
 </body>
 </html>
