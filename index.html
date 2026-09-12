@@ -11,7 +11,7 @@
     <meta property="og:title" content="Nuestra Boda - Lioncio & Lisbeth">
     <meta property="og:description" content="Acompáñanos a celebrar nuestra boda el 28 de noviembre de 2026.">
     <meta property="og:url" content="https://lioncioylisbeth.github.io/nuestra-boda/">
-    <meta property="og:image" content="https://lioncioylisbeth.github.io/nuestra-boda/og-wedding-square.jpg?v=2">
+    <meta property="og:image" content="https://lioncioylisbeth.github.io/nuestra-boda/og-wedding-square-v3.jpg?v=3">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="1200">
@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Nuestra Boda - Lioncio & Lisbeth">
     <meta name="twitter:description" content="Acompáñanos a celebrar nuestra boda el 28 de noviembre de 2026.">
-    <meta name="twitter:image" content="https://lioncioylisbeth.github.io/nuestra-boda/og-wedding-square.jpg?v=2">
+    <meta name="twitter:image" content="https://lioncioylisbeth.github.io/nuestra-boda/og-wedding-square-v3.jpg?v=3">
     <link rel="icon" href="anilloscom.webp" type="image/webp">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -1107,7 +1107,7 @@
     <script>
         var lastGeneratedToastText = "";
         var lastTemplateIndex = {};
-        var RSVP_ENDPOINT = "__RSVP_ENDPOINT__";
+        var RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbyaJB2eZqEIr6udAGmWQyleb9RmuE4RrZpKcCC3CCnpuGLzWL9Abd8bkq2X3gKEAsx1/exec";
 
         var toastLibrary = {
             poema: [
@@ -1564,12 +1564,12 @@
                 source: 'Invitación web'
             };
 
-            var text = "*Confirmación de Asistencia - Nuestra Boda · Lioncio & Lisbeth*\n\n";
-            text += "👤 *Invitado/Familia:* " + name + "\n";
-            text += "📌 *Estado:* " + attendance + "\n";
-            text += "🎟️ *Pases a usar:* " + passes + "\n";
+            var text = "*Confirmación de Asistencia - Nuestra Boda - Lioncio & Lisbeth*\n\n";
+            text += "*Invitado/Familia:* " + name + "\n";
+            text += "*Estado:* " + attendance + "\n";
+            text += "*Pases a usar:* " + passes + "\n";
             if (message) {
-                text += "💬 *Mensaje:* " + message + "\n";
+                text += "*Mensaje:* " + message + "\n";
             }
 
             var encodedText = encodeURIComponent(text);

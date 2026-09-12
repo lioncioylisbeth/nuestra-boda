@@ -6,15 +6,20 @@
 
 const RSVP_SHEET_NAME = 'Confirmaciones';
 
+function doGet() {
+  return json_({ ok: true, service: 'rsvp-lioncio-lisbeth' });
+}
+
 function doPost(e) {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
 
   try {
     const data = JSON.parse((e.postData && e.postData.contents) || '{}');
-    const sheet = getOrPrepareRsvpSheet_();
+    const sheet = getRsvpSheet_();
 
-    sheet.appendRow([
+    const nextRow = getNextRsvpRow_(sheet);
+    sheet.getRange(nextRow, 1, 1, 8).setValues([[
       data.submittedAt ? new Date(data.submittedAt) : new Date(),
       clean_(data.name),
       clean_(data.attendance),
@@ -23,7 +28,7 @@ function doPost(e) {
       clean_(data.source) || 'Invitación web',
       'Pendiente',
       ''
-    ]);
+    ]]);
 
     return json_({ ok: true });
   } catch (error) {
@@ -33,60 +38,21 @@ function doPost(e) {
   }
 }
 
-function setupRsvpSheet() {
-  getOrPrepareRsvpSheet_();
+function getRsvpSheet_() {
+  const workbook = SpreadsheetApp.getActiveSpreadsheet();
+  if (!workbook) throw new Error('Vincula este proyecto de Apps Script a la hoja de confirmaciones.');
+  const sheet = workbook.getSheetByName(RSVP_SHEET_NAME);
+  if (!sheet) throw new Error('No se encontró la hoja "' + RSVP_SHEET_NAME + '".');
+  return sheet;
 }
 
-function getOrPrepareRsvpSheet_() {
-  const workbook = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = workbook.getSheetByName(RSVP_SHEET_NAME);
-  if (!sheet) sheet = workbook.insertSheet(RSVP_SHEET_NAME);
-
-  const headers = [
-    'Fecha y hora',
-    'Invitado / Familia',
-    '¿Asistirá?',
-    'Pases',
-    'Dedicatoria',
-    'Origen',
-    'Estado',
-    'Observaciones'
-  ];
-
-  if (sheet.getRange('A6').getValue() !== headers[0]) {
-    sheet.getRange(6, 1, 1, headers.length).setValues([headers]);
+function getNextRsvpRow_(sheet) {
+  const firstDataRow = 7;
+  const values = sheet.getRange(firstDataRow, 2, sheet.getMaxRows() - firstDataRow + 1, 1).getDisplayValues();
+  for (let index = values.length - 1; index >= 0; index -= 1) {
+    if (String(values[index][0]).trim()) return firstDataRow + index + 1;
   }
-
-  sheet.setFrozenRows(6);
-  sheet.setFrozenColumns(2);
-  sheet.setHiddenGridlines(true);
-  sheet.getRange('A6:H6')
-    .setBackground('#07122A')
-    .setFontColor('#FFFFFF')
-    .setFontWeight('bold')
-    .setHorizontalAlignment('center');
-  sheet.getRange('A6:H6').setBorder(false, false, true, false, false, false, '#D4AF37', SpreadsheetApp.BorderStyle.SOLID_MEDIUM);
-  sheet.getRange('A7:A').setNumberFormat('dd/mm/yyyy hh:mm');
-  sheet.getRange('D7:D').setNumberFormat('0');
-  sheet.getRange('A7:H').setVerticalAlignment('middle');
-  sheet.getRange('E7:E').setWrap(true);
-
-  const widths = [150, 220, 195, 70, 300, 120, 115, 220];
-  widths.forEach((width, index) => sheet.setColumnWidth(index + 1, width));
-
-  const attendanceRule = SpreadsheetApp.newDataValidation()
-    .requireValueInList(['Sí, asistiré con mucho gusto', 'Lamentablemente no podré asistir'], true)
-    .setAllowInvalid(false)
-    .build();
-  sheet.getRange('C7:C').setDataValidation(attendanceRule);
-
-  const statusRule = SpreadsheetApp.newDataValidation()
-    .requireValueInList(['Pendiente', 'Confirmado', 'Contactado'], true)
-    .setAllowInvalid(false)
-    .build();
-  sheet.getRange('G7:G').setDataValidation(statusRule);
-
-  return sheet;
+  return firstDataRow;
 }
 
 function clean_(value) {
