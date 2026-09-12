@@ -17,17 +17,26 @@ function doPost(e) {
   try {
     const data = JSON.parse((e.postData && e.postData.contents) || '{}');
     const sheet = getRsvpSheet_();
+    const hasGuestBreakdown = data.adults != null || data.children != null;
+    const adults = clampPasses_(data.adults);
+    const children = clampPasses_(data.children);
+    const totalGuests = hasGuestBreakdown
+      ? clampPasses_(adults + children)
+      : clampPasses_(data.passes);
 
     const nextRow = getNextRsvpRow_(sheet);
-    sheet.getRange(nextRow, 1, 1, 8).setValues([[
+    sheet.getRange(nextRow, 1, 1, 11).setValues([[
       data.submittedAt ? new Date(data.submittedAt) : new Date(),
       clean_(data.name),
       clean_(data.attendance),
-      clampPasses_(data.passes),
+      totalGuests,
       clean_(data.message),
       clean_(data.source) || 'Invitación web',
       'Pendiente',
-      ''
+      '',
+      clean_(data.phone),
+      hasGuestBreakdown ? adults : '',
+      hasGuestBreakdown ? children : ''
     ]]);
 
     return json_({ ok: true });
