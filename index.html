@@ -82,14 +82,216 @@
             background: linear-gradient(135deg, #d4af37 0%, #e6c875 50%, #aa8c2c 100%);
         }
 
-        @keyframes floatingVeil {
-            0% { transform: translateY(0px) scale(1) rotate(0deg); opacity: 0.35; }
-            50% { transform: translateY(-12px) scale(1.02) rotate(0.5deg); opacity: 0.55; }
-            100% { transform: translateY(0px) scale(1) rotate(0deg); opacity: 0.35; }
+        /* Velo nupcial: tul ligero anclado en la esquina superior derecha */
+        @keyframes bridalVeilDrift {
+            0%, 100% { transform: translate3d(3%, -2%, 0) rotate(1deg) scale(1); opacity: 0.34; }
+            32% { transform: translate3d(-1.5%, 1.5%, 0) rotate(-0.8deg) scale(1.018, 0.99); opacity: 0.42; }
+            68% { transform: translate3d(1%, 3%, 0) rotate(0.45deg) scale(0.992, 1.018); opacity: 0.37; }
         }
 
-        .veil-effect {
-            animation: floatingVeil 9s ease-in-out infinite;
+        @keyframes bridalVeilRipple {
+            0%, 100% { transform: translate3d(0, 0, 0) skewX(0deg); }
+            45% { transform: translate3d(-10px, 8px, 0) skewX(-1.1deg); }
+            75% { transform: translate3d(5px, -4px, 0) skewX(0.6deg); }
+        }
+
+        @keyframes bridalVeilShimmer {
+            0%, 100% { opacity: 0.16; }
+            50% { opacity: 0.54; }
+        }
+
+        @keyframes weddingRosarySway {
+            0%, 100% { transform: translate3d(-1%, -1%, 0) rotate(-1.8deg); }
+            38% { transform: translate3d(1.5%, 1.2%, 0) rotate(1.25deg); }
+            72% { transform: translate3d(0, 2%, 0) rotate(-0.35deg); }
+        }
+
+        @keyframes weddingRosaryGleam {
+            0%, 100% { opacity: 0.45; filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.28)); }
+            50% { opacity: 0.9; filter: drop-shadow(0 0 7px rgba(255, 240, 186, 0.72)); }
+        }
+
+        .bridal-veil {
+            position: absolute;
+            z-index: 1;
+            top: clamp(3.5rem, 7vh, 5.75rem);
+            right: clamp(-7rem, -7vw, -2.5rem);
+            width: clamp(23rem, 45vw, 43rem);
+            height: min(73vh, 45rem);
+            pointer-events: none;
+            overflow: visible;
+            opacity: 0.38;
+            transform-origin: 100% 0%;
+            mix-blend-mode: screen;
+            filter: drop-shadow(-12px 18px 30px rgba(238, 243, 255, 0.07));
+            animation: bridalVeilDrift 12s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+
+        .bridal-veil svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .bridal-veil__fabric {
+            transform-box: fill-box;
+            transform-origin: top right;
+            animation: bridalVeilRipple 8.5s ease-in-out infinite;
+        }
+
+        .bridal-veil__panel-main {
+            fill: url(#bridal-veil-main);
+        }
+
+        .bridal-veil__panel-inner {
+            fill: url(#bridal-veil-inner);
+            opacity: 0.58;
+        }
+
+        .bridal-veil__fold {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.58);
+            stroke-width: 1.35;
+            stroke-linecap: round;
+            opacity: 0.42;
+        }
+
+        .bridal-veil__fold--soft {
+            stroke: rgba(230, 200, 117, 0.45);
+            stroke-width: 0.9;
+            opacity: 0.38;
+        }
+
+        .bridal-veil__lace {
+            fill: none;
+            stroke: rgba(255, 246, 216, 0.7);
+            stroke-width: 2.1;
+            stroke-linecap: round;
+            stroke-dasharray: 1 10;
+            opacity: 0.55;
+        }
+
+        .bridal-veil__sparkles {
+            animation: bridalVeilShimmer 4.8s ease-in-out infinite;
+        }
+
+        .wedding-rosary {
+            position: absolute;
+            z-index: 1;
+            top: clamp(4.75rem, 9vh, 7rem);
+            left: clamp(-5.25rem, -5vw, -2rem);
+            width: clamp(16rem, 28vw, 25rem);
+            height: min(67vh, 38rem);
+            pointer-events: none;
+            opacity: 0.68;
+            transform-origin: 8% 3%;
+            filter: drop-shadow(5px 12px 18px rgba(0, 0, 0, 0.3));
+            animation: weddingRosarySway 10.5s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        .wedding-rosary svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .wedding-rosary__thread {
+            fill: none;
+            stroke: rgba(202, 161, 55, 0.8);
+            stroke-width: 1.6;
+        }
+
+        .wedding-rosary__pearls {
+            fill: none;
+            stroke: url(#rosary-pearl-gradient);
+            stroke-width: 9;
+            stroke-linecap: round;
+            stroke-dasharray: 0.7 14.3;
+        }
+
+        .wedding-rosary__highlights {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.94);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-dasharray: 0.3 14.7;
+            transform: translate(-1.4px, -1.4px);
+            animation: weddingRosaryGleam 4.4s ease-in-out infinite;
+        }
+
+        .wedding-rosary__medallion,
+        .wedding-rosary__cross {
+            filter: drop-shadow(0 0 8px rgba(230, 200, 117, 0.36));
+        }
+
+        .wedding-rosary__corpus {
+            fill: none;
+            stroke: #fff8dc;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .theme-claro .bridal-veil,
+        .theme-blanco .bridal-veil {
+            opacity: 0.24;
+            mix-blend-mode: multiply;
+            filter: drop-shadow(-10px 16px 24px rgba(170, 130, 34, 0.08));
+        }
+
+        .theme-claro .wedding-rosary,
+        .theme-blanco .wedding-rosary {
+            opacity: 0.52;
+            filter: drop-shadow(5px 12px 16px rgba(103, 75, 19, 0.16));
+        }
+
+        .theme-claro .bridal-veil__fold,
+        .theme-blanco .bridal-veil__fold {
+            stroke: rgba(151, 119, 48, 0.46);
+        }
+
+        .theme-gris .bridal-veil {
+            opacity: 0.32;
+        }
+
+        @media (max-width: 640px) {
+            .bridal-veil {
+                top: 5.25rem;
+                right: -10.5rem;
+                width: 30rem;
+                height: 29rem;
+                opacity: 0.3;
+            }
+
+            .wedding-rosary {
+                top: 6.75rem;
+                left: -8.75rem;
+                width: 23rem;
+                height: 29rem;
+                opacity: 0.58;
+            }
+
+            .theme-claro .bridal-veil,
+            .theme-blanco .bridal-veil {
+                opacity: 0.19;
+            }
+
+            .theme-claro .wedding-rosary,
+            .theme-blanco .wedding-rosary {
+                opacity: 0.44;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .bridal-veil,
+            .bridal-veil__fabric,
+            .bridal-veil__sparkles,
+            .wedding-rosary,
+            .wedding-rosary__highlights {
+                animation: none !important;
+            }
         }
 
         @keyframes pulseGlow {
@@ -813,25 +1015,84 @@
         
         <!-- Elegant Background Veil Overlay Graphics -->
         <div class="absolute inset-0 bg-veil-overlay pointer-events-none"></div>
-        
-        <!-- Curved Delicate Bridal Veil Backdrop Layer -->
-        <div class="absolute top-0 right-0 w-full md:w-3/4 h-full opacity-35 pointer-events-none veil-effect z-0">
-            <svg viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full object-cover">
-                <path d="M400 0C650 180 950 120 1200 300V0H400Z" fill="url(#veil-glow-1)" opacity="0.6"/>
-                <path d="M200 0C500 250 850 180 1200 480V0H200Z" fill="url(#veil-glow-2)" opacity="0.4"/>
-                <path d="M550 0C780 320 1000 380 1200 650V0H550Z" fill="url(#veil-glow-1)" opacity="0.25"/>
+
+        <!-- Rosario de perlas nupcial con crucifijo completo -->
+        <div class="wedding-rosary" aria-hidden="true">
+            <svg viewBox="0 0 360 620" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet">
                 <defs>
-                    <linearGradient id="veil-glow-1" x1="1200" y1="0" x2="400" y2="600" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
-                        <stop offset="0.5" stop-color="#E6C875" stop-opacity="0.3"/>
-                        <stop offset="1" stop-color="#07122a" stop-opacity="0"/>
+                    <linearGradient id="rosary-pearl-gradient" x1="40" y1="20" x2="285" y2="435" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#FFFFFF"/>
+                        <stop offset="0.43" stop-color="#FFF9E7"/>
+                        <stop offset="0.76" stop-color="#E8D5A2"/>
+                        <stop offset="1" stop-color="#FFFFFF"/>
                     </linearGradient>
-                    <linearGradient id="veil-glow-2" x1="1200" y1="0" x2="300" y2="500" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#FFFFFF" stop-opacity="0.9"/>
-                        <stop offset="0.6" stop-color="#D4AF37" stop-opacity="0.2"/>
-                        <stop offset="1" stop-color="#07122a" stop-opacity="0"/>
+                    <linearGradient id="rosary-gold-gradient" x1="128" y1="408" x2="190" y2="590" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#FFF0AD"/>
+                        <stop offset="0.45" stop-color="#D4AF37"/>
+                        <stop offset="1" stop-color="#8D6917"/>
                     </linearGradient>
                 </defs>
+
+                <path class="wedding-rosary__thread" d="M-24 24C68 22 153 47 210 111C270 179 262 269 206 301C148 334 79 302 74 243C69 183 118 145 171 158C229 172 251 242 220 310C200 355 165 384 154 431"/>
+                <path class="wedding-rosary__pearls" d="M-24 24C68 22 153 47 210 111C270 179 262 269 206 301C148 334 79 302 74 243C69 183 118 145 171 158C229 172 251 242 220 310C200 355 165 384 154 431"/>
+                <path class="wedding-rosary__highlights" d="M-24 24C68 22 153 47 210 111C270 179 262 269 206 301C148 334 79 302 74 243C69 183 118 145 171 158C229 172 251 242 220 310C200 355 165 384 154 431"/>
+
+                <g class="wedding-rosary__medallion" transform="translate(154 435)">
+                    <circle cx="0" cy="0" r="13" fill="url(#rosary-gold-gradient)" stroke="#FFF2BD" stroke-width="1.5"/>
+                    <path d="M0 -7L2.2 -2.3L7 0L2.2 2.3L0 7L-2.2 2.3L-7 0L-2.2 -2.3Z" fill="#FFF8DD" opacity="0.9"/>
+                </g>
+                <path class="wedding-rosary__thread" d="M154 448C154 465 154 478 154 493"/>
+                <path class="wedding-rosary__pearls" d="M154 448C154 465 154 478 154 493"/>
+                <path class="wedding-rosary__highlights" d="M154 448C154 465 154 478 154 493"/>
+
+                <g class="wedding-rosary__cross" transform="translate(154 500)">
+                    <path d="M-8 0H8V20H24V36H8V88H-8V36H-24V20H-8V0Z" fill="url(#rosary-gold-gradient)" stroke="#FFF0AD" stroke-width="2" stroke-linejoin="round"/>
+                    <circle cx="0" cy="20" r="4.1" fill="#FFF8DC"/>
+                    <path class="wedding-rosary__corpus" d="M0 25V51M-13 32L0 37L13 32M0 51L-7 67M0 51L7 67"/>
+                </g>
+            </svg>
+        </div>
+        
+        <!-- Velo nupcial de tul, recogido arriba a la derecha y movido por una brisa suave -->
+        <div class="bridal-veil" aria-hidden="true">
+            <svg viewBox="0 0 720 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMin meet">
+                <defs>
+                    <linearGradient id="bridal-veil-main" x1="720" y1="32" x2="238" y2="782" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#FFFFFF" stop-opacity="0.5"/>
+                        <stop offset="0.34" stop-color="#F8FAFF" stop-opacity="0.23"/>
+                        <stop offset="0.72" stop-color="#FFF6DC" stop-opacity="0.1"/>
+                        <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="bridal-veil-inner" x1="690" y1="42" x2="370" y2="692" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#FFFDF4" stop-opacity="0.48"/>
+                        <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.13"/>
+                        <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+                    </linearGradient>
+                    <radialGradient id="bridal-veil-pearl" cx="0" cy="0" r="1" gradientTransform="translate(640 98) rotate(127) scale(385 300)" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#FFFFFF" stop-opacity="0.32"/>
+                        <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+
+                <g class="bridal-veil__fabric">
+                    <path class="bridal-veil__panel-main" d="M720 0C648 46 622 111 625 184C629 282 603 363 536 454C467 547 367 656 204 804C357 746 510 657 608 553C686 470 716 371 720 244V0Z"/>
+                    <path class="bridal-veil__panel-inner" d="M720 18C674 80 667 142 671 210C677 313 638 415 559 510C499 582 424 651 323 727C459 675 568 607 638 524C701 450 721 355 720 245V18Z"/>
+                    <path d="M720 0C665 48 625 117 626 207C628 307 594 402 523 497C477 558 425 614 352 679C498 598 607 492 663 381C704 300 716 196 720 0Z" fill="url(#bridal-veil-pearl)"/>
+
+                    <path class="bridal-veil__fold" d="M703 30C654 126 664 224 635 323C608 415 541 524 420 643"/>
+                    <path class="bridal-veil__fold" d="M676 56C629 164 642 253 601 361C568 446 507 531 358 693"/>
+                    <path class="bridal-veil__fold bridal-veil__fold--soft" d="M649 91C620 188 614 291 563 392C515 488 434 596 271 756"/>
+                    <path class="bridal-veil__fold bridal-veil__fold--soft" d="M714 104C688 220 687 329 638 427C604 495 542 565 446 637"/>
+                    <path class="bridal-veil__lace" d="M207 803C359 747 507 661 607 555C686 471 715 371 719 244"/>
+                </g>
+
+                <g class="bridal-veil__sparkles" fill="#FFF7D2">
+                    <circle cx="654" cy="134" r="2.2"/>
+                    <circle cx="617" cy="267" r="1.6"/>
+                    <circle cx="574" cy="397" r="1.8"/>
+                    <circle cx="496" cy="532" r="1.45"/>
+                    <circle cx="388" cy="676" r="1.25"/>
+                </g>
             </svg>
         </div>
 
