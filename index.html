@@ -100,12 +100,6 @@
             50% { opacity: 0.54; }
         }
 
-        @keyframes weddingRosarySway {
-            0%, 100% { transform: translate3d(-1%, -1%, 0) rotate(-1.8deg); }
-            38% { transform: translate3d(1.5%, 1.2%, 0) rotate(1.25deg); }
-            72% { transform: translate3d(0, 2%, 0) rotate(-0.35deg); }
-        }
-
         .bridal-veil {
             position: absolute;
             z-index: 1;
@@ -171,41 +165,11 @@
             animation: bridalVeilShimmer 4.8s ease-in-out infinite;
         }
 
-        .wedding-rosary {
-            position: absolute;
-            z-index: 1;
-            top: clamp(3rem, 5.8vh, 4.25rem);
-            left: clamp(0.25rem, 1.2vw, 1.25rem);
-            width: clamp(6.75rem, 10vw, 8.75rem);
-            height: auto;
-            pointer-events: none;
-            opacity: 0.88;
-            transform-origin: 8% 3%;
-            filter:
-                drop-shadow(5px 12px 16px rgba(0, 0, 0, 0.38))
-                drop-shadow(0 0 10px rgba(230, 200, 117, 0.15));
-            animation: weddingRosarySway 10.5s ease-in-out infinite;
-            will-change: transform;
-        }
-
-        .wedding-rosary img {
-            display: block;
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-
         .theme-claro .bridal-veil,
         .theme-blanco .bridal-veil {
             opacity: 0.24;
             mix-blend-mode: multiply;
             filter: drop-shadow(-10px 16px 24px rgba(170, 130, 34, 0.08));
-        }
-
-        .theme-claro .wedding-rosary,
-        .theme-blanco .wedding-rosary {
-            opacity: 0.78;
-            filter: drop-shadow(5px 12px 16px rgba(103, 75, 19, 0.16));
         }
 
         .theme-claro .bridal-veil__fold,
@@ -226,30 +190,17 @@
                 opacity: 0.3;
             }
 
-            .wedding-rosary {
-                top: 5.35rem;
-                left: 0.25rem;
-                width: 7.1rem;
-                height: auto;
-                opacity: 0.86;
-            }
-
             .theme-claro .bridal-veil,
             .theme-blanco .bridal-veil {
                 opacity: 0.19;
             }
 
-            .theme-claro .wedding-rosary,
-            .theme-blanco .wedding-rosary {
-                opacity: 0.72;
-            }
         }
 
         @media (prefers-reduced-motion: reduce) {
             .bridal-veil,
             .bridal-veil__fabric,
-            .bridal-veil__sparkles,
-            .wedding-rosary {
+            .bridal-veil__sparkles {
                 animation: none !important;
             }
         }
@@ -976,11 +927,6 @@
         <!-- Elegant Background Veil Overlay Graphics -->
         <div class="absolute inset-0 bg-veil-overlay pointer-events-none"></div>
 
-        <!-- Rosario de perlas nupcial con crucifijo completo -->
-        <div class="wedding-rosary" aria-hidden="true">
-            <img src="rosario-perlas-realista.webp" alt="" width="500" height="1496" decoding="async" fetchpriority="high">
-        </div>
-        
         <!-- Velo nupcial de tul, recogido arriba a la derecha y movido por una brisa suave -->
         <div class="bridal-veil" aria-hidden="true">
             <svg viewBox="0 0 720 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMin meet">
