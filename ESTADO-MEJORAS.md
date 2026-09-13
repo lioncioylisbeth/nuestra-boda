@@ -1,5 +1,19 @@
 # Mejoras de la invitación · 12 de septiembre de 2026
 
+## Estado más reciente · 13 de septiembre · rechazo al escribir en Google
+
+El propietario reintentó repetidamente y el resumen siguió mostrando rechazo. El arreglo anterior del botón **no resolvió el fallo del servidor**. El receptor activo confirmado por el propietario sigue siendo v3, implementación 7.
+
+Diagnóstico mediante el conector autorizado de Sheets: encabezados A6:K6 correctos; tabla nativa `ConfirmacionesBoda` en A6:K16; teléfono como columna TEXT; notas de reserva RSVP en filas 8–11 sin nombre ni celular. No se copiaron datos personales al repositorio. Las notas sitúan el fallo después de reservar la fila; v3 captura y oculta el error, por lo que no se puede afirmar su excepción exacta. Se hizo una comprobación de formato TEXT sobre I16 vacía: la lectura posterior mantuvo su formato TEXT original, sin contenido. No se cambiaron tipos de columna, validaciones, respuestas, resúmenes ni diseño.
+
+**Corrección preparada v4:** elimina el cambio redundante de formato del teléfono al registrar y editar. Mantiene el escape como texto literal. El registro público verifica los campos guardados y ausencia de fórmulas antes de responder con éxito, también en reintentos. Una fila incompleta o modificada por los organizadores no se sobrescribe. Los errores públicos identifican la etapa con códigos fijos; la excepción queda en el registro privado de ejecución de Google. El formulario usa mensajes que explican que insistir no corrige un fallo de Google y mantiene los datos. `actualizar-receptor.html` permite copiar el código completo con saltos de línea o descargarlo desde el celular.
+
+**Verificación:** 40 pruebas locales aprobadas. Se simulan columnas que rechazan formato, fallos de escritura/flush, filas incompletas y cambios posteriores del organizador; no equivalen a una escritura real. No se enviaron confirmaciones ni mensajes reales.
+
+**Pendiente en Google:** reemplazar el código por v4 y publicar una nueva versión de la implementación existente. La clave se conserva; NO ejecutar otra vez `configurarAccesoInvitados`. La conexión no ofrece ejecución ni administración de Apps Script. Instrucciones en `CONFIGURAR-GOOGLE-SHEETS.md`. Después verificar una sola vez el envío pendiente y su fila completa; no anunciar el problema resuelto antes de esa comprobación.
+
+**GitHub/Pages:** código y mensajes preparados; registrar el commit y resultado de despliegue al publicar esta continuación.
+
 ## Estado vigente · 13 de septiembre de 2026 · recuperación del registro
 
 Este bloque sustituye las menciones históricas a una activación de Google pendiente. El propietario confirmó que generó la clave, retiró la copia antigua de código y publicó el receptor v3 en la implementación existente; la captura muestra la versión de despliegue 7 actualizada correctamente. Posteriormente confirmó que el panel lee las confirmaciones de Sheets. No se recibió ni almacenó su clave.

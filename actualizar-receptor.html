@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Actualizar conexión · Lioncio &amp; Lisbeth</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#071329;color:#eee9dc;font:16px/1.6 system-ui,sans-serif;padding:32px 18px}main{max-width:720px;margin:auto}.eyebrow{color:#dfc476;letter-spacing:.15em;font-size:.76rem}h1,h2{font-family:Georgia,serif;font-weight:400;line-height:1.2}h1{font-size:clamp(2rem,6vw,3rem);margin:12px 0 20px}h2{font-size:1.5rem}section{background:#fffdf8;color:#162139;border-radius:18px;padding:24px;margin:24px 0;border-top:3px solid #cfad4f}button,.download{display:block;width:100%;padding:16px 20px;margin:12px 0;border:1px solid #c7a64a;border-radius:10px;font:600 1rem system-ui;text-align:center;cursor:pointer;background:#dfc476;color:#071329;text-decoration:none}.download{background:transparent}button:disabled{opacity:.5;cursor:wait}button:focus-visible,a:focus-visible,textarea:focus-visible{outline:3px solid #427bcd;outline-offset:4px}textarea{width:100%;height:220px;padding:12px;font:13px/1.5 monospace;background:#f4f1e8;color:#172033;border:1px solid #b7b5af;border-radius:8px;resize:vertical}summary{cursor:pointer}li{margin:12px 0;padding-left:4px}ol{padding-left:22px}.status{min-height:3em;font-size:.9rem}footer{color:#c5c9d1;font-size:.88rem}code{overflow-wrap:anywhere}
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">LIONCIO &amp; LISBETH · ORGANIZADORES</div>
+  <h1>Actualizar la conexión con Google Sheets</h1>
+  <p>Esta página prepara el código para copiarlo desde el celular con sus saltos de línea. La actualización se activa desde tu cuenta de Google.</p>
+  <section aria-labelledby="copy-heading">
+    <h2 id="copy-heading">1. Copia el receptor v4</h2>
+    <p>Conserva el respaldo anterior fuera del proyecto. El nuevo código incluye el formulario y el panel de invitados.</p>
+    <button id="copy-code" type="button" disabled>Copiar código completo</button>
+    <a class="download" href="rsvp-apps-script.gs" download="Codigo.gs">Descargar archivo .gs</a>
+    <p class="status" id="copy-status" role="status" aria-live="polite">Cargando el archivo…</p>
+    <details id="code-details"><summary>Ver el código o seleccionarlo manualmente</summary>
+      <label for="source-code">Código completo, listo para pegar</label>
+      <textarea id="source-code" readonly wrap="off" spellcheck="false"></textarea>
+    </details>
+  </section>
+  <section>
+    <h2>2. Pégalo y guarda</h2>
+    <p>En tu proyecto de Apps Script, abre <strong>Código.gs</strong> y sustituye su contenido completo. Debe quedar un solo archivo con las funciones del receptor. Pulsa <strong>Guardar</strong>.</p>
+    <p><strong>Conserva la clave que ya tienes.</strong> No necesitas ejecutar otra vez <code>configurarAccesoInvitados</code>.</p>
+  </section>
+  <section>
+    <h2>3. Activa la actualización</h2>
+    <ol>
+      <li>Abre <strong>Implementar → Gestionar implementaciones</strong> (puede aparecer como «Administrar implementaciones»).</li>
+      <li>Selecciona la aplicación web activa y toca el <strong>lápiz</strong>.</li>
+      <li>En Versión, elige <strong>Nueva versión</strong>. Conserva la misma cuenta y los permisos de acceso existentes.</li>
+      <li>Pulsa <strong>Implementar</strong> y luego <strong>Hecho</strong>. Actualizar la implementación existente conserva el enlace de la invitación.</li>
+    </ol>
+    <p>La URL de aplicación web que termina en <code>/exec</code> debe mostrar <code>"version":4</code>. El número de implementación que asigna Google es independiente.</p>
+    <p>Después, vuelve al resumen del formulario y reintenta <strong>una sola vez</strong> el envío pendiente. Comprueba que aparece su fila con celular, adultos y niños en Sheets y pulsa Actualizar en el panel.</p>
+  </section>
+  <footer>Copiar o descargar este archivo no modifica Google Sheets ni envía confirmaciones o mensajes.</footer>
+</main>
+<script>
+  const source = document.getElementById('source-code');
+  const button = document.getElementById('copy-code');
+  const status = document.getElementById('copy-status');
+  fetch('rsvp-apps-script.gs?v=4', {cache:'no-store'}).then(response => {
+    if (!response.ok) throw new Error('download_failed');
+    return response.text();
+  }).then(code => {
+    if (!code.includes('function doPost(') || !code.includes('Receptor v4.') || !code.includes('\n')) throw new Error('invalid_file');
+    source.value = code;
+    button.disabled = false;
+    status.textContent = 'Archivo listo. El botón copia el texto completo sin cambiar su formato.';
+  }).catch(() => {status.textContent = 'No se pudo cargar el código. Recarga esta página o usa Descargar archivo .gs.';});
+  button.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(source.value);
+      status.textContent = 'Código completo copiado. Ahora puedes pegarlo en Código.gs.';
+    } catch (_) {
+      document.getElementById('code-details').open = true;
+      source.focus(); source.select(); source.setSelectionRange(0, source.value.length);
+      status.textContent = 'El navegador bloqueó la copia automática. El texto está seleccionado: usa Copiar en el menú del celular o descarga el archivo.';
+    }
+  });
+</script>
+</body>
+</html>

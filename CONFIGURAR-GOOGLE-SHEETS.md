@@ -2,7 +2,23 @@
 
 La página **[invitados.html](https://lioncioylisbeth.github.io/nuestra-boda/invitados.html)** usa la misma hoja **Confirmaciones · Boda Lioncio & Lisbeth**. No crea una segunda lista independiente: consulta y modifica las filas de la pestaña `Confirmaciones`.
 
-**Estado actualizado, 13 de septiembre de 2026:** el propietario generó su clave, actualizó la implementación existente a la versión de despliegue 7 (receptor v3) y confirmó que el panel muestra las filas de Sheets. La lectura real está confirmada por el propietario; las nuevas escrituras siguen pendientes de comprobación en su cuenta. Los pasos de activación siguientes quedan como referencia: no hace falta repetirlos para la corrección del formulario descrita abajo. Ejecutar otra vez la función de configuración revoca la clave anterior.
+**Estado actualizado, 13 de septiembre de 2026:** el propietario tiene activa la versión de despliegue 7 (receptor v3) y confirmó que el panel lee Sheets. Las nuevas confirmaciones siguen fallando. Se preparó el **receptor v4**, pendiente de publicar en la implementación de Google existente. Guardarlo en GitHub no actualiza Apps Script.
+
+## Actualización del receptor que ya tienes activo
+
+Desde el celular abre **[Copiar el código completo](https://lioncioylisbeth.github.io/nuestra-boda/actualizar-receptor.html)**. El botón conserva todos los saltos de línea; también permite descargar `Codigo.gs` para abrirlo en tu editor de texto.
+
+1. Copia el código v4 y sustituye el contenido de `Código.gs` en el proyecto de Apps Script que ya administra la hoja. Conserva el respaldo fuera del proyecto y guarda.
+2. **Conserva la clave actual. No ejecutes de nuevo `configurarAccesoInvitados`**: volvería a generar otra clave.
+3. Abre **Implementar → Gestionar implementaciones** (o Administrar implementaciones), elige la aplicación activa y pulsa el lápiz. En Versión selecciona **Nueva versión** y pulsa Implementar. Conserva la cuenta, el acceso y la URL existentes.
+4. La URL de aplicación web `/exec` debe devolver `"version":4`. Ese número corresponde al receptor, no al número de implementación que asigna Google. Esta lectura no crea invitados ni demuestra que una escritura funcione.
+5. Vuelve al resumen pendiente y reintenta una sola vez con el mismo identificador. Comprueba el registro completo en Sheets y actualiza el panel. No borres las notas de las filas reservadas: evitan duplicados.
+
+**Qué se corrigió:** se elimina `setNumberFormat('@')` de las escrituras de teléfono en la tabla existente. El valor sigue siendo texto literal mediante `sheetText_`. El guardado público vuelve a leer la fecha, nombre, asistencia, pases, mensaje, origen, teléfono y desglose; comprueba que no haya fórmulas antes de responder con éxito. Una fila incompleta o modificada se remite a revisión en lugar de sobrescribirla durante un reintento. Los errores indican la etapa y el detalle de la excepción queda en el registro privado de ejecución de Apps Script.
+
+**Límite del diagnóstico:** la lectura autorizada de Sheets encontró notas de reserva de RSVP en filas sin nombre ni teléfono, y una columna de teléfono nativa de tipo TEXT. Esto localiza el fallo después de reservar y antes de terminar la escritura. El cambio de formato es una causa posible, no una excepción confirmada: v3 oculta la excepción. La conexión disponible no permite ejecutar ni desplegar Apps Script; la corrección debe verificarse en Google después de activarla. No se ha enviado ningún RSVP real durante las pruebas.
+
+Si v4 vuelve a fallar, la referencia de la invitación distingue lectura, reserva, escritura o verificación. En Apps Script → Ejecuciones, abre la ejecución reciente de `doPost` y revisa el mensaje `RSVP v4, etapa …`. No compartas claves ni datos de invitados del registro. No vuelvas a regenerar la clave ni a crear otro despliegue como intento de solución.
 
 ## Activación desde la cuenta autorizada
 
@@ -12,7 +28,7 @@ La página **[invitados.html](https://lioncioylisbeth.github.io/nuestra-boda/inv
 4. Ve a **Implementar → Administrar implementaciones**, elige la aplicación web existente y pulsa el lápiz. Selecciona **Nueva versión**. Mantén **Ejecutar como: Yo**, con la cuenta autorizada. El acceso a la aplicación debe permitir que los invitados envíen su formulario sin iniciar sesión; el receptor comprueba la clave privada antes de permitir cualquier consulta o gestión. **No hagas pública la hoja de cálculo.**
 5. Pulsa **Implementar**. Actualiza el despliegue existente para conservar la URL que ya utiliza la invitación.
 
-6. Abre esa URL `/exec`. Debe devolver `{"ok":true,"service":"rsvp-lioncio-lisbeth","version":3}`. Esta consulta solo informa de la versión y no devuelve ni crea invitados. No uses `/dev` para producción.
+6. Abre esa URL `/exec`. Debe devolver `{"ok":true,"service":"rsvp-lioncio-lisbeth","version":4}`. Esta consulta solo informa de la versión y no devuelve ni crea invitados. No uses `/dev` para producción.
 7. Abre **[invitados.html](https://lioncioylisbeth.github.io/nuestra-boda/invitados.html)**, pega la clave privada y pulsa **Abrir lista de invitados**. Comprueba que aparecen los mismos registros que en Sheets. Una consulta autenticada asigna identificadores estables mediante notas en las celdas de fecha de registros anteriores; no cambia sus datos.
 
 Si creas otro despliegue con una URL distinta, tendrás que actualizar el endpoint tanto en `index.html` (`RSVP_ENDPOINT`) como en `invitados.js` (`endpoint`). Guardar en el editor sin publicar una **nueva versión** no activa los cambios.
@@ -76,6 +92,6 @@ Si una operación del panel termina con un error de conexión, **actualiza la li
 
 `node --test tests/*.test.cjs` ejecuta pruebas sin red, con una hoja y un navegador simulados. Se verifican acceso privado, lista, edición, conflictos, archivo, fallos parciales, prevención de fórmulas, respuestas opacas, filtros, totales, doble envío y cierre de sesión. No se enviaron confirmaciones reales ni mensajes de WhatsApp durante estas pruebas.
 
-El propietario ya comprobó la lectura de la lista existente. La reparación del formulario pasa 35 pruebas locales, incluidas recuperación explícita de un fallo previo, respuesta perdida después de guardar, doble clic en el reintento y registro de otra persona. No se ha enviado una confirmación real durante este trabajo: falta comprobar una escritura desde la cuenta del propietario y su fila correspondiente en Sheets.
+El propietario ya comprobó la lectura de la lista existente. La corrección v4 pasa 40 pruebas locales. Incluyen una hoja simulada que rechaza cambios de formato en columnas tipadas, respuesta perdida después de guardar, fallo al vaciar la caché de escritura, fila incompleta y reintento de un registro modificado por los organizadores. La simulación comprueba esos casos y no demuestra cuál fue la excepción real de Google. Falta activar v4 y comprobar una escritura desde la cuenta del propietario y su fila correspondiente en Sheets.
 
 Referencias oficiales: [publicar aplicaciones web de Apps Script](https://developers.google.com/apps-script/guides/web), [propiedades del proyecto](https://developers.google.com/apps-script/guides/properties), [respuestas JSON y redirecciones](https://developers.google.com/apps-script/guides/content), [vaciar contenido sin borrar el formato](https://developers.google.com/apps-script/reference/spreadsheet/range#clearcontent).

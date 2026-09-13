@@ -16,7 +16,7 @@ function backend(){
         const matrix=(map,display=false)=>Array.from({length:height},(_,r)=>Array.from({length:width},(_,c)=>{const v=map.get(key(row+r,col+c))??'';return display?String(v):v;}));
         const range={getValues:()=>matrix(cells),getDisplayValues:()=>matrix(cells,true),getFormulas:()=>matrix(formulas),getNotes:()=>matrix(notes),
           getNote:()=>notes.get(key(row,col))||'',setNote:value=>{if(failFinalNote&&value.includes('GUEST-DELETED:')){failFinalNote=false;throw Error('interrupted');}notes.set(key(row,col),value);return range;},
-          setNumberFormat:()=>range,setBackground:()=>range,setFontColor:()=>range,setFontWeight:()=>range,
+          setNumberFormat:()=>{if(name==='Confirmaciones'&&col===9)throw Error('Cannot format a typed column');return range;},setBackground:()=>range,setFontColor:()=>range,setFontWeight:()=>range,
           setValues:values=>{values.forEach((line,r)=>line.forEach((v,c)=>cells.set(key(row+r,col+c),typeof v==='string'&&v.startsWith("'")?v.slice(1):v)));return range;},
           clearContent:()=>{if(failClear){failClear=false;throw Error('clear interrupted');}for(let r=0;r<height;r++)for(let c=0;c<width;c++)cells.delete(key(row+r,col+c));return range;}};
         return range;
@@ -28,7 +28,7 @@ function backend(){
   ['Fecha y hora','Invitado / Familia','¿Asistirá?','Pases','Dedicatoria','Origen','Estado','Observaciones','Teléfono','Adultos','Niños'].forEach((v,i)=>s.set(6,i+1,v));
   [new Date('2026-09-12T12:00:00Z'),'Prueba local',core.YES,3,'Dedicatoria original','Invitación web','Pendiente','','+521234567890',2,1].forEach((v,i)=>s.set(7,i+1,v));
   s.set(7,12,'Resumen intacto');
-  const context=vm.createContext({console:{log:()=>{}},
+  const context=vm.createContext({console:{log:()=>{},error:()=>{}},
     PropertiesService:{getScriptProperties:()=>({getProperty:name=>name==='RSVP_SPREADSHEET_ID'?'local-workbook-00001':sha(KEY)})},
     LockService:{getScriptLock:()=>({tryLock:()=>{if(locked)return false;locked=true;return true;},releaseLock:()=>{locked=false;}})},
     SpreadsheetApp:{openById:id=>{assert.equal(id,'local-workbook-00001');opens++;return book;},flush:()=>{}},
@@ -42,7 +42,7 @@ function backend(){
 test('admin requires a strong key before opening Sheets; GET never returns guests',()=>{
   const b=backend();
   for(const key of ['',null,'wrong','a'.repeat(64)]) assert.equal(b.admin('admin.list',{key}).code,'unauthorized');
-  assert.equal(b.opens(),0);assert.equal(b.health().version,3);assert.equal(b.health().guests,undefined);
+  assert.equal(b.opens(),0);assert.equal(b.health().version,4);assert.equal(b.health().guests,undefined);
 });
 test('list uses stable IDs for old rows, preserves notes and reads later changes from the same sheet',()=>{
   const b=backend();b.s.notes.set('7,1','Nota del propietario');

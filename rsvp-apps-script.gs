@@ -1,5 +1,5 @@
 /**
- * Receptor v3. Pegar en el proyecto vinculado a la hoja existente y publicar
+ * Receptor v4. Pegar en el proyecto vinculado a la hoja existente y publicar
  * una nueva versión del despliegue actual. Guardar el editor no lo despliega.
  * No cambia encabezados, formatos, resúmenes ni registros anteriores.
  */
@@ -7,10 +7,11 @@ const RSVP_SHEET_NAME = 'Confirmaciones';
 const RSVP_FIRST_ROW = 7;
 function doGet() {
   // Never return guest data or access credentials from a public GET.
-  return json_({ok:true, service:'rsvp-lioncio-lisbeth', version:3});
+  return json_({ok:true, service:'rsvp-lioncio-lisbeth', version:4});
 }
 function doPost(e) {
   let locked = false;
+  let stage = 'read';
   const lock = LockService.getScriptLock();
   try {
     const raw = (e && e.postData && e.postData.contents) || '';
@@ -29,28 +30,47 @@ function doPost(e) {
       return json_({ok:false, code:'archived_request'});
     }
     if (prior && String(sheet.getRange(prior.row, 2).getDisplayValues()[0][0]).trim()) {
-      return json_({ok:true, requestId:data.requestId, duplicate:true, version:3});
+      // A name alone is not evidence that the complete response was saved.
+      // Never overwrite an existing or subsequently edited guest on a retry.
+      if (!rsvpRowMatches_(sheet, prior.row, data)) return json_({ok:false, code:'registration_review_required'});
+      return json_({ok:true, requestId:data.requestId, duplicate:true, version:4});
     }
     const row = prior ? prior.row : getNextRsvpRow_(sheet);
     if (row > sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(), row - sheet.getMaxRows());
     // Reserve the row first. A retry after an interrupted write reuses it.
+    stage = 'reserve';
     const cell = sheet.getRange(row, 1);
     const oldNote = cell.getNote();
     if (!prior) cell.setNote((oldNote ? oldNote + '\n' : '') + 'RSVP-ID: ' + data.requestId + ' HASH: ' + fingerprint);
-    sheet.getRange(row, 9).setNumberFormat('@');
+    stage = 'write';
+    // The existing table owns its formats. Escape phone/text as literals instead
+    // of changing a typed column's number format during every registration.
     sheet.getRange(row, 1, 1, 11).setValues([[
       new Date(), sheetText_(data.name), data.attendance, data.passes,
       sheetText_(data.message), 'Invitación web', 'Pendiente', '',
       sheetText_(data.phone), data.adults, data.children
     ]]);
+    stage = 'verify';
     SpreadsheetApp.flush();
-    return json_({ok:true, requestId:data.requestId, duplicate:false, version:3});
-  } catch (_) {
-    // Do not return guest data or internal sheet errors to public visitors.
-    return json_({ok:false, code:'registration_unavailable'});
+    if (!rsvpRowMatches_(sheet, row, data)) return json_({ok:false, code:'registration_verify_failed'});
+    return json_({ok:true, requestId:data.requestId, duplicate:false, version:4});
+  } catch (error) {
+    // Details stay in the owner's Apps Script execution log, never in the public
+    // response. Do not log the request body, key, phone or dedication separately.
+    console.error('RSVP v4, etapa ' + stage + ': ' + String(error && error.message || error));
+    return json_({ok:false, code:'registration_' + stage + '_failed'});
   } finally {
     if (locked) lock.releaseLock();
   }
+}
+function rsvpRowMatches_(sheet, row, data) {
+  const range = sheet.getRange(row, 1, 1, 11);
+  const values = range.getValues()[0];
+  if (range.getFormulas()[0].some(Boolean)) return false;
+  if (!values[0] || typeof values[0].getTime !== 'function' || !Number.isFinite(values[0].getTime())) return false;
+  return values[1] === data.name && values[2] === data.attendance && values[3] === data.passes
+    && values[4] === data.message && values[5] === 'Invitación web'
+    && values[8] === data.phone && values[9] === data.adults && values[10] === data.children;
 }
 function validateRsvp_(data) {
   if (!data || typeof data !== 'object' || clean_(data.website)) return null;
@@ -127,7 +147,7 @@ function adminAuthorized_(key) {
   return difference === 0;
 }
 function adminRequest_(input) {
-  const response = payload => json_(Object.assign({version:3, action:input.action, requestId:input.requestId}, payload));
+  const response = payload => json_(Object.assign({version:4, action:input.action, requestId:input.requestId}, payload));
   // Validate the secret before opening or scanning the workbook.
   if (!adminAuthorized_(input.key)) return response({ok:false, code:'unauthorized'});
   if (!['admin.list','admin.update','admin.delete'].includes(input.action) || !/^[A-Za-z0-9-]{16,80}$/.test(input.requestId || '')) {
@@ -161,7 +181,7 @@ function adminRequest_(input) {
       values[1] = sheetText_(update.name); values[2] = update.attendance; values[3] = update.adults + update.children;
       values[4] = sheetText_(update.message); values[6] = update.status; values[7] = sheetText_(update.notes);
       values[8] = sheetText_(update.phone); values[9] = update.adults; values[10] = update.children;
-      sheet.getRange(entry.row, 9).setNumberFormat('@');
+      // Preserve the table's existing phone format; sheetText_ keeps it literal.
       // One range write; preserve date and source, and never re-evaluate stored text.
       sheet.getRange(entry.row, 1, 1, 11).setValues([values.map((value,index) =>
         (index === 0 || index === 5) && typeof value === 'string' ? sheetText_(value) : value)]);

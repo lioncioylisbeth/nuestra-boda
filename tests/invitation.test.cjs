@@ -28,7 +28,7 @@ test('WhatsApp text keeps Unicode, adults/children, contact and recipient', () =
   assert.ok(!url.searchParams.get('text').includes('\uFFFD'));
 });
 test('an opaque response, HTTP failure or mismatched ID never means saved', () => {
-  for (const version of [2,3]) assert.equal(core.verifiedReceipt({ok:true,type:'cors'}, {ok:true,requestId:'id',version}, 'id'), true);
+  for (const version of [2,3,4]) assert.equal(core.verifiedReceipt({ok:true,type:'cors'}, {ok:true,requestId:'id',version}, 'id'), true);
   for (const [response,receipt] of [[{ok:false},{ok:true}],[{ok:true,type:'opaque'},{ok:true}],[{ok:true},{ok:false}],[{ok:true},{ok:'true'}],[{ok:true},{ok:true}],[{ok:true},{ok:true,requestId:'id'}],[{ok:true},{ok:true,requestId:'id',version:1}],[{ok:true},{ok:true,requestId:'different',version:3}],[{ok:true},null]]) assert.equal(core.verifiedReceipt(response,receipt,'id'), false);
 });
 test('calendar dates use Morelos time, correct next-day UTC, and RFC line folding', () => {
@@ -56,7 +56,8 @@ test('HTML preserves wedding details, thumbnail and veil without the rosary', ()
 });
 
 function backend() {
-  let maxRows=20, locked=false, writes=0, failWrite=false;
+  let maxRows=20, locked=false, writes=0, failWrite=false, failFlush=false, omitChildren=false;
+  const logged=[];
   const cells=new Map(), notes=new Map();
   const key=(r,c)=>r+','+c;
   const headers=['Fecha y hora','Invitado / Familia','¿Asistirá?','Pases','Dedicatoria','Origen','Estado','Observaciones','Teléfono','Adultos','Niños'];
@@ -70,31 +71,38 @@ function backend() {
       const matrix=map=>Array.from({length:height},(_,r)=>Array.from({length:width},(_,c)=>String(map.get(key(row+r,col+c))??'')));
       return {
         getDisplayValues:()=>matrix(cells), getNotes:()=>matrix(notes),
+        getValues:()=>Array.from({length:height},(_,r)=>Array.from({length:width},(_,c)=>{
+          const value=cells.get(key(row+r,col+c))??'';
+          return typeof value==='string' && value.startsWith("'") ? value.slice(1) : value;
+        })),
+        getFormulas:()=>Array.from({length:height},()=>Array(width).fill('')),
         getNote:()=>notes.get(key(row,col))||'',
         setNote:value=>notes.set(key(row,col),value),
-        setNumberFormat:()=>{},
+        setNumberFormat:()=>{throw new Error('Cannot set the number format of cells in a typed column');},
         setValues:values=>{
           if(failWrite){failWrite=false;throw new Error('simulated interruption');}
           writes++;
           values.forEach((line,r)=>line.forEach((value,c)=>cells.set(key(row+r,col+c),value)));
+          if(omitChildren){omitChildren=false;cells.delete(key(row,11));}
         }
       };
     }
   };
   const context=vm.createContext({
+    console:{error:message=>logged.push(message)},
     LockService:{getScriptLock:()=>({tryLock:()=>{if(locked)return false;locked=true;return true;},releaseLock:()=>{locked=false;}})},
     PropertiesService:{getScriptProperties:()=>({getProperty:()=>null})},
-    SpreadsheetApp:{getActiveSpreadsheet:()=>({getSheetByName:()=>sheet}),flush:()=>{}},
+    SpreadsheetApp:{getActiveSpreadsheet:()=>({getSheetByName:()=>sheet}),flush:()=>{if(failFlush){failFlush=false;throw new Error('simulated flush interruption');}}},
     ContentService:{MimeType:{JSON:'json'},createTextOutput:content=>({setMimeType:()=>JSON.parse(content)})},
     Utilities:{DigestAlgorithm:{SHA_256:'sha256'},Charset:{UTF_8:'utf8'},computeDigest:(_,text)=>[...crypto.createHash('sha256').update(text).digest()]}
   });
   vm.runInContext(fs.readFileSync(require.resolve('../rsvp-apps-script.gs'),'utf8'),context);
   const data={...core.validate(valid).data,requestId:'test-request-000000000001'};
-  return {post:(patch={})=>context.doPost({postData:{contents:JSON.stringify({...data,...patch})}}),get:(r,c)=>cells.get(key(r,c)),writes:()=>writes,fail:()=>{failWrite=true;},lock:()=>{locked=true;},health:()=>context.doGet()};
+  return {post:(patch={})=>context.doPost({postData:{contents:JSON.stringify({...data,...patch})}}),get:(r,c)=>cells.get(key(r,c)),set:(r,c,value)=>cells.set(key(r,c),value),writes:()=>writes,fail:()=>{failWrite=true;},failFlush:()=>{failFlush=true;},omitChildren:()=>{omitChildren=true;},logged,lock:()=>{locked=true;},health:()=>context.doGet()};
 }
 test('receiver saves all 11 fields, normalizes counts and preserves existing data and summaries', () => {
   const b=backend();
-  assert.equal(b.health().version,3);
+  assert.equal(b.health().version,4);
   assert.equal(b.post().ok,true);
   assert.equal(b.get(8,4),3); assert.equal(b.get(8,10),2); assert.equal(b.get(8,11),1);
   assert.equal(b.get(8,9), "'+521234567890");
@@ -122,9 +130,27 @@ test('receiver uses zero guests for a decline', () => {
 });
 test('receiver reuses its reserved row after an interrupted write', () => {
   const b=backend(); b.fail();
-  assert.equal(b.post().ok,false); assert.equal(b.writes(),0);
+  const failure=b.post();
+  assert.equal(failure.code,'registration_write_failed'); assert.equal(b.writes(),0);
+  assert.doesNotMatch(JSON.stringify(failure),/simulated interruption|Prueba local|1234567890/);
+  assert.match(b.logged[0],/etapa write: simulated interruption/);
   assert.equal(b.post().ok,true); assert.equal(b.writes(),1);
   assert.equal(b.get(8,2),'Prueba local'); assert.equal(b.get(9,2),undefined);
+});
+test('a failed flush is not proof of save; retry reads the row and avoids a second write', () => {
+  const b=backend();b.failFlush();
+  assert.equal(b.post().code,'registration_verify_failed');assert.equal(b.writes(),1);
+  assert.equal(b.post().duplicate,true);assert.equal(b.writes(),1);
+});
+test('an incomplete persisted row is never reported saved or silently overwritten on retry', () => {
+  const b=backend();b.omitChildren();
+  assert.equal(b.post().code,'registration_verify_failed');assert.equal(b.get(8,2),'Prueba local');
+  assert.equal(b.post().code,'registration_review_required');assert.equal(b.writes(),1);
+});
+test('a retry does not overwrite a guest changed by the organizer', () => {
+  const b=backend();assert.equal(b.post().ok,true);b.set(8,10,4);
+  assert.equal(b.post().code,'registration_review_required');assert.equal(b.get(8,10),4);
+  assert.equal(b.writes(),1);
 });
 test('receiver reports lock contention without a write', () => {
   const b=backend(); b.lock(); assert.equal(b.post().code,'busy'); assert.equal(b.writes(),0);

@@ -79,6 +79,23 @@ test('server rejection never appears as saved and validation avoids network enti
   const invalid=formApp(success); invalid.get('adults').value='11'; await invalid.submit();
   assert.equal(invalid.calls(),0); assert.equal(invalid.get('rsvp-error').hidden,false);
 });
+test('Google write failures explain the blockage without exposing server exception text', async()=>{
+  for(const code of ['registration_unavailable','registration_read_failed','registration_reserve_failed','registration_write_failed','registration_verify_failed']){
+    const app=formApp(async()=>({ok:true,json:async()=>({ok:false,code,message:'private Google error'})}));
+    await app.submit();
+    assert.equal(app.get('rsvp-save-state').dataset.state,'rejected');
+    assert.match(app.get('rsvp-save-state').textContent,/Referencia: RSVP-/);
+    assert.doesNotMatch(app.get('rsvp-save-state').textContent,/private Google error/);
+    assert.equal(app.get('rsvp-retry').textContent,'Reintentar cuando se haya corregido');
+    assert.equal(app.calls(),1);
+  }
+});
+test('an incomplete or changed row requires organizer review instead of another write', async()=>{
+  const app=formApp(async()=>({ok:true,json:async()=>({ok:false,code:'registration_review_required'})}));
+  await app.submit();assert.equal(app.get('rsvp-retry').hidden,true);
+  await app.get('rsvp-retry').events.click();assert.equal(app.calls(),1);
+  assert.match(app.get('rsvp-save-state').textContent,/necesita revisión/);
+});
 test('an old failed attempt can be explicitly retried after activation with the same request ID', async()=>{
   let originalId;
   const before=formApp(async data=>{originalId=data.requestId;return {ok:true,type:'cors',json:async()=>({ok:false,code:'registration_unavailable'})};});

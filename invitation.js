@@ -186,9 +186,19 @@
       archived_request:'Los organizadores retiraron este registro. Contacta a los novios por WhatsApp para revisar tu respuesta.',
       receiver_outdated:'El registro respondió sin un comprobante verificable. Contacta a los novios por WhatsApp antes de repetir el envío.'
     };
+    const serverFailures = {
+      registration_unavailable:'RSVP-GOOGLE',
+      registration_read_failed:'RSVP-LECTURA',
+      registration_reserve_failed:'RSVP-RESERVA',
+      registration_write_failed:'RSVP-ESCRITURA',
+      registration_verify_failed:'RSVP-VERIFICACION'
+    };
+    if (serverFailures[code]) reasons[code] = 'Google no pudo completar o verificar el registro. Tus datos siguen aquí. Envíalos por WhatsApp y avisa a los organizadores; repetir el botón no corrige este error. Referencia: ' + serverFailures[code] + '.';
+    reasons.registration_review_required = 'Hay un registro previo que necesita revisión. Contacta a los organizadores por WhatsApp; no hemos creado otra fila ni cambiado ese registro.';
     $('rsvp-save-state').dataset.state = state;
     $('rsvp-save-state').textContent = reasons[code] || messages[state] || messages.unknown;
-    $('rsvp-retry').hidden = !['unknown','rejected'].includes(state) || ['invalid_data','request_conflict','archived_request','receiver_outdated'].includes(code);
+    $('rsvp-retry').hidden = !['unknown','rejected'].includes(state) || ['invalid_data','request_conflict','archived_request','receiver_outdated','registration_review_required'].includes(code);
+    $('rsvp-retry').textContent = serverFailures[code] ? 'Reintentar cuando se haya corregido' : 'Volver a intentar el registro';
     $('rsvp-summary').setAttribute('aria-busy', String(state === 'pending'));
   }
   function showSummary(data, state, code) {
