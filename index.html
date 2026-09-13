@@ -859,7 +859,7 @@
                 linear-gradient(to bottom, rgba(253, 251, 247, 0.6) 0%, rgba(247, 244, 237, 0.95) 100%);
         }
     </style>
-    <link rel="stylesheet" href="invitation.css?v=10">
+    <link rel="stylesheet" href="invitation.css?v=12">
 </head>
 <body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-gold-500 selection:text-navy-950 overflow-x-hidden transition-colors duration-500">
 
@@ -1271,6 +1271,7 @@
                 <p class="section-eyebrow">Lioncio & Lisbeth · 28.11.2026</p>
                 <h3 id="summary-title">Tu respuesta está lista</h3>
                 <p id="rsvp-save-state" class="save-state" role="status" aria-live="polite"></p>
+                <button type="button" id="rsvp-retry" class="button-secondary retry-registration" hidden>Volver a intentar el registro</button>
                 <dl class="response-details">
                     <div><dt>Invitado / familia</dt><dd id="summary-name"></dd></div>
                     <div><dt>Celular</dt><dd id="summary-phone"></dd></div>
@@ -1282,7 +1283,10 @@
                 <p id="summary-message" class="summary-message"></p>
                 <a id="rsvp-whatsapp" class="button-primary" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Enviar por WhatsApp</a>
                 <p class="form-footnote">WhatsApp abrirá el mensaje preparado. Revisa los datos y pulsa Enviar para hacérnoslo llegar.</p>
-                <button type="button" id="rsvp-edit" class="text-link">Volver a mis datos</button>
+                <div class="summary-actions">
+                    <button type="button" id="rsvp-edit" class="text-link">Volver a mis datos</button>
+                    <button type="button" id="rsvp-new" class="button-secondary">Registrar otro invitado</button>
+                </div>
             </section>
         </div>
     </section>
@@ -1624,7 +1628,7 @@
         }
 
     </script>
-    <script src="invitation-core.js?v=9"></script>
-    <script src="invitation.js?v=9"></script>
+    <script src="invitation-core.js?v=12"></script>
+    <script src="invitation.js?v=12"></script>
 </body>
 </html>

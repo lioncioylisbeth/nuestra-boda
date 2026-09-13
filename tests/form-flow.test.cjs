@@ -40,7 +40,7 @@ function formApp(transport, sharedSession = new Map()) {
   const submit=()=>context.sendRSVP({preventDefault(){}});
   return {submit,get,calls:()=>calls,session:sharedSession,context};
 }
-const success=data=>({ok:true,type:'cors',json:async()=>({ok:true,requestId:data.requestId})});
+const success=data=>({ok:true,type:'cors',json:async()=>({ok:true,requestId:data.requestId,version:3})});
 
 test('successful response renders a verified summary, a WhatsApp link and no automatic navigation', async()=>{
   const app=formApp(success);
@@ -79,6 +79,20 @@ test('server rejection never appears as saved and validation avoids network enti
   const invalid=formApp(success); invalid.get('adults').value='11'; await invalid.submit();
   assert.equal(invalid.calls(),0); assert.equal(invalid.get('rsvp-error').hidden,false);
 });
+test('an old failed attempt can be explicitly retried after activation with the same request ID', async()=>{
+  let originalId;
+  const before=formApp(async data=>{originalId=data.requestId;return {ok:true,type:'cors',json:async()=>({ok:false,code:'registration_unavailable'})};});
+  await before.submit();
+  const after=formApp(data=>{assert.equal(data.requestId,originalId);return success(data);},before.session);
+  await after.submit();
+  assert.equal(after.calls(),0,'reloading never submits automatically');
+  assert.equal(after.get('rsvp-save-state').dataset.state,'rejected');
+  assert.equal(after.get('rsvp-retry').hidden,false);
+  await after.get('rsvp-retry').events.click();
+  assert.equal(after.calls(),1);
+  assert.equal(after.get('rsvp-save-state').dataset.state,'saved');
+  assert.equal(after.get('rsvp-retry').hidden,true);
+});
 test('edited response is a new request while decline sends zero people', async()=>{
   const payloads=[];
   const app=formApp(data=>{payloads.push(data);return success(data);});
@@ -86,4 +100,55 @@ test('edited response is a new request while decline sends zero people', async()
   assert.equal(app.calls(),2); assert.equal(payloads[1].passes,0);
   assert.equal(payloads[1].adults,0); assert.equal(payloads[1].children,0);
   assert.notEqual(payloads[0].requestId,payloads[1].requestId);
+});
+test('explicit retry after a lost reply recovers one record and ignores double clicks', async()=>{
+  const records=new Set();
+  let resolve;
+  const pending=new Promise(done=>{resolve=done;});
+  const app=formApp(async data=>{
+    if (!records.has(data.requestId)) {records.add(data.requestId);throw new Error('reply lost after save');}
+    await pending;
+    return {ok:true,type:'cors',json:async()=>({ok:true,requestId:data.requestId,version:3,duplicate:true})};
+  });
+  await app.submit();
+  assert.equal(app.get('rsvp-save-state').dataset.state,'unknown');
+  const retry=app.get('rsvp-retry').events.click();
+  const repeated=app.get('rsvp-retry').events.click();
+  assert.equal(app.get('rsvp-new').disabled,true);
+  app.get('rsvp-new').events.click();
+  assert.equal(app.get('guest-name').value,'Solo prueba local');
+  resolve();await Promise.all([retry,repeated]);
+  assert.equal(app.calls(),2);
+  assert.equal(records.size,1);
+  assert.equal(app.get('rsvp-save-state').dataset.state,'saved');
+  await app.get('rsvp-retry').events.click();assert.equal(app.calls(),2);
+});
+test('another guest starts a clean form and uses a different ID, keeping the previous receipt', async()=>{
+  const payloads=[];
+  const app=formApp(data=>{payloads.push(data);return success(data);});
+  app.get('attendance').value=core.NO;app.context.syncAttendanceCounts();
+  app.get('message').value='Mensaje anterior';
+  await app.submit();
+  app.get('rsvp-new').events.click();
+  assert.equal(app.calls(),1);
+  assert.equal(app.get('guest-name').value,'');assert.equal(app.get('guest-phone').value,'');
+  assert.equal(app.get('message').value,'');assert.equal(app.get('rsvp-form').hidden,false);
+  assert.equal(app.get('rsvp-summary').hidden,true);assert.equal(app.get('adults').disabled,false);
+  assert.equal(Number(app.get('adults').value),1);assert.equal(Number(app.get('children').value),0);
+  app.get('guest-name').value='Otro invitado local';app.get('guest-phone').value='1234567891';
+  await app.submit();
+  assert.equal(payloads.length,2);assert.notEqual(payloads[0].requestId,payloads[1].requestId);
+  assert.equal(payloads[1].adults,1);assert.equal(payloads[1].message,'');
+  const previous=formApp(success,app.session);
+  previous.get('attendance').value=core.NO;previous.get('message').value='Mensaje anterior';
+  await previous.submit();assert.equal(previous.calls(),0);
+});
+test('old receipts without IDs and archived records never claim success or offer a duplicate-prone retry', async()=>{
+  for (const receipt of [{ok:true},{ok:true,requestId:'wrong',version:3},{ok:false,code:'archived_request'}]) {
+    const app=formApp(async()=>({ok:true,type:'cors',json:async()=>receipt}));
+    await app.submit();
+    assert.notEqual(app.get('rsvp-save-state').dataset.state,'saved');
+    assert.equal(app.get('rsvp-retry').hidden,true);
+    await app.get('rsvp-retry').events.click();assert.equal(app.calls(),1);
+  }
 });

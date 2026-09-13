@@ -28,9 +28,8 @@ test('WhatsApp text keeps Unicode, adults/children, contact and recipient', () =
   assert.ok(!url.searchParams.get('text').includes('\uFFFD'));
 });
 test('an opaque response, HTTP failure or mismatched ID never means saved', () => {
-  assert.equal(core.verifiedReceipt({ok:true,type:'cors'}, {ok:true}, 'id'), true);
-  assert.equal(core.verifiedReceipt({ok:true}, {ok:true,requestId:'id'}, 'id'), true);
-  for (const [response,receipt] of [[{ok:false},{ok:true}],[{ok:true,type:'opaque'},{ok:true}],[{ok:true},{ok:false}],[{ok:true},{ok:'true'}],[{ok:true},{ok:true,requestId:'different'}],[{ok:true},null]]) assert.equal(core.verifiedReceipt(response,receipt,'id'), false);
+  for (const version of [2,3]) assert.equal(core.verifiedReceipt({ok:true,type:'cors'}, {ok:true,requestId:'id',version}, 'id'), true);
+  for (const [response,receipt] of [[{ok:false},{ok:true}],[{ok:true,type:'opaque'},{ok:true}],[{ok:true},{ok:false}],[{ok:true},{ok:'true'}],[{ok:true},{ok:true}],[{ok:true},{ok:true,requestId:'id'}],[{ok:true},{ok:true,requestId:'id',version:1}],[{ok:true},{ok:true,requestId:'different',version:3}],[{ok:true},null]]) assert.equal(core.verifiedReceipt(response,receipt,'id'), false);
 });
 test('calendar dates use Morelos time, correct next-day UTC, and RFC line folding', () => {
   const ceremony = core.calendar('ceremony', new Date('2026-09-12T00:00:00Z'));

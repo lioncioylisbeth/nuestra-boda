@@ -109,6 +109,8 @@ body .text-gold-300,body .text-gold-400 { color:var(--accent) !important; }
 .dedication-content > .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
 .dedication-content button { min-height:44px; font-size:.73rem; }
 .rsvp-summary { border-top:1px solid var(--line); padding-top:1.5rem; }
+.retry-registration { width:100%; margin-bottom:1.5rem; }
+.summary-actions { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; margin-top:1rem; }
 .rsvp-summary h3 { font:400 2rem/1.2 "Cormorant Garamond",serif; margin:.65rem 0 1rem; }
 .save-state { border-left:3px solid var(--accent); background:var(--soft); padding:.8rem 1rem; font-size:.8rem; line-height:1.7; margin-bottom:1.5rem; }
 .save-state[data-state="saved"] { border-left-color:#5aab8c; }

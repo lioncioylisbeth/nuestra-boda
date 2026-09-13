@@ -158,7 +158,7 @@
   window.syncAttendanceCounts();
 
   const attempts = new Map();
-  let busy = false;
+  let busy = false, currentSubmission = null;
   async function fingerprint(data) {
     if (!window.crypto?.subtle) return null;
     const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(JSON.stringify(data)));
@@ -168,17 +168,30 @@
     if (crypto.randomUUID) return crypto.randomUUID();
     return 'rsvp-' + Date.now().toString(36) + '-' + [...crypto.getRandomValues(new Uint8Array(12))].map(x => x.toString(16).padStart(2,'0')).join('');
   }
-  function setSaveState(state) {
+  function setBusy(value) {
+    busy = value;
+    ['rsvp-submit', 'rsvp-edit', 'rsvp-retry', 'rsvp-new'].forEach(id => { $(id).disabled = value; });
+  }
+  function setSaveState(state, code) {
     const messages = {
       pending:'Estamos comprobando el registro. Puedes revisar tu respuesta mientras tanto.',
       saved:'Registro verificado en la hoja de confirmaciones. Falta enviar tu mensaje por WhatsApp.',
-      unknown:'No pudimos verificar el guardado en la hoja. No lo daremos por confirmado ni lo reenviaremos automáticamente para evitar duplicados. Envía tu respuesta por WhatsApp para que los novios puedan revisarla.',
-      rejected:'La hoja no aceptó el registro. Tus datos siguen aquí; envía tu respuesta por WhatsApp para que los novios puedan revisarla.'
+      unknown:'No pudimos verificar el guardado. Pulsa «Volver a intentar el registro» para recuperar este mismo envío sin duplicarlo. También puedes enviar tu respuesta por WhatsApp.',
+      rejected:'No se completó el registro en la hoja. Tus datos siguen aquí; puedes volver a intentar este mismo envío.'
+    };
+    const reasons = {
+      busy:'La hoja estaba atendiendo otra confirmación. Puedes volver a intentar este mismo envío.',
+      invalid_data:'La hoja no aceptó algunos datos. Pulsa «Volver a mis datos», revisa el celular y la cantidad de adultos y niños, y envía de nuevo.',
+      request_conflict:'Este intento está asociado a otros datos. Revisa tu respuesta con los novios antes de enviarla de nuevo.',
+      archived_request:'Los organizadores retiraron este registro. Contacta a los novios por WhatsApp para revisar tu respuesta.',
+      receiver_outdated:'El registro respondió sin un comprobante verificable. Contacta a los novios por WhatsApp antes de repetir el envío.'
     };
     $('rsvp-save-state').dataset.state = state;
-    $('rsvp-save-state').textContent = messages[state] || messages.unknown;
+    $('rsvp-save-state').textContent = reasons[code] || messages[state] || messages.unknown;
+    $('rsvp-retry').hidden = !['unknown','rejected'].includes(state) || ['invalid_data','request_conflict','archived_request','receiver_outdated'].includes(code);
+    $('rsvp-summary').setAttribute('aria-busy', String(state === 'pending'));
   }
-  function showSummary(data, state) {
+  function showSummary(data, state, code) {
     ['name','phone','attendance','adults','children'].forEach(key => { $('summary-' + key).textContent = data[key]; });
     $('summary-total').textContent = data.passes + (data.passes === 1 ? ' persona' : ' personas');
     $('summary-message').textContent = data.message;
@@ -186,9 +199,34 @@
     $('rsvp-whatsapp').href = core.whatsappURL(data);
     $('rsvp-form').hidden = true;
     $('rsvp-summary').hidden = false;
-    setSaveState(state);
+    setSaveState(state, code);
     $('rsvp-summary').focus({preventScroll:true});
     scrollToElement($('rsvp-summary'));
+  }
+  async function postSubmission(submission) {
+    const {data, key, attempt} = submission;
+    attempt.state = 'unknown';
+    delete attempt.code;
+    // Keep the same ID for an explicit retry, including after a page reload.
+    if (key) storage.set('wedding-rsvp-' + key, JSON.stringify(attempt));
+    showSummary(data, 'pending');
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 25000);
+    try {
+      const response = await fetch(window.RSVP_ENDPOINT, {
+        method:'POST', mode:'cors', credentials:'omit', redirect:'follow',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify({...data, requestId:attempt.id, website:''}), signal:controller.signal
+      });
+      if (!response.ok || response.type === 'opaque') throw new Error('unreadable_response');
+      const receipt = await response.json();
+      attempt.state = core.verifiedReceipt(response, receipt, attempt.id) ? 'saved' : receipt?.ok === false ? 'rejected' : 'unknown';
+      if (attempt.state === 'rejected') attempt.code = String(receipt.code || '').slice(0, 80);
+      if (attempt.state === 'unknown' && receipt?.ok === true) attempt.code = 'receiver_outdated';
+    } catch (_) { attempt.state = 'unknown'; }
+    finally { clearTimeout(timeout); }
+    if (key) storage.set('wedding-rsvp-' + key, JSON.stringify(attempt));
+    setSaveState(attempt.state, attempt.code);
   }
   window.sendRSVP = async function (event) {
     event.preventDefault();
@@ -199,9 +237,7 @@
       $('rsvp-error').textContent = result.error; $('rsvp-error').hidden = false;
       $(result.field).focus(); return;
     }
-    busy = true;
-    $('rsvp-submit').disabled = true;
-    $('rsvp-edit').disabled = true;
+    setBusy(true);
     const data = result.data;
     let key = null, attempt;
     try {
@@ -211,39 +247,52 @@
       if (!attempt && key) {
         try {
           const cached = JSON.parse(storage.get('wedding-rsvp-' + key));
-          if (cached && Date.now() - cached.at < 24 * 60 * 60 * 1000) attempt = cached;
+          if (cached && /^[A-Za-z0-9-]{16,80}$/.test(cached.id) && ['saved','unknown','rejected'].includes(cached.state) && Number.isFinite(cached.at) && Date.now() - cached.at < 24 * 60 * 60 * 1000) attempt = cached;
         } catch (_) { /* An invalid cache never means the response was saved. */ }
       }
-      if (attempt) { showSummary(data, attempt.state === 'saved' ? 'saved' : 'unknown'); return; }
+      if (attempt) {
+        attempts.set(memoryKey, attempt);
+        currentSubmission = {data, key, attempt};
+        showSummary(data, attempt.state, attempt.code);
+        return;
+      }
       attempt = {id:requestId(), at:Date.now(), state:'unknown'};
       attempts.set(memoryKey, attempt);
+      currentSubmission = {data, key, attempt};
       // Cache only a digest and receipt state, never names, phones or dedications.
-      if (key) storage.set('wedding-rsvp-' + key, JSON.stringify(attempt));
-      showSummary(data, 'pending');
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 15000);
-      try {
-        const response = await fetch(window.RSVP_ENDPOINT, {
-          method:'POST', mode:'cors', credentials:'omit', redirect:'follow',
-          headers:{'Content-Type':'text/plain;charset=utf-8'},
-          body:JSON.stringify({...data, requestId:attempt.id, website:''}), signal:controller.signal
-        });
-        const receipt = await response.json();
-        attempt.state = core.verifiedReceipt(response, receipt, attempt.id) ? 'saved' : receipt?.ok === false ? 'rejected' : 'unknown';
-      } catch (_) { attempt.state = 'unknown'; }
-      finally { clearTimeout(timeout); }
-      if (key) storage.set('wedding-rsvp-' + key, JSON.stringify(attempt));
-      setSaveState(attempt.state);
+      await postSubmission(currentSubmission);
     } catch (_) {
       showSummary(data, 'unknown');
     } finally {
-      busy = false;
-      $('rsvp-submit').disabled = false;
-      $('rsvp-edit').disabled = false;
+      setBusy(false);
     }
   };
+  $('rsvp-retry').addEventListener('click', async () => {
+    if (busy || !currentSubmission || $('rsvp-retry').hidden || currentSubmission.attempt.state === 'saved') return;
+    setBusy(true);
+    try { await postSubmission(currentSubmission); }
+    finally { setBusy(false); }
+  });
   $('rsvp-edit').addEventListener('click', () => {
     if (busy) return;
+    $('rsvp-summary').hidden = true;
+    $('rsvp-form').hidden = false;
+    $('guest-name').focus();
+    scrollToElement($('rsvp-form'));
+  });
+  $('rsvp-new').addEventListener('click', () => {
+    if (busy) return;
+    currentSubmission = null;
+    ['guest-name','guest-phone','message','guest-website','toast-custom-input'].forEach(id => { $(id).value = ''; $(id).setCustomValidity(''); });
+    $('attendance').value = core.YES;
+    previousCounts = [1, 0];
+    $('adults').value = '1'; $('children').value = '0';
+    window.syncAttendanceCounts();
+    window.lastGeneratedToastText = '';
+    $('toast-result-text').textContent = '';
+    $('toast-result-box').classList.add('hidden');
+    $('dedication-tools').open = false;
+    $('rsvp-error').hidden = true;
     $('rsvp-summary').hidden = true;
     $('rsvp-form').hidden = false;
     $('guest-name').focus();

@@ -2,7 +2,7 @@
 
 La página **[invitados.html](https://lioncioylisbeth.github.io/nuestra-boda/invitados.html)** usa la misma hoja **Confirmaciones · Boda Lioncio & Lisbeth**. No crea una segunda lista independiente: consulta y modifica las filas de la pestaña `Confirmaciones`.
 
-**Estado:** el código v3 está preparado en GitHub. La conexión utilizada para este trabajo no permite administrar despliegues de Apps Script. Publicar GitHub no publica el receptor de Google; los pasos siguientes son necesarios para activar la consulta, edición y archivo. No se ha comprobado el funcionamiento de v3 contra datos reales.
+**Estado actualizado, 13 de septiembre de 2026:** el propietario generó su clave, actualizó la implementación existente a la versión de despliegue 7 (receptor v3) y confirmó que el panel muestra las filas de Sheets. La lectura real está confirmada por el propietario; las nuevas escrituras siguen pendientes de comprobación en su cuenta. Los pasos de activación siguientes quedan como referencia: no hace falta repetirlos para la corrección del formulario descrita abajo. Ejecutar otra vez la función de configuración revoca la clave anterior.
 
 ## Activación desde la cuenta autorizada
 
@@ -22,6 +22,7 @@ Si creas otro despliegue con una URL distinta, tendrás que actualizar el endpoi
 | Acción | Resultado en Google Sheets y en la página |
 | --- | --- |
 | El invitado confirma desde la invitación | Se registra en `Confirmaciones`; el panel lo muestra al actualizar. |
+| Pulsas «Registrar invitado» en el panel | Abre el formulario de la invitación en otra pestaña. Tras registrar, vuelve al panel y pulsa «Actualizar». |
 | Pulsas el lápiz y guardas | Se actualiza el mismo registro en Sheets; el servidor lo vuelve a leer antes de confirmar el resultado. |
 | Editas directamente en Sheets | La página consulta los cambios al pulsar **Actualizar** o en la siguiente actualización automática. |
 | Pulsas × y confirmas | Se copia el registro a `Archivo de invitados` del mismo archivo y se vacían sus celdas A:K en `Confirmaciones`. No se elimina la fila completa ni se desplaza el resumen lateral. |
@@ -61,7 +62,11 @@ En la pestaña `Archivo de invitados`, las columnas **E:O** contienen las 11 cel
 
 ## Confirmaciones y mensajes de error
 
-La invitación prepara un mensaje de WhatsApp e intenta guardar en Sheets. Solo comunica **Registro verificado** tras recibir un JSON legible con `ok: true`. Una respuesta opaca, un error de conexión o una espera agotada **no** prueban el guardado. El celular lo declara el invitado: el navegador no puede leer el número de su cuenta de WhatsApp.
+La invitación prepara un mensaje de WhatsApp e intenta guardar en Sheets. Solo comunica **Registro verificado** tras recibir un JSON legible con `ok: true`, el identificador del mismo envío y una versión compatible del receptor. Una respuesta opaca, un error de conexión o una espera agotada **no** prueban el guardado. El celular lo declara el invitado: el navegador no puede leer el número de su cuenta de WhatsApp.
+
+Si un intento falló antes de activar Google o se perdió su respuesta, el formulario conserva ese intento. **«Volver a intentar el registro»** reenvía los mismos datos con el mismo identificador, únicamente al pulsarlo. El receptor v3 reutiliza una reserva o devuelve el comprobante existente: no crea otra fila por repetir ese identificador. No se reenvía automáticamente al recargar ni al volver al resumen. Ante datos inválidos se pide corregirlos; ante un registro archivado o un recibo antiguo sin identificador se pide revisar la respuesta con los organizadores.
+
+**«Registrar otro invitado»** abre un formulario limpio con un adulto y cero niños. Conserva los identificadores de los intentos previos en la sesión para que volver a escribir la misma respuesta no duplique un registro. Los datos personales y las dedicatorias no se guardan en el almacenamiento del navegador.
 
 El receptor conserva la validación y deduplicación por identificador de envío de v2. Si se repite una petición, reutiliza el registro reservado. No fusiona personas por nombre ni por teléfono. Una respuesta modificada se considera un nuevo envío. Un envío archivado no vuelve a aparecer por repetir su petición antigua.
 
@@ -71,6 +76,6 @@ Si una operación del panel termina con un error de conexión, **actualiza la li
 
 `node --test tests/*.test.cjs` ejecuta pruebas sin red, con una hoja y un navegador simulados. Se verifican acceso privado, lista, edición, conflictos, archivo, fallos parciales, prevención de fórmulas, respuestas opacas, filtros, totales, doble envío y cierre de sesión. No se enviaron confirmaciones reales ni mensajes de WhatsApp durante estas pruebas.
 
-Para validar el despliegue real, comienza consultando la lista existente. Si decides probar una escritura, usa un registro que identifiques como prueba y comprueba su fila en Sheets; el guardado real no se ha ejecutado durante este trabajo.
+El propietario ya comprobó la lectura de la lista existente. La reparación del formulario pasa 35 pruebas locales, incluidas recuperación explícita de un fallo previo, respuesta perdida después de guardar, doble clic en el reintento y registro de otra persona. No se ha enviado una confirmación real durante este trabajo: falta comprobar una escritura desde la cuenta del propietario y su fila correspondiente en Sheets.
 
 Referencias oficiales: [publicar aplicaciones web de Apps Script](https://developers.google.com/apps-script/guides/web), [propiedades del proyecto](https://developers.google.com/apps-script/guides/properties), [respuestas JSON y redirecciones](https://developers.google.com/apps-script/guides/content), [vaciar contenido sin borrar el formato](https://developers.google.com/apps-script/reference/spreadsheet/range#clearcontent).

@@ -1,5 +1,17 @@
 # Mejoras de la invitación · 12 de septiembre de 2026
 
+## Estado vigente · 13 de septiembre de 2026 · recuperación del registro
+
+Este bloque sustituye las menciones históricas a una activación de Google pendiente. El propietario confirmó que generó la clave, retiró la copia antigua de código y publicó el receptor v3 en la implementación existente; la captura muestra la versión de despliegue 7 actualizada correctamente. Posteriormente confirmó que el panel lee las confirmaciones de Sheets. No se recibió ni almacenó su clave.
+
+Al informar que una nueva confirmación no se registraba, se revisó `main` y se reprodujo un bloqueo local: los intentos fallidos conservados en `sessionStorage` nunca ofrecían una recuperación, incluso después de activar el receptor. Volver a enviar los mismos datos solo mostraba el resumen anterior, sin petición de red. El diagnóstico se reprodujo con datos simulados; no se afirma que sea la única causa posible de errores de escritura en Google.
+
+Corrección: botón «Volver a intentar el registro» que conserva el identificador y los datos del mismo envío; nunca reintenta automáticamente. Se mantienen los errores explícitos, se ofrecen mensajes para datos rechazados y solo se da por guardado un recibo legible con identificador coincidente y versión compatible. Se amplía a 25 segundos la espera de una respuesta de Google. «Registrar otro invitado» limpia el formulario sin borrar comprobantes previos. El panel añade «Registrar invitado», que abre ese formulario en otra pestaña y conserva abierta la sesión del panel. Esta corrección no cambia Apps Script ni requiere regenerar la clave o volver a desplegar Google.
+
+**Verificación local:** 35 pruebas aprobadas, incluyendo recuperación de un fallo anterior tras recarga, una respuesta perdida después de guardar, doble clic durante el reintento, rechazo de recibos antiguos y registro de otra persona. No se hicieron peticiones ni escrituras de prueba contra Google; no se enviaron mensajes de WhatsApp. La lectura real fue confirmada por el propietario; la escritura real corregida todavía debe verificarse desde su cuenta.
+
+**Publicación de esta corrección:** pendiente de subir y comprobar GitHub Pages al escribir este bloque. Revisar el resultado de Actions antes de anunciarla publicada.
+
 ## Panel de invitados (continuación posterior)
 
 Se añade `invitados.html` en la misma publicación de GitHub Pages. Apariencia azul noche, marfil y dorado con los anillos; tabla adaptable, búsqueda, filtros de asistencia/seguimiento, orden, totales de adultos/niños/pases, edición con lápiz, retirada con × y confirmación, y vista de impresión horizontal con dedicatorias opcionales.

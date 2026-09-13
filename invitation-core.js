@@ -49,7 +49,7 @@
   }
   function whatsappURL(data) { return 'https://wa.me/527341128601?text=' + encodeURIComponent(whatsappMessage(data)); }
   function verifiedReceipt(response, receipt, requestId) {
-    return Boolean(response && response.ok && response.type !== 'opaque' && receipt && receipt.ok === true && (!receipt.requestId || receipt.requestId === requestId));
+    return Boolean(response && response.ok && response.type !== 'opaque' && receipt && receipt.ok === true && receipt.requestId === requestId && Number.isInteger(receipt.version) && receipt.version >= 2);
   }
   function icsEscape(value) { return text(value).replace(/\\/g, '\\\\').replace(/\r?\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;'); }
   function foldLine(line) {
