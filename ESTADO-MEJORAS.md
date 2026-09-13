@@ -10,7 +10,7 @@ Al pulsar **Imprimir**, el título del documento cambia temporalmente a `Lista d
 
 **Verificación local:** 40 pruebas existentes siguen aprobadas. Además se validó que el HTML y JavaScript de invitados sean sintácticamente válidos y que existan todos los identificadores y reglas CSS de impresión. El PDF compartido se revisó como referencia visual; no se alteró el archivo PDF original.
 
-**Pendiente:** publicar esta corrección en GitHub Pages y volver a generar el PDF desde `invitados.html` para comprobar visualmente los cuatro totales y la fila final.
+**Publicación completada:** commit `969ed76789c883e011f3f9221d43428f65b94c84`; la ejecución de Pages `34772685909` terminó con éxito. Al volver a generar el PDF desde `invitados.html` deben aparecer los cuatro totales y la fila final.
 
 ## Estado más reciente · 13 de septiembre · rechazo al escribir en Google
 
