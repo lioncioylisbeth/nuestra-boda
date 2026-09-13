@@ -1,5 +1,20 @@
 # Mejoras de la invitación · 12 de septiembre de 2026
 
+## Corrección posterior · PDF descargable y recorte · 13 de septiembre de 2026
+
+La nueva captura confirma que la versión anterior sí cargó: el título correcto aparecía impreso, pero Android seguía entregando `temp…pdf` y el cuarto recuadro se recortaba. Cambiar `document.title` no controla de forma fiable el nombre que asigna el servicio de impresión del celular. La afirmación anterior de que eso bastaría queda corregida.
+
+- Nuevo botón **Descargar PDF**, junto a **Imprimir lista**. Genera un PDF A4 horizontal directamente en el dispositivo y lo descarga con `Lista de invitados LyL [dd-mm-aaaa hh-mm].pdf`, en hora de Morelos. El enlace usa un Blob y el atributo `download`; no depende de `window.print` ni del título de la pestaña.
+- Los cuatro totales, las siete columnas, los totales finales, los filtros, la fecha de actualización y las dedicatorias opcionales se incorporan a un documento de ancho fijo. Las fuentes van incrustadas. Listas largas tienen encabezados repetidos, paginación y un único total final. No se crea un PDF a partir de una captura del DOM.
+- La impresión tradicional elimina los contenedores con recorte/desplazamiento y usa cuatro celdas de ancho fijo en el resumen. CSS v4, controlador v3 y módulo PDF v1.
+- Se mantiene la exigencia de sesión validada y lista verificada. Descargar no hace peticiones nuevas ni escribe en Sheets. La URL temporal del archivo se revoca después de un minuto. Aplicaciones externas, incluido WhatsApp, pueden renombrar una copia compartida; la descarga original se solicita con el nombre completo.
+
+**Verificación:** 46 pruebas locales aprobadas. Se generaron PDFs reales con registros sintéticos: resumen 3/11/7/4, listas filtradas, acentos, dedicatorias y 75 registros paginados. Se verificaron el texto y las páginas con Poppler y se revisaron imágenes renderizadas de la primera/última página. Se comprobó que el controlador usa el nombre en la descarga y no llama a imprimir ni exporta sin sesión/lista verificada. No se enviaron registros ni mensajes reales. La revisión interactiva de la plantilla local no estuvo disponible en el navegador remoto; no se afirma una prueba en Firefox Android físico.
+
+**Publicación autorizada:** el usuario confirmó «Sí autorizo» después de revisar la corrección. Los cambios preparados en `34cb614f50f843631adc3ce4e6177338d67177a6` se integran mediante el PR #1 a `main`. La autorización exigida por la revisión automática ya está recibida; no volver a pedirla para este despliegue. Verificar la ejecución de Pages asociada al commit de integración para distinguir código integrado de publicación terminada. No requiere cambios en Apps Script.
+
+**Dependencias:** jsPDF 4.2.1 y AutoTable 5.0.8, distribuciones oficiales y licencias MIT en `vendor/`; subconjuntos DejaVu con su licencia para las fuentes. Todo se sirve desde el mismo sitio. La tipografía incrustada cubre texto latino y puntuación; símbolos fuera de ese repertorio se sustituyen por `?` en el PDF directo, sin alterar los textos de Sheets.
+
 ## Estado más reciente · impresión de invitados · 13 de septiembre de 2026
 
 El PDF generado desde `invitados.html` mostraba la tabla, pero no un resumen visual de los totales; las tarjetas de estadísticas se ocultaban durante la impresión y no existía una fila de suma al final.
