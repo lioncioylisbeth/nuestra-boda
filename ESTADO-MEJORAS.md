@@ -12,7 +12,7 @@ Diagnóstico mediante el conector autorizado de Sheets: encabezados A6:K6 correc
 
 **Pendiente en Google:** reemplazar el código por v4 y publicar una nueva versión de la implementación existente. La clave se conserva; NO ejecutar otra vez `configurarAccesoInvitados`. La conexión no ofrece ejecución ni administración de Apps Script. Instrucciones en `CONFIGURAR-GOOGLE-SHEETS.md`. Después verificar una sola vez el envío pendiente y su fila completa; no anunciar el problema resuelto antes de esa comprobación.
 
-**GitHub/Pages:** código y mensajes preparados; registrar el commit y resultado de despliegue al publicar esta continuación.
+**GitHub/Pages publicado:** commit `a91163d728c3e6b616e630b0a32ab54da6b5b599`. La ejecución de Pages `34758740852` terminó con éxito en build, deploy y report-build-status. El controlador usa `invitation.js?v=13` y la página `actualizar-receptor.html` está incluida en ese despliegue. Se comprobó por lectura de GitHub que el receptor y el copiador coinciden con los archivos preparados. El copiador también se comprobó localmente byte por byte y con el portapapeles bloqueado. No se verificó esta publicación mediante otra vía web tras la restricción del lector. Esto acredita la publicación del sitio, **no la activación de v4 en Google ni el guardado real de invitados**.
 
 ## Estado vigente · 13 de septiembre de 2026 · recuperación del registro
 
