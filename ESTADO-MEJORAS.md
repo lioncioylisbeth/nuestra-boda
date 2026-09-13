@@ -12,6 +12,8 @@ El receptor pasa a **v3** y contiene el flujo público de RSVP anterior más con
 
 **Publicación, revisión del 13 de septiembre:** el código del panel está en `main` desde el commit `0513de7999657b454494329449bb49fba2de14ad`. En la ejecución de Pages `34723128243`, el trabajo `build` terminó correctamente pero `deploy` seguía en cola. La URL `invitados.html` todavía devolvía 404 en la revisión del navegador. No confundir el código guardado con un despliegue ya activo. Revisar Actions antes de anunciarlo publicado; no repetir cambios de implementación ni enviar registros reales para probarlo.
 
+**Verificación posterior del 13 de septiembre: publicación completada.** La ejecución `34729995730` del commit `99b92efcbb46915bbecf2d7495ba2417c7fcf38e` terminó con éxito. Se volvió a abrir `https://lioncioylisbeth.github.io/nuestra-boda/invitados.html` y ya carga el panel de acceso con sus estilos y anillos. La ejecución anterior quedó cancelada. Se verificó visualmente la pantalla de acceso en escritorio; la tabla y sus operaciones se probaron con datos simulados. Sigue pendiente únicamente la activación y comprobación del receptor v3 en Google. No se introdujeron claves ni datos de invitados durante la revisión en navegador.
+
 Pruebas locales: **31 aprobadas**, incluyendo cinco pruebas del controlador real del panel con DOM/transporte simulados. Se cubren autorización antes de leer Sheets, datos literales, cambios persistidos, conflictos, archivo recuperable, interrupciones, doble clic, cierre de sesión, filtros y recibos legibles. No se enviaron mensajes ni registros reales. Este bloque sustituye la mención de v2 como versión más reciente en el registro histórico siguiente.
 
 ## Implementado
