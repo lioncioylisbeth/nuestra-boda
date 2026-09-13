@@ -11,7 +11,7 @@ La nueva captura confirma que la versión anterior sí cargó: el título correc
 
 **Verificación:** 46 pruebas locales aprobadas. Se generaron PDFs reales con registros sintéticos: resumen 3/11/7/4, listas filtradas, acentos, dedicatorias y 75 registros paginados. Se verificaron el texto y las páginas con Poppler y se revisaron imágenes renderizadas de la primera/última página. Se comprobó que el controlador usa el nombre en la descarga y no llama a imprimir ni exporta sin sesión/lista verificada. No se enviaron registros ni mensajes reales. La revisión interactiva de la plantilla local no estuvo disponible en el navegador remoto; no se afirma una prueba en Firefox Android físico.
 
-**Publicación:** esta sección y los cambios se entregan en el mismo commit de `main`; comprobar la ejecución de Pages asociada antes de afirmar que está activo. No requiere cambios en Apps Script.
+**Pendiente de publicación:** cambios guardados en `fix/pdf-invitados-descarga`, commit `34cb614f50f843631adc3ce4e6177338d67177a6`. La revisión automática rechazó mover `main` porque exige autorización explícita del usuario para actualizar el sitio en vivo. No está desplegado. Tras recibir esa autorización, comprobar que no haya trabajo posterior, integrar esta corrección y verificar la ejecución de Pages. No requiere cambios en Apps Script.
 
 **Dependencias:** jsPDF 4.2.1 y AutoTable 5.0.8, distribuciones oficiales y licencias MIT en `vendor/`; subconjuntos DejaVu con su licencia para las fuentes. Todo se sirve desde el mismo sitio. La tipografía incrustada cubre texto latino y puntuación; símbolos fuera de ese repertorio se sustituyen por `?` en el PDF directo, sin alterar los textos de Sheets.
 
