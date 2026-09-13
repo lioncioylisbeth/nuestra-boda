@@ -1,5 +1,13 @@
 # Mejoras de la invitación · 12 de septiembre de 2026
 
+## Miniatura de confirmación de invitados · 13 de septiembre de 2026
+
+Se crea `og-guests-confirmation-v1.jpg` a partir del estilo de `og-wedding-rings-v1.jpg`: anillos dorados realistas, fondo azul noche, título «CONFIRMACIÓN DE INVITADOS», nombres Lioncio & Lisbeth y subtítulo «Lista de invitados». Imagen cuadrada de 1254 × 1254 px, optimizada como JPEG de 296 913 bytes. El original generado permanece fuera del sitio; el recurso optimizado se conserva en GitHub.
+
+`invitados.html` incorpora título, descripción, enlace canónico y metadatos Open Graph/Twitter con la URL absoluta de la nueva imagen. Solo la presentación del enlace cambia; el cuerpo, los scripts, el acceso privado y la generación del PDF se conservan. No se incluyen datos de invitados en la miniatura ni se hacen solicitudes a Sheets.
+
+Verificación: revisión visual de la imagen, dimensiones y formato, metadatos únicos y consistentes, comparación del cuerpo y dependencias contra `main`. Publicar esta revisión mediante Pages y verificar el despliegue asociado antes de anunciarla disponible; una imagen creada o un commit por sí solos no acreditan la publicación. Las aplicaciones que ya almacenaron una vista previa pueden conservarla hasta refrescar su caché.
+
 ## Corrección posterior · PDF descargable y recorte · 13 de septiembre de 2026
 
 La nueva captura confirma que la versión anterior sí cargó: el título correcto aparecía impreso, pero Android seguía entregando `temp…pdf` y el cuarto recuadro se recortaba. Cambiar `document.title` no controla de forma fiable el nombre que asigna el servicio de impresión del celular. La afirmación anterior de que eso bastaría queda corregida.
