@@ -10,7 +10,7 @@ Corrección: botón «Volver a intentar el registro» que conserva el identifica
 
 **Verificación local:** 35 pruebas aprobadas, incluyendo recuperación de un fallo anterior tras recarga, una respuesta perdida después de guardar, doble clic durante el reintento, rechazo de recibos antiguos y registro de otra persona. No se hicieron peticiones ni escrituras de prueba contra Google; no se enviaron mensajes de WhatsApp. La lectura real fue confirmada por el propietario; la escritura real corregida todavía debe verificarse desde su cuenta.
 
-**Publicación de esta corrección:** pendiente de subir y comprobar GitHub Pages al escribir este bloque. Revisar el resultado de Actions antes de anunciarla publicada.
+**Publicación completada:** la corrección está en el commit `e2b46585f57cea46546a3274a37d3bfacf17c741`. La ejecución de GitHub Pages `34746793886` terminó con éxito, incluido `deploy`. Los recursos del formulario usan `?v=12` y el panel incluye el acceso a registrar. La comprobación mediante el lector web no estuvo disponible; no se intentó otra vía para eludir esa restricción. La publicación se acredita con Actions; no equivale a una nueva escritura comprobada en Sheets.
 
 ## Panel de invitados (continuación posterior)
 
