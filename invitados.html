@@ -10,10 +10,14 @@
   <title>Invitados | Lioncio &amp; Lisbeth</title>
   <link rel="icon" href="anilloscom.webp" type="image/webp">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="invitados.css?v=3">
+  <link rel="stylesheet" href="invitados.css?v=4">
   <script src="invitation-core.js?v=12" defer></script>
   <script src="invitados-core.js?v=1" defer></script>
-  <script src="invitados.js?v=2" defer></script>
+  <script src="vendor/jspdf-4.2.1.umd.min.js" defer></script>
+  <script src="vendor/jspdf-autotable-5.0.8.min.js" defer></script>
+  <script src="vendor/pdf-fonts.js" defer></script>
+  <script src="invitados-pdf.js?v=1" defer></script>
+  <script src="invitados.js?v=3" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Ir al contenido</a>
@@ -40,7 +44,7 @@
     </section>
 
     <section id="dashboard" hidden aria-label="Administración de invitados">
-      <div class="dashboard-heading"><div><p class="eyebrow">CONFIRMACIONES</p><h2>La lista del gran día</h2></div><div class="toolbar-actions"><a class="button secondary" href="./?v=12#rsvp-section" target="_blank" rel="noopener noreferrer" aria-label="Registrar invitado en la invitación (abre otra pestaña)">Registrar invitado ↗</a><a class="button secondary" id="open-sheets" href="https://docs.google.com/spreadsheets/" target="_blank" rel="noopener noreferrer">Abrir Sheets ↗</a><button id="print" class="button primary" disabled>Imprimir lista</button></div></div>
+      <div class="dashboard-heading"><div><p class="eyebrow">CONFIRMACIONES</p><h2>La lista del gran día</h2></div><div class="toolbar-actions"><a class="button secondary" href="./?v=12#rsvp-section" target="_blank" rel="noopener noreferrer" aria-label="Registrar invitado en la invitación (abre otra pestaña)">Registrar invitado ↗</a><a class="button secondary" id="open-sheets" href="https://docs.google.com/spreadsheets/" target="_blank" rel="noopener noreferrer">Abrir Sheets ↗</a><button id="print" class="button secondary" disabled>Imprimir lista</button><button id="download-pdf" class="button primary" disabled>Descargar PDF</button></div></div>
       <div class="stats" aria-label="Totales de todos los registros">
         <article><span>FAMILIAS / REGISTROS</span><strong id="total-records">—</strong><small>Respuestas recibidas</small></article>
         <article><span>PERSONAS QUE ASISTEN</span><strong id="total-passes">—</strong><small id="attendance-summary">—</small></article>
@@ -58,6 +62,8 @@
         <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">◇</span><h3 id="empty-title">Aún no hay confirmaciones</h3><p id="empty-description">Los registros aparecerán aquí cuando los invitados confirmen.</p></div>
         <div class="list-footer"><p id="sync-status" class="status" role="status" aria-live="polite"></p><p>Actualización automática cada minuto</p></div>
       </div>
+      <div class="pdf-download"><p>Guarda la lista con su fecha y hora en el nombre del archivo. Incluye los filtros y la opción de dedicatorias seleccionados.</p></div>
+      <p id="pdf-status" class="status" role="status" aria-live="polite"></p>
       <p class="list-note">«Registrar invitado» abre el formulario de confirmación en otra pestaña; al terminar, vuelve aquí y pulsa «Actualizar». El lápiz permite editar. La × retira el registro de la lista y guarda una copia en «Archivo de invitados» dentro del mismo Google Sheets.</p>
     </section>
     <noscript><p class="notice">Activa JavaScript para consultar y administrar los invitados.</p></noscript>

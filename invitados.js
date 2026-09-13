@@ -35,7 +35,8 @@
     generation++; key=''; guests=[]; current=null; listFresh=false; loadedAt='';
     activeRequests.forEach(controller=>controller.abort());
     $('dashboard').hidden=true; $('access').hidden=false; $('logout').hidden=true;
-    $('guest-rows').replaceChildren(); $('access-key').value=''; $('print').disabled=true;
+    $('guest-rows').replaceChildren(); $('access-key').value=''; $('print').disabled=true; $('download-pdf').disabled=true;
+    status('pdf-status','');
     ['total-records','total-passes','total-adults','total-children'].forEach(id=>$(id).textContent='—');
     ['edit-dialog','delete-dialog'].forEach(id=>{if($(id).open) $(id).close();});
     $('edit-form').reset(); $('delete-name').textContent=''; $('print-context').textContent='';
@@ -91,6 +92,7 @@
     $('empty-title').textContent=guests.length?'No hay coincidencias':'Aún no hay confirmaciones';
     $('empty-description').textContent=guests.length?'Prueba otro nombre o cambia los filtros.':'Los registros aparecerán aquí cuando los invitados confirmen.';
     $('print').disabled=!filtered.length || !listFresh || writing;
+    $('download-pdf').disabled=$('print').disabled;
     const subset=core.totals(filtered);
     for(const [id,value] of [['print-total-records',filtered.length],['print-total-passes',subset.passes],['print-total-adults',subset.adults],['print-total-children',subset.children],['print-total-passes-row',subset.passes],['print-total-adults-row',subset.adults],['print-total-children-row',subset.children]]) $(id).textContent=value;
     $('print-context').textContent=filtered.length+' registros · '+subset.passes+' asistentes · '+subset.adults+' adultos · '+subset.children+' niños'+(subset.incomplete?' · '+subset.incomplete+' desglose(s) por revisar':'')+'\nLista filtrada · '+$('filter-attendance').selectedOptions[0].textContent+' · '+$('filter-status').selectedOptions[0].textContent+(options().search?' · Búsqueda: '+options().search:'')+' · Actualizada: '+formatDate(loadedAt);
@@ -100,7 +102,7 @@
     refreshing=true; $('refresh').disabled=true;
     if(manual) status('sync-status','Consultando Google Sheets…');
     try {const result=await api('admin.list',{});guests=result.guests;loadedAt=result.updatedAt;listFresh=true;render();status('sync-status','Sincronizado · '+formatDate(loadedAt),'success');}
-    catch(error) {listFresh=false;$('print').disabled=true;sessionError(error,'sync-status');}
+    catch(error) {listFresh=false;$('print').disabled=true;$('download-pdf').disabled=true;sessionError(error,'sync-status');}
     finally {refreshing=false;$('refresh').disabled=false;}
   }
   function openEditor(guest) {
@@ -127,7 +129,7 @@
   function closeDelete() {if(!writing){$('delete-dialog').close();current=null;$('delete-name').textContent='';}}
   function busy(value) {
     writing=value;
-    for(const id of ['save-edit','cancel-edit','close-edit','confirm-delete','cancel-delete','print','refresh']) $(id).disabled=value;
+    for(const id of ['save-edit','cancel-edit','close-edit','confirm-delete','cancel-delete','print','download-pdf','refresh']) $(id).disabled=value;
     for(const name of ['name','phone','attendance','adults','children','status','message','notes']) $('edit-'+name).disabled=value;
     if(!value) counts();
   }
@@ -181,6 +183,21 @@
     document.title='Lista de invitados LyL ['+stamp+']';
   }
   function restorePageTitle(){document.title=pageTitle;}
+  $('download-pdf').addEventListener('click',()=>{
+    if(!key || !listFresh || writing || !core.visible(guests,options()).length)return;
+    let url;
+    try {
+      const pdf=window.GuestPDF.create(guests,{filters:options(),updatedAt:loadedAt,includeMessages:$('print-messages').checked});
+      url=URL.createObjectURL(pdf.blob);
+      const link=el('a');link.href=url;link.download=pdf.filename;
+      document.body.append(link);link.click();link.remove();
+      status('pdf-status','PDF preparado: '+pdf.filename+' · Revisa las descargas del navegador.','success');
+    } catch(error) {
+      status('pdf-status','No se pudo preparar el PDF. Recarga la página y vuelve a descargarlo.','error');
+    } finally {
+      if(url)setTimeout(()=>URL.revokeObjectURL(url),60000);
+    }
+  });
   $('print').addEventListener('click',()=>{if(!key || !listFresh || writing)return;render();document.body.classList.toggle('print-messages',$('print-messages').checked);setPrintFilename();window.print();});
   window.addEventListener('beforeprint',()=>{if(key){render();document.body.classList.toggle('print-messages',$('print-messages').checked);setPrintFilename();}});
   window.addEventListener('afterprint',restorePageTitle);

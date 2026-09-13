@@ -6,5 +6,30 @@
 @media print{*{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{background:white!important;color:#13223b;font-size:10pt}.masthead,.access-card,.dashboard-heading,.filters,.list-toolbar,.list-footer,.list-note,.page-footer,dialog,.skip-link,.notice{display:none!important}.shell{max-width:none;padding:0!important}.stats{display:none}.print-heading{display:block;text-align:center;padding-bottom:18px;border-bottom:1px solid #b49854;margin-bottom:14px}.print-heading>p:first-child{font-size:8pt;letter-spacing:.16em;color:#786332}.print-heading h2{font-size:32pt;margin:4px 0}.print-heading h3{font-size:10pt;font-weight:500;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}.print-heading #print-context{font-size:8pt;line-height:1.6;color:#5e6671}.list-card{border:0;border-radius:0;overflow:visible}.table-scroll{overflow:visible}table{table-layout:fixed;width:100%}thead{display:table-header-group;background:#f0ede4}th,td{font-size:8pt;padding:9px 7px!important;overflow-wrap:anywhere;white-space:normal}.guest-name{min-width:0;max-width:none;font-size:9pt}.guest-date{font-size:7pt}.phone{white-space:normal}th:first-child{width:24%}th:nth-child(2){width:19%}th:nth-child(3){width:17%}th:nth-child(7){width:16%}.badge{padding:0;background:transparent!important;color:#13223b!important;font-size:8pt;white-space:normal}.actions-column,.row-actions{display:none!important}tr{break-inside:avoid}body.print-messages .message-row{display:table-row}.message-row td{font-size:8pt;color:#4c535e;background:#faf8f2;white-space:pre-wrap}.empty-state{padding:30px}.empty-state>span{display:none}a{text-decoration:none}body:has(#dashboard[hidden]) main::after{content:'Abre la lista con tu clave privada antes de imprimir.';display:block;text-align:center;margin:3cm}}
 
 #guest-totals{display:none}
+.pdf-download{margin:16px 5px 6px;font-size:11px;line-height:1.7;color:var(--muted)}
+#pdf-status{margin:6px 5px;font-size:11px;line-height:1.7;overflow-wrap:anywhere}
 .print-totals{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0 12px}.print-totals div{border:1px solid #d8c89b;border-radius:6px;padding:8px 6px;text-align:center;background:#fbf8ed}.print-totals span{display:block;font-size:7pt;letter-spacing:.08em;color:#786332}.print-totals strong{display:block;font:17pt 'Cormorant Garamond',Georgia,serif;color:#13223b;margin-top:2px}
-@media print{#guest-totals{display:table-footer-group}.print-totals{gap:8px;margin:14px 0 11px}.print-totals div{padding:6px 5px}.print-totals span{font-size:6.5pt}.print-totals strong{font-size:16pt}#guest-totals tr{border-top:1.5px solid #b49854;background:#fbf8ed}#guest-totals th,#guest-totals td{font-weight:700;padding-top:10px!important;padding-bottom:10px!important}}
+/* Print uses the paper width; remove the screen scroll/clip containers.
+   Fixed table cells keep the four summaries inside the page in mobile Firefox. */
+@media print{
+  html,body{width:auto!important;min-width:0!important;max-width:none!important;overflow:visible!important}
+  #main,#dashboard{display:block;width:100%!important;min-width:0!important;max-width:none!important;margin:0!important;padding:0!important;overflow:visible!important}
+  .list-card,.table-scroll{display:contents!important;overflow:visible!important;border-radius:0!important}
+  .pdf-download,#pdf-status{display:none!important}
+  .print-heading{width:100%;max-width:100%;break-inside:avoid}
+  #print-context{white-space:pre-line;overflow-wrap:anywhere}
+  .print-totals{display:table;table-layout:fixed;width:100%;max-width:100%;border-collapse:separate;border-spacing:2mm 0;margin:14px 0 11px}
+  .print-totals>div{display:table-cell;width:25%;min-width:0;padding:6px 5px;vertical-align:middle}
+  .print-totals span{font-size:7pt}
+  .print-totals strong{font-size:16pt}
+  table{width:100%!important;min-width:0!important;max-width:100%!important}
+  th,td{min-width:0!important}
+  thead th:nth-child(1){width:26%}
+  thead th:nth-child(2){width:20%}
+  thead th:nth-child(3){width:16%}
+  thead th:nth-child(4),thead th:nth-child(5),thead th:nth-child(6){width:7%}
+  thead th:nth-child(7){width:17%}
+  #guest-totals{display:table-row-group}
+  #guest-totals tr{border-top:1.5px solid #b49854;background:#fbf8ed}
+  #guest-totals th,#guest-totals td{font-weight:700;padding-top:10px!important;padding-bottom:10px!important}
+}
