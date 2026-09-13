@@ -10,10 +10,10 @@
   <title>Invitados | Lioncio &amp; Lisbeth</title>
   <link rel="icon" href="anilloscom.webp" type="image/webp">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="invitados.css?v=2">
+  <link rel="stylesheet" href="invitados.css?v=3">
   <script src="invitation-core.js?v=12" defer></script>
   <script src="invitados-core.js?v=1" defer></script>
-  <script src="invitados.js?v=1" defer></script>
+  <script src="invitados.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Ir al contenido</a>
@@ -51,9 +51,9 @@
       <div class="list-card">
         <div class="filters"><div class="search-field"><label for="search">Buscar invitado</label><input id="search" type="search" placeholder="Nombre, familia o celular" autocomplete="off"></div><div><label for="filter-attendance">Asistencia</label><select id="filter-attendance"><option value="all">Todas las respuestas</option><option value="yes">Sí asistirán</option><option value="no">No asistirán</option></select></div><div><label for="filter-status">Seguimiento</label><select id="filter-status"><option value="all">Todos los estados</option><option>Pendiente</option><option>Confirmado</option><option>Contactado</option></select></div><div><label for="sort">Orden</label><select id="sort"><option value="newest">Más recientes</option><option value="name">Nombre A–Z</option></select></div></div>
         <div class="list-toolbar"><p id="visible-count">Cargando registros…</p><div><label class="checkbox"><input id="print-messages" type="checkbox"> Incluir dedicatorias al imprimir</label><button id="refresh" class="text-button">↻ Actualizar</button></div></div>
-        <div class="print-heading"><p>NUESTRA BODA · 28 DE NOVIEMBRE DE 2026</p><h2>Lioncio &amp; Lisbeth</h2><h3>Lista de invitados</h3><p id="print-context"></p></div>
+        <div class="print-heading"><p>NUESTRA BODA · 28 DE NOVIEMBRE DE 2026</p><h2>Lioncio &amp; Lisbeth</h2><h3>Lista de invitados</h3><div class="print-totals" aria-label="Totales de la lista impresa"><div><span>REGISTROS</span><strong id="print-total-records">—</strong></div><div><span>PERSONAS</span><strong id="print-total-passes">—</strong></div><div><span>ADULTOS</span><strong id="print-total-adults">—</strong></div><div><span>NIÑOS</span><strong id="print-total-children">—</strong></div></div><p id="print-context"></p></div>
         <div class="table-scroll" tabindex="0" role="region" aria-label="Lista de invitados; desplaza horizontalmente para ver todas las columnas">
-          <table><caption class="sr-only">Invitados registrados en Confirmaciones · Boda Lioncio &amp; Lisbeth</caption><thead><tr><th scope="col">Invitado / Familia</th><th scope="col">Celular</th><th scope="col">Asistencia</th><th scope="col" class="number">Adultos</th><th scope="col" class="number">Niños</th><th scope="col" class="number">Total</th><th scope="col">Seguimiento</th><th scope="col" class="actions-column">Acciones</th></tr></thead><tbody id="guest-rows"></tbody></table>
+          <table><caption class="sr-only">Invitados registrados en Confirmaciones · Boda Lioncio &amp; Lisbeth</caption><thead><tr><th scope="col">Invitado / Familia</th><th scope="col">Celular</th><th scope="col">Asistencia</th><th scope="col" class="number">Adultos</th><th scope="col" class="number">Niños</th><th scope="col" class="number">Total</th><th scope="col">Seguimiento</th><th scope="col" class="actions-column">Acciones</th></tr></thead><tbody id="guest-rows"></tbody><tfoot id="guest-totals"><tr><th scope="row">TOTALES</th><td></td><td></td><th id="print-total-adults-row" class="number">—</th><th id="print-total-children-row" class="number">—</th><th id="print-total-passes-row" class="number">—</th><td></td><td class="actions-column"></td></tr></tfoot></table>
         </div>
         <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">◇</span><h3 id="empty-title">Aún no hay confirmaciones</h3><p id="empty-description">Los registros aparecerán aquí cuando los invitados confirmen.</p></div>
         <div class="list-footer"><p id="sync-status" class="status" role="status" aria-live="polite"></p><p>Actualización automática cada minuto</p></div>

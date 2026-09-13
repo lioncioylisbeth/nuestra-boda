@@ -1,5 +1,17 @@
 # Mejoras de la invitación · 12 de septiembre de 2026
 
+## Estado más reciente · impresión de invitados · 13 de septiembre de 2026
+
+El PDF generado desde `invitados.html` mostraba la tabla, pero no un resumen visual de los totales; las tarjetas de estadísticas se ocultaban durante la impresión y no existía una fila de suma al final.
+
+Se corrigió la plantilla: el encabezado impreso ahora incluye cuatro totales —registros, personas, adultos y niños— calculados con la lista filtrada. La tabla incorpora una fila **TOTALES** con adultos, niños y pases. Los valores se actualizan antes de imprimir y también en la vista previa de impresión. Se mantienen las dedicatorias opcionales, los filtros y la apariencia azul noche, marfil y dorado.
+
+Al pulsar **Imprimir**, el título del documento cambia temporalmente a `Lista de invitados LyL [dd-mm-aaaa hh-mm]`; así el cuadro de guardado del navegador propone ese nombre y agrega `.pdf` automáticamente. Después de imprimir, el título original de la página se restaura.
+
+**Verificación local:** 40 pruebas existentes siguen aprobadas. Además se validó que el HTML y JavaScript de invitados sean sintácticamente válidos y que existan todos los identificadores y reglas CSS de impresión. El PDF compartido se revisó como referencia visual; no se alteró el archivo PDF original.
+
+**Pendiente:** publicar esta corrección en GitHub Pages y volver a generar el PDF desde `invitados.html` para comprobar visualmente los cuatro totales y la fila final.
+
 ## Estado más reciente · 13 de septiembre · rechazo al escribir en Google
 
 El propietario reintentó repetidamente y el resumen siguió mostrando rechazo. El arreglo anterior del botón **no resolvió el fallo del servidor**. El receptor activo confirmado por el propietario sigue siendo v3, implementación 7.

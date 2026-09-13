@@ -92,6 +92,7 @@
     $('empty-description').textContent=guests.length?'Prueba otro nombre o cambia los filtros.':'Los registros aparecerán aquí cuando los invitados confirmen.';
     $('print').disabled=!filtered.length || !listFresh || writing;
     const subset=core.totals(filtered);
+    for(const [id,value] of [['print-total-records',filtered.length],['print-total-passes',subset.passes],['print-total-adults',subset.adults],['print-total-children',subset.children],['print-total-passes-row',subset.passes],['print-total-adults-row',subset.adults],['print-total-children-row',subset.children]]) $(id).textContent=value;
     $('print-context').textContent=filtered.length+' registros · '+subset.passes+' asistentes · '+subset.adults+' adultos · '+subset.children+' niños'+(subset.incomplete?' · '+subset.incomplete+' desglose(s) por revisar':'')+'\nLista filtrada · '+$('filter-attendance').selectedOptions[0].textContent+' · '+$('filter-status').selectedOptions[0].textContent+(options().search?' · Búsqueda: '+options().search:'')+' · Actualizada: '+formatDate(loadedAt);
   }
   async function refresh(manual) {
@@ -171,8 +172,18 @@
   for(const id of ['edit-dialog','delete-dialog']) $(id).addEventListener('cancel',event=>{if(writing)event.preventDefault();});
   $('refresh').addEventListener('click',()=>refresh(true));
   $('logout').addEventListener('click',()=>{lock();$('access-key').focus();});
-  $('print').addEventListener('click',()=>{if(!key || !listFresh || writing)return;render();document.body.classList.toggle('print-messages',$('print-messages').checked);window.print();});
-  window.addEventListener('beforeprint',()=>{if(key){render();document.body.classList.toggle('print-messages',$('print-messages').checked);}});
+  const pageTitle=document.title;
+  function setPrintFilename(){
+    const stamp=new Intl.DateTimeFormat('es-MX',{
+      timeZone:'America/Mexico_City',day:'2-digit',month:'2-digit',year:'numeric',
+      hour:'2-digit',minute:'2-digit',hour12:false
+    }).format(new Date()).replace(/\//g,'-').replace(', ',' ').replace(/:/g,'-');
+    document.title='Lista de invitados LyL ['+stamp+']';
+  }
+  function restorePageTitle(){document.title=pageTitle;}
+  $('print').addEventListener('click',()=>{if(!key || !listFresh || writing)return;render();document.body.classList.toggle('print-messages',$('print-messages').checked);setPrintFilename();window.print();});
+  window.addEventListener('beforeprint',()=>{if(key){render();document.body.classList.toggle('print-messages',$('print-messages').checked);setPrintFilename();}});
+  window.addEventListener('afterprint',restorePageTitle);
   window.addEventListener('pagehide',()=>lock());
   for(const event of ['pointerdown','keydown']) document.addEventListener(event,()=>{lastActivity=Date.now();},{passive:true});
   setInterval(()=>{if(key && Date.now()-lastActivity>30*60*1000){lock('La sesión se cerró por inactividad. Ingresa tu clave para continuar.');return;}if(!document.hidden)refresh(false);},60000);
