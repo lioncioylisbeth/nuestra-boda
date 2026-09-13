@@ -66,10 +66,10 @@
   function render() {
     const totals=core.totals(guests), filtered=core.visible(guests,options());
     for(const [id,field] of [['total-records','records'],['total-passes','passes'],['total-adults','adults'],['total-children','children']]) $(id).textContent=totals[field];
-    $('attendance-summary').textContent=totals.attending+' registros sí · '+totals.declined+' no';
+    $('attendance-summary').textContent='Respuestas: '+totals.attending+' sí · '+totals.declined+' no';
     $('incomplete-counts').hidden=!totals.incomplete;
-    $('incomplete-counts').textContent=totals.incomplete+' registro(s) requieren revisar el desglose de adultos y niños. Los totales solo suman las cantidades informadas.';
-    $('visible-count').textContent=filtered.length+' de '+guests.length+' registros';
+    $('incomplete-counts').textContent='Registros con desglose de adultos y niños por revisar: '+totals.incomplete+'. Los totales solo suman las cantidades informadas.';
+    $('visible-count').textContent='Registros mostrados: '+filtered.length+' de '+guests.length;
     const fragment=document.createDocumentFragment();
     filtered.forEach(g=>{
       const row=el('tr'), name=el('td');
@@ -95,7 +95,7 @@
     $('download-pdf').disabled=$('print').disabled;
     const subset=core.totals(filtered);
     for(const [id,value] of [['print-total-records',filtered.length],['print-total-passes',subset.passes],['print-total-adults',subset.adults],['print-total-children',subset.children],['print-total-passes-row',subset.passes],['print-total-adults-row',subset.adults],['print-total-children-row',subset.children]]) $(id).textContent=value;
-    $('print-context').textContent=filtered.length+' registros · '+subset.passes+' asistentes · '+subset.adults+' adultos · '+subset.children+' niños'+(subset.incomplete?' · '+subset.incomplete+' desglose(s) por revisar':'')+'\nLista filtrada · '+$('filter-attendance').selectedOptions[0].textContent+' · '+$('filter-status').selectedOptions[0].textContent+(options().search?' · Búsqueda: '+options().search:'')+' · Actualizada: '+formatDate(loadedAt);
+    $('print-context').textContent='Registros: '+filtered.length+' · Asistentes: '+subset.passes+' · Adultos: '+subset.adults+' · Niños: '+subset.children+(subset.incomplete?' · Desgloses por revisar: '+subset.incomplete:'')+'\nLista filtrada · '+$('filter-attendance').selectedOptions[0].textContent+' · '+$('filter-status').selectedOptions[0].textContent+(options().search?' · Búsqueda: '+options().search:'')+' · Actualizada: '+formatDate(loadedAt);
   }
   async function refresh(manual) {
     if(!key || refreshing || writing || $('edit-dialog').open || $('delete-dialog').open) return;

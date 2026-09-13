@@ -59,7 +59,7 @@
     label('Actualizada: '+dateLabel(settings.updatedAt || now), center, startY, 8, 'LyLSans', 'normal', 'center');
     if (totals.incomplete) {
       startY += 5;
-      label(`${totals.incomplete} registro(s) con desglose por revisar. Solo se suman las cantidades informadas.`, center, startY, 8, 'LyLSans', 'normal', 'center');
+      label(`Desgloses por revisar: ${totals.incomplete}. Solo se suman las cantidades informadas.`, center, startY, 8, 'LyLSans', 'normal', 'center');
     }
     startY += 7;
     const count = value => value === null ? '-' : String(value);

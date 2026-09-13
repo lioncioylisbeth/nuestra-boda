@@ -1,5 +1,13 @@
 # Mejoras de la invitación · 12 de septiembre de 2026
 
+## Corrección de textos y vista previa · 13 de septiembre de 2026
+
+La captura de WhatsApp conserva «Invitados | Lioncio & Lisbeth», el título previo a la miniatura. En el navegador de revisión, la página publicada ya devuelve «Confirmación de invitados | Lioncio & Lisbeth» y la referencia a la imagen v1; esto apunta a una vista previa antigua, pero no prueba el comportamiento interno de WhatsApp. Se prepara una URL de presentación nueva `invitados.html?v=2` en `og:url` y la miniatura `og-guests-confirmation-v2.jpg`, con el mismo diseño reducido a 800 × 800 px y 133 081 bytes. El enlace canónico mantiene `invitados.html` y las dos direcciones muestran el mismo panel. No se promete refrescar las tarjetas de mensajes enviados anteriormente ni se modifica el control de acceso.
+
+Se elimina el salto de línea sin espacio de «Todo listo para recibirlos.» y su regla de ocultación en móvil. Los anillos del encabezado móvil pasan al flujo normal, sin quedar encima del título. En la invitación se corrigen mayúsculas de títulos, puntuación, «esta» sin tilde, «Dónde y cuándo», «Divertido y cariñoso», la redacción de vestimenta y el formato español de las horas, sin cambiar nombres, fechas, direcciones ni horarios. Los avisos del panel y de impresión usan etiquetas que no producen concordancias como «1 registros». CSS de invitados v5, controlador v4 y módulo PDF v2.
+
+Verificación previa: 11 pruebas existentes del panel y del PDF aprobadas con transporte y datos sintéticos; sintaxis JavaScript, codificación, metadatos y títulos comprobados. No se escribieron registros ni se enviaron mensajes. La vista previa de WhatsApp del teléfono del propietario no se puede validar desde este navegador; el enlace actualizado debe pegarse de nuevo en un mensaje. Verificar Pages y las páginas servidas después de publicar antes de afirmar que el despliegue terminó.
+
 ## Miniatura de confirmación de invitados · 13 de septiembre de 2026
 
 Se crea `og-guests-confirmation-v1.jpg` a partir del estilo de `og-wedding-rings-v1.jpg`: anillos dorados realistas, fondo azul noche, título «CONFIRMACIÓN DE INVITADOS», nombres Lioncio & Lisbeth y subtítulo «Lista de invitados». Imagen cuadrada de 1254 × 1254 px, optimizada como JPEG de 296 913 bytes. El original generado permanece fuera del sitio; el recurso optimizado se conserva en GitHub.
